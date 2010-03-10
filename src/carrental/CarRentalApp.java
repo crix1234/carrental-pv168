@@ -38,7 +38,7 @@ public class CarRentalApp extends SingleFrameApplication {
     /**
      * Main method launching the application.
      */
-    public static void main(String[] args) {
-        launch(CarRentalApp.class, args);
-    }
+    //public static void main(String[] args) {
+      //  launch(CarRentalApp.class, args);
+    //}
 }
