@@ -24,14 +24,14 @@ public class Car {
 
 	/**
 	 *
-	 * @return <code>name</code> string.
+	 * @return <code>name</code> String.
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * sets car <code>name</code>
+	 * sets cars <code>name</code>
 	 * @param name not null String
 	 * @throws IllegalArgumentException
 	 */
@@ -51,7 +51,7 @@ public class Car {
 	}
 
 	/**
-	 * sets car <code>licencePlate</code>
+	 * sets cars <code>licencePlate</code>
 	 * @param licencePlate not null String
 	 * @throws IllegalArgumentException
 	 */
@@ -59,7 +59,7 @@ public class Car {
 		if (licencePlate != null) {
 			this.licencePlate = licencePlate;
 		} else {
-			throw new IllegalArgumentException("String name of the car can not be set to null.");
+			throw new IllegalArgumentException("String licencePlate of the car can not be set to null.");
 		}
 	}
 
@@ -72,7 +72,7 @@ public class Car {
 	}
 
 	/**
-	 * sets car <code>state</code>
+	 * sets cars <code>state</code>
 	 * @param state not null String
 	 * @throws IllegalArgumentException
 	 */
@@ -80,19 +80,19 @@ public class Car {
 		if (state != null) {
 			this.state = state;
 		} else {
-			throw new IllegalArgumentException("String name of the car can not be set to null.");
+			throw new IllegalArgumentException("String state of the car can not be set to null.");
 		}
 	}
 
 	/**
-	 * @return <code>id</code> string
+	 * @return <code>id</code> String
 	 */
 	public int getId() {
 		return id;
 	}
 
 	/**
-	 * sets car <code>id</code>. Should not be directly changed.
+	 * sets cars <code>id</code>. Should not be directly changed.
 	 * @param id new unique car id.
 	 * @throws IllegalArgumentException defined id is already in use
 	 */
