@@ -14,7 +14,6 @@ public class Customer {
 	private String name;
 	private String surname;
 	private Address address;
-	//private Adress adress;
 
 	public Customer(int id, String name, String surname, Address address) {
 		setId(id);
