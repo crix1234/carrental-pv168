@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package carrental.managers;
 import java.util.Collection;
 import carrental.entities.Customer;
+import carrental.entities.Address;
 
 /**
  *
@@ -13,7 +9,7 @@ import carrental.entities.Customer;
  */
 
 public interface CustomerManager {
-	public Customer createNewCustomer();
+	public Customer createNewCustomer(String name, String surname, Address adress);
 	public void editCustomer();
 	public void deleteCustomer();
 	public Customer findCustomerByID(int id);

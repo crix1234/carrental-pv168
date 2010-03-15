@@ -1,16 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package carrental.managers;
 
 import carrental.entities.Customer;
+import carrental.entities.Address;
 import java.util.Collection;
 
 /**
  *
- * @author SirGlorg
+ * @author Pavel Mican
  */
 public class CustomerManagerImpl implements CustomerManager {
 	public CustomerManagerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -18,12 +14,13 @@ public class CustomerManagerImpl implements CustomerManager {
 	}
 
 	private static void initializeDBConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		String driver = "org.apache.derby.jdbc.ClientDriver";
-		Class.forName(driver).newInstance();
+		Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 	}
 
-	public Customer createNewCustomer() {
-		throw new UnsupportedOperationException("Not supported yet.");
+	public Customer createNewCustomer(String name, String surname, Address address) {
+		int id = 1; //TODO id generator
+		Customer newCustomer = new Customer(id, name, surname, address);
+		return newCustomer;
 	}
 
 	public void editCustomer() {
