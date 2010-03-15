@@ -1,5 +1,8 @@
 package carrental;
 
+import carrental.entities.Address;
+import carrental.entities.Customer;
+import carrental.managers.*;
 import java.sql.*;
 
 /**
@@ -8,7 +11,11 @@ import java.sql.*;
  */
 public class DatabaseTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-	String driver = "org.apache.derby.jdbc.ClientDriver";
+		CustomerManager cm = new CustomerManagerImpl() {};
+		Address addr = new Address(1, 234, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic");
+		Customer newCustomer = cm.createNewCustomer("Kare", "Novak", addr);
+
+		/*String driver = "org.apache.derby.jdbc.ClientDriver";
 		Class.forName(driver).newInstance();
 
 		Connection c = DriverManager.getConnection("jdbc:derby://localhost:1527/CAR_RENTAL","host","host");
@@ -20,5 +27,7 @@ public class DatabaseTest {
 			System.out.println("id=" + rs.getInt("id")
 				+" name=" + rs.getString("name"));
 		}
+		c.close();
+		 */
 	}
 }
