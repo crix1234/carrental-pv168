@@ -5,7 +5,7 @@
 
 package carrental.managers;
 import java.util.Collection;
-import carrental.entities.*;
+import carrental.entities.Customer;
 
 /**
  *
@@ -13,11 +13,11 @@ import carrental.entities.*;
  */
 
 public interface CustomerManager {
-	public Car createNewCar();
-	public void editCar();
-	public Collection<Car> findAllCars();
-	public Car findCarById();
-	public Car findCarByState();
-	public Car findCarByCategory();
-	public Car findCarByName();
+	public Customer createNewCustomer();
+	public void editCustomer();
+	public void deleteCustomer();
+	public Customer findCustomerByID(int id);
+	public Customer findCustomerByName(String name);
+	public Customer findCustomerBySurname(String surname);
+	public Collection<Customer> findAllCustomers();
 }
