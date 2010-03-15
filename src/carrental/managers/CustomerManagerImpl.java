@@ -14,14 +14,12 @@ import java.util.Collection;
  */
 public class CustomerManagerImpl implements CustomerManager {
 	public CustomerManagerImpl() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		if (initializeDBConnection()) {
-		}
+		initializeDBConnection();
 	}
 
-	private static boolean initializeDBConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	private static void initializeDBConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		String driver = "org.apache.derby.jdbc.ClientDriver";
 		Class.forName(driver).newInstance();
-		return true;
 	}
 
 	public Customer createNewCustomer() {

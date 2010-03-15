@@ -13,17 +13,19 @@ public class Customer {
 	private int id;
 	private String name;
 	private String surname;
+	private Address address;
 	//private Adress adress;
 
-	public Customer(int id, String name, String surname) {
+	public Customer(int id, String name, String surname, Address address) {
 		setId(id);
 		setName(name);
 		setSurname(surname);
+		setAddress(address);
 	}
 
 
 	/**
-	 * @return <code>id</code> String
+	 * @return <code>id</code> integer
 	 */
 	public int getId() {
 		return id;
@@ -79,6 +81,27 @@ public class Customer {
 			this.surname = surname;
 		} else {
 			throw new IllegalArgumentException("String surname of the customer can not be set to null.");
+		}
+	}
+
+	/**
+	 *
+	 * @return <code>address</code> object <code>Address</code>.
+	 */
+	public Address getAddress() {
+		return address;
+	}
+
+	/**
+	 * sets customers <code>surname</code>
+	 * @param surname not null String
+	 * @throws IllegalArgumentException
+	 */
+	public void setAddress(Address address) throws IllegalArgumentException {
+		if (address != null) {
+			this.address = address;
+		} else {
+			throw new IllegalArgumentException("Customers address can not be set to null.");
 		}
 	}
 }
