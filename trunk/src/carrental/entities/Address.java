@@ -1,19 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package carrental.entities;
 
 /**
  *
- * @author SirGlorg
+ * @author Pavel Mican
  */
 public class Address {
 	private int id;
 	private int houseNumber;
 	private String street;
 	private String town;
+	private String state;
 	private String zipcode;
 
 	public Address(int id, int homeNumber, String street, String town, String zipcode) {
@@ -87,7 +83,7 @@ public class Address {
 
 	/**
 	 * sets address <code>town</code>.
-	 * @param town String representation of real houses town
+	 * @param town String representation of real house town
 	 * @throws IllegalArgumentException <code>town</code> should not be null
 	 */
 	public void setTown(String town) {
@@ -95,6 +91,26 @@ public class Address {
 			this.town = town;
 		} else {
 			throw new IllegalArgumentException("String town can not be set to null.");
+		}
+	}
+
+	/**
+	 * @return <code>state</code> String
+	 */
+	public String getState() {
+		return state;
+	}
+
+	/**
+	 * sets address <code>state</code>.
+	 * @param zipcode String representation of real state
+	 * @throws IllegalArgumentException <code>state</code> should not be null
+	 */
+	public void setState(String state) {
+		if (zipcode != null) {
+			this.state = state;
+		} else {
+			throw new IllegalArgumentException("String state can not be set to null.");
 		}
 	}
 
