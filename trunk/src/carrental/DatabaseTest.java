@@ -9,7 +9,7 @@ import java.sql.*;
 
 /**
  *
- * @author S
+ * @author Pavel Mican
  */
 public class DatabaseTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {

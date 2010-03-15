@@ -85,7 +85,7 @@ public class Car {
 	}
 
 	/**
-	 * @return <code>id</code> String
+	 * @return <code>id</code> integer
 	 */
 	public int getId() {
 		return id;
