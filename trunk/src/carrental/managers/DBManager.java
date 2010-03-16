@@ -67,11 +67,11 @@ public class DBManager {
 		}
 	}
 
-	public boolean createTable(String tableColumns) {
+	public boolean createTable(String tableName, String tableColumns) {
 		boolean createdTable = false;
 		if (connection != null) {
 			Statement statement = null;
-			String strCreateTable = "CREATE table APP.ADDRESS (" + tableColumns + ")";
+			String strCreateTable = "CREATE table APP." + tableName + "(" + tableColumns + ")";
 			try {
 				statement = connection.createStatement();
 				statement.execute(strCreateTable);
@@ -83,15 +83,44 @@ public class DBManager {
 		return createdTable;
 	}
 
-	public boolean insertIntoTable(Connection conn, String tableName, String tableValues) {
-		PreparedStatement st;	//prepare new statement for inserting Address into the database
+	/**
+	 * Returns PreparedStatement ready to be given proper values.
+	 * insertIntoTable should be used to prepare pattern onto which only
+	 * set methods should be applied and then the whole query is triggered
+	 * using executeUpdate() method of PreparedStatement.
+	 * example:
+	 *		// db is a connected instance of DBManager
+	 *		PreparedStatement st = db.insertIntoTable("MAN","NAME,SURNAME",2);
+	 *		st.clearParameters();
+	 *		st.setString(1, "John");
+	 *		st.setString(2, "Smith");
+	 *		st.executeUpdate();
+	 *		ResultSet results = st.getGeneratedKeys()
+	 *		if (results.next()) {
+	 *			id = results.getInt(1);
+	 *		}
+	 *
+	 *
+	 * @param tableName String name of an existing table in the database
+	 * @param valueNames String containing new values
+	 * @param values
+	 * @return PreparedStatement
+	 */
+	public PreparedStatement insertIntoTable(String tableName, String valueNames, int valuesCount) {
+		PreparedStatement st = null;	//prepare new statement for inserting Address into the database
+		String strStatement = "INSERT INTO APP." + tableName + "(" + valueNames + ") VALUES (";// + ")";
+		for (int i = 0; i < valuesCount; i++) {	// adds question marks at places for later inserting certain values
+			if (i > 0) {
+				strStatement += ", ";
+			}
+			strStatement += "?";
+		}
+		System.out.println("statement is: " + strStatement);	//TODO delete this debug println
 		try {
-			st = conn.prepareStatement("INSERT INTO ");
-			st.execute();
-			return true;
+			st = connection.prepareStatement(strStatement,Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException ex) {
 			Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
 		}
+		return st;
 	}
 }
