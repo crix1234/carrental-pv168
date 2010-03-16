@@ -2,6 +2,9 @@ package carrental.managers;
 
 import carrental.entities.Address;
 import java.util.Collection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
 /**
  *
@@ -9,14 +12,30 @@ import java.util.Collection;
  */
 public class AddressManagerImpl implements AddressManager {
 
-	public Address createNewAddress(int id, int houseNumber, String street, String town, String state, String zipcode) {
+	public Address createNewAddress(int houseNumber, String street, String town, String state, String zipcode) {
 		//initialize db connection
 		DBManager db = new DBManager();
 		Address addr = null;
 		if (db.connect()) { //connecting to the database was successfull
 			if (createTable(db)) { //create the table to put addresses in - true if success
-				//TODO insert new Address into the address database
-				addr = new Address(id, houseNumber, street, town, state, zipcode);
+				int id = -1;
+				PreparedStatement st = db.insertIntoTable("ADDRESS", "houseNumber, street, town, state, zipcode", 5);
+				try {
+					st.clearParameters();
+					st.setInt(1, houseNumber);
+					st.setString(2, street);
+					st.setString(3, town);
+					st.setString(4, state);
+					st.setString(5, zipcode);
+					st.executeUpdate();
+					ResultSet results = st.getGeneratedKeys();
+					if (results.next()) {
+						id = results.getInt(1);
+					}
+					addr = new Address(id, houseNumber, street, town, state, zipcode);
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
 			}
 			db.disconnect();
 		}
@@ -44,6 +63,6 @@ public class AddressManagerImpl implements AddressManager {
 							"town			VARCHAR(40)," +
 							"state			VARCHAR(40)," +
 							"zipcode		VARCHAR(20)";
-		return db.createTable(columns);
+		return db.createTable("ADDRESS",columns);
 	}
 }

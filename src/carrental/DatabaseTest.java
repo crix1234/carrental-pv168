@@ -1,7 +1,6 @@
 package carrental;
 
-import carrental.entities.Address;
-import carrental.entities.Customer;
+import carrental.entities.*;
 import carrental.managers.*;
 import java.sql.*;
 
@@ -11,10 +10,17 @@ import java.sql.*;
  */
 public class DatabaseTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-		CustomerManager cm = new CustomerManagerImpl() {};
-		Address addr = new Address(1, 234, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
-		Customer newCustomer = cm.createNewCustomer("Kare", "Novak", addr);
+		AddressManager adm = new AddressManagerImpl();
+		Address ad1 = adm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		System.out.println("addr 1:" + ad1.getStreet()+","+ad1.getTown());
 
+		//CustomerManager cm = new CustomerManagerImpl() {};
+		//Address addr = new Address(1, 234, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		//Customer newCustomer = cm.createNewCustomer("Kare", "Novak", addr);
+
+
+
+		// seminar example :
 		/*String driver = "org.apache.derby.jdbc.ClientDriver";
 		Class.forName(driver).newInstance();
 

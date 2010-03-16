@@ -2,10 +2,7 @@ package carrental.managers;
 
 import carrental.entities.Customer;
 import carrental.entities.Address;
-import java.sql.*;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
