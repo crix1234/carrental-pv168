@@ -11,8 +11,10 @@ import java.sql.*;
 public class DatabaseTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		AddressManager adm = new AddressManagerImpl();
-		//Address ad1 = adm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
-		//System.out.println("addr 1:" + ad1.getStreet()+","+ad1.getTown());
+		adm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		adm.createNewAddress(234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		adm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+		adm.createNewAddress(77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
 		adm.findAllAddresses();
 
 		//CustomerManager cm = new CustomerManagerImpl() {};
