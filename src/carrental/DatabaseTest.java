@@ -11,8 +11,9 @@ import java.sql.*;
 public class DatabaseTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		AddressManager adm = new AddressManagerImpl();
-		Address ad1 = adm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
-		System.out.println("addr 1:" + ad1.getStreet()+","+ad1.getTown());
+		//Address ad1 = adm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		//System.out.println("addr 1:" + ad1.getStreet()+","+ad1.getTown());
+		adm.findAllAddresses();
 
 		//CustomerManager cm = new CustomerManagerImpl() {};
 		//Address addr = new Address(1, 234, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
