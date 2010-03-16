@@ -12,8 +12,12 @@ public class Address {
 	private String state;
 	private String zipcode;
 
-	public Address(int id, int homeNumber, String street, String town, String zipcode) {
+	public Address(int id, int houseNumber, String street, String town, String state, String zipcode) {
 		setId(id);
+		setHouseNumber(houseNumber);
+		setStreet(street);
+		setTown(town);
+		setZipcode(zipcode);
 	}
 
 	/**

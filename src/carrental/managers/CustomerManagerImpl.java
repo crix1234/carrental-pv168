@@ -12,26 +12,11 @@ import java.util.logging.Logger;
  * @author Pavel Mican
  */
 public class CustomerManagerImpl implements CustomerManager {
-	public CustomerManagerImpl() {
-		DBManager db = new DBManager();
-		Connection conn = db.connect();
-		db.disconnect(conn);
-	}
 
 	public Customer createNewCustomer(String name, String surname, Address address) {
 		int id = 1; //TODO id generator
 		Customer newCustomer = null;
-		DBManager db = new DBManager();
-		Connection conn = db.connect();
-		PreparedStatement st;
-		try {
-			st = conn.prepareStatement("SELECT * FROM APP.CUSTOMER");
-			ResultSet rs = st.executeQuery();
-			newCustomer = new Customer(id, name, surname, address);
-		} catch (SQLException ex) {
-			Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		conn.close();
+		newCustomer = new Customer(id, name, surname, address);
 		return newCustomer;
 	}
 
