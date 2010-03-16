@@ -12,7 +12,7 @@ import java.sql.*;
 public class DatabaseTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		CustomerManager cm = new CustomerManagerImpl() {};
-		Address addr = new Address(1, 234, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic");
+		Address addr = new Address(1, 234, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		Customer newCustomer = cm.createNewCustomer("Kare", "Novak", addr);
 
 		/*String driver = "org.apache.derby.jdbc.ClientDriver";
