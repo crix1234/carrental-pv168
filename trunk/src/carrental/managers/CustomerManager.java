@@ -1,6 +1,5 @@
 package carrental.managers;
 import java.util.Collection;
-import java.sql.SQLException;
 import carrental.entities.Customer;
 import carrental.entities.Address;
 
