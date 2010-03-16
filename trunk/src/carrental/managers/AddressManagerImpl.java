@@ -12,6 +12,17 @@ import java.sql.ResultSet;
  */
 public class AddressManagerImpl implements AddressManager {
 
+	/**
+	 * Creates new <code>Address</code> and saves it into the database
+	 * 
+	 * @param houseNumber
+	 * @param street
+	 * @param town
+	 * @param state
+	 * @param zipcode
+	 * @return Address generated <code>Address</code> reflecting input parameters
+	 * @return null if <code>Address</code> generating was unsuccessfull
+	 */
 	public Address createNewAddress(int houseNumber, String street, String town, String state, String zipcode) {
 		//initialize db connection
 		DBManager db = new DBManager();
@@ -19,7 +30,7 @@ public class AddressManagerImpl implements AddressManager {
 		if (db.connect()) { //connecting to the database was successfull
 			if (createTable(db)) { //create the table to put addresses in - true if success
 				int id = -1;
-				PreparedStatement st = db.insertIntoTable("ADDRESS", "houseNumber, street, town, state, zipcode", 5);
+				PreparedStatement st = db.getInsertIntoTableStatement("ADDRESS", "houseNumber, street, town, state, zipcode", 5);
 				try {
 					st.clearParameters();
 					st.setInt(1, houseNumber);
@@ -51,9 +62,38 @@ public class AddressManagerImpl implements AddressManager {
 	}
 
 	public Collection<Address> findAllAddresses() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		//initialize db connection
+		DBManager db = new DBManager();
+		Collection<Address> addr = null;
+		if (db.connect()) { //connecting to the database was successfull
+			if (db.tableExists("ADDRESS")) {
+				PreparedStatement st = db.getSelectFromTableStatement("ADDRESS", "*");
+				try {
+					ResultSet rs = st.executeQuery();
+					while(rs.next()) {
+						System.out.println("id=" + rs.getInt("id")
+								+ " houseNumber=" + rs.getInt("houseNumber")
+								+ " street=" + rs.getString("street")
+								+ " town=" + rs.getString("town")
+								+ " state=" + rs.getString("state")
+								+ " zipcode=" + rs.getString("zipcode") );
+					}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+
+			}
+		}
+		return addr;
 	}
 
+	/**
+	 * creates new table if it's not already in the database
+	 * 
+	 * @param db <code>DBManager</code> that handles db connection and table creation
+	 * @return true if successfull creation
+	 * @return false if the database respond was unsuccessfull for some reason
+	 */
 	private static boolean createTable(DBManager db) {
 		String columns =	"ID				INTEGER NOT NULL" +
 							"				PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +

@@ -71,7 +71,7 @@ public class Address {
 	 * @throws IllegalArgumentException <code>street</code> should not be null
 	 */
 	public void setStreet(String street) {
-		if (town != null) {
+		if (street != null) {
 			this.street = street;
 		} else {
 			throw new IllegalArgumentException("String street can not be set to null.");
@@ -111,7 +111,7 @@ public class Address {
 	 * @throws IllegalArgumentException <code>state</code> should not be null
 	 */
 	public void setState(String state) {
-		if (zipcode != null) {
+		if (state != null) {
 			this.state = state;
 		} else {
 			throw new IllegalArgumentException("String state can not be set to null.");
