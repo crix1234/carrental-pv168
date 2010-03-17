@@ -116,6 +116,34 @@ public class DBManager {
 	}
 
 	/**
+	 * Gets <code>PreparedStatement</code> ready to be assigned values
+	 *
+	 * @param tableName	name of the table where the values should be changed
+	 * @param valueId id of the row in the table, which should be changed
+	 * @param valueNames variable number of String arguments containing the names of certain Table values to be changed
+	 * @return PreparedStatement if table update was successfull
+	 * @throws IllegalArgumentException if the given ID is out of range or no equal id is found
+	 */
+	public PreparedStatement getUpdateTableStatement(String tableName, String... valueNames) throws IllegalArgumentException, SQLException {
+		PreparedStatement st = null;
+		if (tableExists(tableName)) {
+			if (connection != null) {
+				String strStatement = "UPDATE APP." + tableName + " SET ";
+				for (int i = 0; i < valueNames.length; i++) {
+					if (i == 0) {
+						strStatement += valueNames[i] + " = ?";	//first value doesn't need to be separated by comma
+					} else {
+						strStatement += ", " + valueNames[i] + " = ?";
+					}
+				}
+				strStatement += " WHERE ID = ?";
+				st = connection.prepareStatement(strStatement);
+			}
+		}
+		return st;
+	}
+
+	/**
 	 * Returns PreparedStatement ready to be given proper values.
 	 * insertIntoTable should be used to prepare pattern onto which only
 	 * set methods should be applied and then the whole query is triggered

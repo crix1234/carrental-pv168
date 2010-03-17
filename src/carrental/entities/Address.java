@@ -11,7 +11,7 @@ public class Address {
 	private String town;
 	private String state;
 	private String zipcode;
-	public Address(int id, int houseNumber, String street, String town, String state, String zipcode) {
+	public Address(int id, int houseNumber, String street, String town, String state, String zipcode) throws IllegalArgumentException {
 		setId(id);
 		setHouseNumber(houseNumber);
 		setStreet(street);
