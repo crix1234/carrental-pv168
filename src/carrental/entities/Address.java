@@ -30,11 +30,14 @@ public class Address {
 	/**
 	 * sets address <code>id</code>. Should not be directly changed.
 	 * @param id new unique car id.
-	 * @throws IllegalArgumentException defined id is already in use
+	 * @throws IllegalArgumentException defined id is out of range (id >= 0)
 	 */
-	private void setId(int id) {
-		//TODO check for id existence
-		this.id = id;
+	private void setId(int id) throws IllegalArgumentException {
+		if (id >= 0) {
+			this.id = id;
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 
 
@@ -50,7 +53,7 @@ public class Address {
 	 * @param houseNumber integer representation of real house identification
 	 * @throws IllegalArgumentException <code>houseNumber</code> should be non-zero positive integer
 	 */
-	public void setHouseNumber(int houseNumber) {
+	public void setHouseNumber(int houseNumber) throws IllegalArgumentException {
 		if (houseNumber > 0) {
 			this.houseNumber = houseNumber;
 		} else {
@@ -70,7 +73,7 @@ public class Address {
 	 * @param street String representation of real houses street
 	 * @throws IllegalArgumentException <code>street</code> should not be null
 	 */
-	public void setStreet(String street) {
+	public void setStreet(String street) throws IllegalArgumentException {
 		if (street != null) {
 			this.street = street;
 		} else {
@@ -90,7 +93,7 @@ public class Address {
 	 * @param town String representation of real house town
 	 * @throws IllegalArgumentException <code>town</code> should not be null
 	 */
-	public void setTown(String town) {
+	public void setTown(String town) throws IllegalArgumentException {
 		if (town != null) {
 			this.town = town;
 		} else {
@@ -110,7 +113,7 @@ public class Address {
 	 * @param zipcode String representation of real state
 	 * @throws IllegalArgumentException <code>state</code> should not be null
 	 */
-	public void setState(String state) {
+	public void setState(String state) throws IllegalArgumentException {
 		if (state != null) {
 			this.state = state;
 		} else {
@@ -130,7 +133,7 @@ public class Address {
 	 * @param zipcode String representation of real zipcode
 	 * @throws IllegalArgumentException <code>zipcode</code> should not be null
 	 */
-	public void setZipcode(String zipcode) {
+	public void setZipcode(String zipcode) throws IllegalArgumentException {
 		if (zipcode != null) {
 			this.zipcode = zipcode;
 		} else {
