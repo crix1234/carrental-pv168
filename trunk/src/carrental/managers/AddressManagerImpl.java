@@ -23,7 +23,7 @@ public class AddressManagerImpl implements AddressManager {
 	 * @return Address generated <code>Address</code> reflecting input parameters
 	 * @return null if <code>Address</code> generating was unsuccessfull
 	 */
-	public Address createNewAddress(int houseNumber, String street, String town, String state, String zipcode) {
+	public Address createNewAddress(int houseNumber, String street, String town, String state, String zipcode) throws AddressManagerException {
 		//initialize db connection
 		DBManager db = new DBManager();
 		Address addr = null;
@@ -44,8 +44,9 @@ public class AddressManagerImpl implements AddressManager {
 						id = results.getInt(1);
 					}
 					addr = new Address(id, houseNumber, street, town, state, zipcode);
-				} catch (SQLException ex) {
+				} catch (Exception ex) {
 					ex.printStackTrace();
+					throw new AddressManagerException(ex);
 				}
 			}
 			db.disconnect();
@@ -53,11 +54,11 @@ public class AddressManagerImpl implements AddressManager {
 		return addr;
 	}
 
-	public void editAddress(Address address) {
+	public void editAddress(Address address) throws AddressManagerException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public Address findAddressByID(int id) {
+	public Address findAddressByID(int id) throws AddressManagerException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -66,7 +67,7 @@ public class AddressManagerImpl implements AddressManager {
 	 * containing instances of <code>Address</code>.
 	 * @return List<Address> containing all the found values
 	 */
-	public ArrayList<Address> findAllAddresses() {
+	public ArrayList<Address> findAllAddresses() throws AddressManagerException {
 		//initialize db connection
 		DBManager db = new DBManager();
 		ArrayList<Address> addr = new ArrayList<Address>();
@@ -90,14 +91,11 @@ public class AddressManagerImpl implements AddressManager {
 						state = rs.getString("state");
 						zipcode = rs.getString("zipcode");
 						newAddress = new Address(id,houseNumber,street,town,state,zipcode);
-						System.out.println("id: " + id + "; hn: " + houseNumber + "; street: " + street +
-								"; town: " + town + "; state: " + state + "; zipcode: " + zipcode);
-						System.out.println("INSTANCE: id: " + newAddress.getId() + "; hn: " + newAddress.getHouseNumber() + "; street: " + newAddress.getStreet() +
-								"; town: " + newAddress.getTown() + "; state: " + newAddress.getState() + "; zipcode: " + newAddress.getZipcode());
 						addr.add(newAddress);
 					}
 				} catch (SQLException ex) {
 					ex.printStackTrace();
+					throw new AddressManagerException(ex);
 				}
 			}
 			db.disconnect();

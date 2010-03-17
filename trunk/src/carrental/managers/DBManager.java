@@ -38,8 +38,8 @@ public class DBManager {
 			Connection newConnection = DriverManager.getConnection(db_connect_url, db_userid, db_password);
 			connection = newConnection;
 			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ex) {
+			Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
 			return false;
 		}
 	}
@@ -88,7 +88,7 @@ public class DBManager {
 				statement.execute(strCreateTable);
 				createdTable = true;
 			} catch (SQLException ex) {	//WARNING this exception should be rather thrown by this method, but this should do (for simplicity...)
-				ex.printStackTrace();
+				Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 		return createdTable;
