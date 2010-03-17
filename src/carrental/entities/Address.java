@@ -17,6 +17,7 @@ public class Address {
 		setHouseNumber(houseNumber);
 		setStreet(street);
 		setTown(town);
+		setState(state);
 		setZipcode(zipcode);
 	}
 
@@ -136,6 +137,36 @@ public class Address {
 		} else {
 			throw new IllegalArgumentException("String zipcode can not be set to null.");
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 67 * hash + this.houseNumber;
+		hash = 67 * hash + (this.street != null ? this.street.hashCode() : 0);
+		hash = 67 * hash + (this.town != null ? this.town.hashCode() : 0);
+		hash = 67 * hash + (this.state != null ? this.state.hashCode() : 0);
+		hash = 67 * hash + (this.zipcode != null ? this.zipcode.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Address) {
+			Address address = (Address) obj;
+			if (this.houseNumber == address.getHouseNumber()) {
+				if (this.street.equals(address.getStreet())) {
+					if (this.state.equals(address.getState())) {
+						if (this.town.equals(address.getTown())) {
+							if (this.zipcode.equals(address.getZipcode())) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }
