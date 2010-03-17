@@ -2,7 +2,6 @@ package carrental.managers;
 
 import carrental.entities.Address;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
@@ -61,24 +60,53 @@ public class AddressManagerImplTest {
 			expResult = new Address(4,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
 			assertEquals(expResult, addr4);
 
-
-			addr1 = addm.createNewAddress(-3,  "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
-			assertNull(addr1);
-			addr1 = addm.createNewAddress(23, null, null, null, null);
-			assertNull(addr1);
-			addr1 = addm.createNewAddress(23, "abbcdd", null, "hugachagga", "ajeje");
-			assertNull(addr1);
-			addr1 = addm.createNewAddress(23, "abbcdd", "asdf", null, "ajeje");
-			assertNull(addr1);
-			addr1 = addm.createNewAddress(23, "abbcdd", "asdf", "weuior", null);
-			assertNull(addr1);
+			try {
+				addr1 = addm.createNewAddress(-3,  "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+				fail();
+			} catch (AddressManagerException e) {
+			}
+			try {
+				addr1 = addm.createNewAddress(0,  "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+				fail();
+			} catch (AddressManagerException e) {
+			}
+			try {
+				addr1 = addm.createNewAddress(23, null, null, null, null);
+				fail();
+			} catch (AddressManagerException e) {
+			}
+			try {
+				addr1 = addm.createNewAddress(23, "abbcdd", null, "hugachagga", "ajeje");
+				fail();
+			} catch (AddressManagerException e) {
+			}
+			try {
+				addr1 = addm.createNewAddress(23, "abbcdd", "asdf", null, "ajeje");
+				fail();
+			} catch (AddressManagerException e) {
+			}
+			try {
+				addr1 = addm.createNewAddress(23, "abbcdd", "asdf", "weuior", null);
+				fail();
+			} catch (AddressManagerException e) {
+			}
+			try { //too long argument
+				addr1 = addm.createNewAddress(8, "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "b", "c", "d");
+				assertEquals(40, addr1.getStreet().length());
+			} catch (AddressManagerException e){
+				fail();
+			}
+			try { //too long / precise length
+				addr1 = addm.createNewAddress(8, "a", "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "12345678901234567890");
+				assertEquals(40, addr1.getTown().length());
+				assertEquals(40, addr1.getState().length());
+				assertEquals(20, addr1.getZipcode().length());
+			} catch (AddressManagerException e){
+				fail();
+			}
 		} catch (AddressManagerException ex) {
 			ex.printStackTrace();
 		}
-
-
-		// TODO review the generated test code and remove the default call to fail.
-		//fail("The test case is a prototype.");
 	}
 
 	/**
@@ -86,14 +114,32 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testEditAddress() {
+		//initialize database
+		initializeDatabase();
+		//new addresses generation
+		AddressManager addm = new AddressManagerImpl();
 		try {
-			Address address = null;
-			AddressManagerImpl instance = new AddressManagerImpl();
-			instance.editAddress(address);
-			// TODO review the generated test code and remove the default call to fail.
-			fail("The test case is a prototype.");
+			addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			addm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+			Address address = new Address(1,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+			addm.editAddress(address, 1);
+			Address result = addm.findAddressByID(1);
+			assertEquals(result, address);
+
+			try {
+				addm.editAddress(address, 3);
+				fail();
+			} catch (IllegalArgumentException ex) {
+			}
+
+			try {
+				addm.editAddress(address, 0);
+				fail();
+			} catch (IllegalArgumentException ex) {
+			}
 		} catch (AddressManagerException ex) {
 			Logger.getLogger(AddressManagerImplTest.class.getName()).log(Level.SEVERE, null, ex);
+			fail();
 		}
 	}
 
@@ -102,8 +148,28 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testFindAddressByID() {
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		try {
+			//initialize database
+			initializeDatabase();
+			//new addresses generation
+			AddressManager addm = new AddressManagerImpl();
+			Address addr1 = addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			Address addr2 = addm.createNewAddress(234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			addm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+			addm.createNewAddress(77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+			//tests
+			Address foundAddress = addm.findAddressByID(1);
+			assertEquals(addr1, foundAddress);
+			assertNotSame(addr2, foundAddress);
+
+			foundAddress = addm.findAddressByID(2);
+			assertNotSame(addr1, foundAddress);
+
+			assertNull(addm.findAddressByID(5)); // out of range
+			assertNotNull(addm.findAddressByID(4)); //last in range
+		} catch (AddressManagerException ex) {
+			Logger.getLogger(AddressManagerImplTest.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	/**
@@ -136,7 +202,6 @@ public class AddressManagerImplTest {
 	}
 
 	public void initializeDatabase(){
-		System.out.println("droping existing address table:");
 		DBManager dbm = new DBManager();
 		dbm.connect();
 		dbm.dropTable("ADDRESS");
