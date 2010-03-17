@@ -1,7 +1,8 @@
 package carrental.managers;
 
 import carrental.entities.Address;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,16 +40,24 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testCreateNewAddress() {
-		System.out.println("createNewAddress");
-		int houseNumber = 1;
-		String street = "a";
-		String town = "b";
-		String state = "c";
-		String zipcode = "d";
-		AddressManagerImpl instance = new AddressManagerImpl();
-		Address expResult = new Address(1,houseNumber,street,town,state,zipcode);
-		Address result = instance.createNewAddress(houseNumber, street, town, state, zipcode);
-		assertEquals(expResult, result);
+		//initialize database
+		initializeDatabase();
+		//new addresses generation
+		AddressManager addm = new AddressManagerImpl();
+		Address addr1 = addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		Address addr2 = addm.createNewAddress(234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		Address addr3 = addm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+		Address addr4 = addm.createNewAddress(77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+
+		Address expResult = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		assertEquals(expResult, addr1);
+		expResult = new Address(2,234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		assertEquals(expResult, addr2);
+		expResult = new Address(3,157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+		assertEquals(expResult, addr3);
+		expResult = new Address(4,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+		assertEquals(expResult, addr4);
+
 		// TODO review the generated test code and remove the default call to fail.
 		//fail("The test case is a prototype.");
 	}
@@ -71,12 +80,6 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testFindAddressByID() {
-		System.out.println("findAddressByID");
-		int id = 0;
-		AddressManagerImpl instance = new AddressManagerImpl();
-		Address expResult = null;
-		Address result = instance.findAddressByID(id);
-		assertEquals(expResult, result);
 		// TODO review the generated test code and remove the default call to fail.
 		fail("The test case is a prototype.");
 	}
@@ -86,13 +89,25 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testFindAllAddresses() {
-		System.out.println("findAllAddresses");
-		AddressManagerImpl instance = new AddressManagerImpl();
-		List expResult = null;
-		List result = instance.findAllAddresses();
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		//initialize database
+		initializeDatabase();
+		//new addresses generation
+		AddressManager addm = new AddressManagerImpl();
+		Address addr1 = addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		Address addr2 = addm.createNewAddress(234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		Address addr3 = addm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+		Address addr4 = addm.createNewAddress(77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+		ArrayList<Address> foundAddresses = (ArrayList<Address>) addm.findAllAddresses();
+		//tests
+		assertEquals(4, foundAddresses.size());
+	}
+
+	public void initializeDatabase(){
+		System.out.println("droping existing address table:");
+		DBManager dbm = new DBManager();
+		dbm.connect();
+		dbm.dropTable("ADDRESS");
+		dbm.disconnect();
 	}
 
 }

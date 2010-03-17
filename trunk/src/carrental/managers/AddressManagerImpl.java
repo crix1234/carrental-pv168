@@ -1,11 +1,10 @@
 package carrental.managers;
 
 import carrental.entities.Address;
-import java.util.Collection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -62,32 +61,40 @@ public class AddressManagerImpl implements AddressManager {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public List<Address> findAllAddresses() {
+	/**
+	 * Finds all addresses in the database and returns the <code>List</code>
+	 * containing instances of <code>Address</code>.
+	 * @return List<Address> containing all the found values
+	 */
+	public ArrayList<Address> findAllAddresses() {
 		//initialize db connection
 		DBManager db = new DBManager();
-		List<Address> addr = null;
+		ArrayList<Address> addr = new ArrayList<Address>();
 		if (db.connect()) { //connecting to the database was successfull
 			if (db.tableExists("ADDRESS")) {
 				PreparedStatement st = db.getSelectFromTableStatement("ADDRESS", "*");
+				int id;
+				int houseNumber;
+				String street;
+				String town;
+				String state;
+				String zipcode;
 				try {
 					ResultSet rs = st.executeQuery();
 					Address newAddress;
 					while(rs.next()) {
-						newAddress = new Address(rs.getInt("id"),
-								rs.getInt("houseNumber"),
-								rs.getString("street"),
-								rs.getString("town"),
-								rs.getString("state"),
-								rs.getString("zipcode"));
-						System.out.println("houseNumber: "+newAddress.getHouseNumber());
-						//addr.add(newAddress);
-						/*System.out.println("id=" + rs.getInt("id")
-								+ " houseNumber=" + rs.getInt("houseNumber")
-								+ " street=" + rs.getString("street")
-								+ " town=" + rs.getString("town")
-								+ " state=" + rs.getString("state")
-								+ " zipcode=" + rs.getString("zipcode") );
-						 */
+						id = rs.getInt("ID");
+						houseNumber = rs.getInt("houseNumber");
+						street = rs.getString("street");
+						town = rs.getString("town");
+						state = rs.getString("state");
+						zipcode = rs.getString("zipcode");
+						newAddress = new Address(id,houseNumber,street,town,state,zipcode);
+						System.out.println("id: " + id + "; hn: " + houseNumber + "; street: " + street +
+								"; town: " + town + "; state: " + state + "; zipcode: " + zipcode);
+						System.out.println("INSTANCE: id: " + newAddress.getId() + "; hn: " + newAddress.getHouseNumber() + "; street: " + newAddress.getStreet() +
+								"; town: " + newAddress.getTown() + "; state: " + newAddress.getState() + "; zipcode: " + newAddress.getZipcode());
+						addr.add(newAddress);
 					}
 				} catch (SQLException ex) {
 					ex.printStackTrace();

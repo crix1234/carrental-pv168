@@ -36,7 +36,6 @@ public class DBManager {
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver");
 			Connection newConnection = DriverManager.getConnection(db_connect_url, db_userid, db_password);
-			System.out.println("connected");
 			connection = newConnection;
 			return true;
 		} catch (Exception e) {
@@ -96,6 +95,27 @@ public class DBManager {
 	}
 
 	/**
+	 * Drops existing <code>tableName</code> table in the database
+	 * @param tableName name of the table to be dropped
+	 * @return true on success
+	 * @return false on sql communication failure
+	 */
+	public boolean dropTable(String tableName) {
+		if (tableExists(tableName)) {
+			if (connection != null) {
+				try {
+					Statement statement = connection.createStatement();
+					statement.execute("DROP TABLE APP."+tableName);
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * Returns PreparedStatement ready to be given proper values.
 	 * insertIntoTable should be used to prepare pattern onto which only
 	 * set methods should be applied and then the whole query is triggered
@@ -129,7 +149,6 @@ public class DBManager {
 				strStatement += "?";
 			}
 			strStatement += ")";
-			System.out.println("insert statement is: " + strStatement);	//TODO delete this debug println
 			try {
 				st = connection.prepareStatement(strStatement,Statement.RETURN_GENERATED_KEYS);
 			} catch (SQLException ex) {
@@ -167,7 +186,6 @@ public class DBManager {
 			if (conditions != null) {
 				strStatement += " WHERE " + conditions;
 			}
-			System.out.println("select statement is: " + strStatement);	//TODO delete this debug println
 			try {
 				st = connection.prepareStatement(strStatement);
 			} catch (SQLException ex) {
