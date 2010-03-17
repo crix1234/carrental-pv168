@@ -89,7 +89,7 @@ public class DBManager {
 				statement.execute(strCreateTable);
 				createdTable = true;
 			} catch (SQLException ex) {	//WARNING this exception should be rather thrown by this method, but this should do (for simplicity...)
-			ex.printStackTrace();
+				ex.printStackTrace();
 			}
 		}
 		return createdTable;

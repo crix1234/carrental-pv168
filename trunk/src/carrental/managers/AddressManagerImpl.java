@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.List;
 
 /**
  *
@@ -61,28 +62,38 @@ public class AddressManagerImpl implements AddressManager {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public Collection<Address> findAllAddresses() {
+	public List<Address> findAllAddresses() {
 		//initialize db connection
 		DBManager db = new DBManager();
-		Collection<Address> addr = null;
+		List<Address> addr = null;
 		if (db.connect()) { //connecting to the database was successfull
 			if (db.tableExists("ADDRESS")) {
 				PreparedStatement st = db.getSelectFromTableStatement("ADDRESS", "*");
 				try {
 					ResultSet rs = st.executeQuery();
+					Address newAddress;
 					while(rs.next()) {
-						System.out.println("id=" + rs.getInt("id")
+						newAddress = new Address(rs.getInt("id"),
+								rs.getInt("houseNumber"),
+								rs.getString("street"),
+								rs.getString("town"),
+								rs.getString("state"),
+								rs.getString("zipcode"));
+						System.out.println("houseNumber: "+newAddress.getHouseNumber());
+						//addr.add(newAddress);
+						/*System.out.println("id=" + rs.getInt("id")
 								+ " houseNumber=" + rs.getInt("houseNumber")
 								+ " street=" + rs.getString("street")
 								+ " town=" + rs.getString("town")
 								+ " state=" + rs.getString("state")
 								+ " zipcode=" + rs.getString("zipcode") );
+						 */
 					}
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
-
 			}
+			db.disconnect();
 		}
 		return addr;
 	}
