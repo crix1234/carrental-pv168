@@ -36,7 +36,7 @@ public class Address {
 		if (id >= 0) {
 			this.id = id;
 		} else {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("ID should be positive integer.");
 		}
 	}
 

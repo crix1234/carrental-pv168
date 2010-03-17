@@ -31,13 +31,17 @@ public class Customer {
 	}
 
 	/**
-	 * sets customers <code>id</code>. Should not be directly changed.
+	 * sets customers <code>id</code>. Should not be changed from outside
+	 * (Addres id reflects the database image).
 	 * @param id new unique car id.
 	 * @throws IllegalArgumentException defined id is already in use
 	 */
 	private void setId(int id) {
-		//TODO check for id existence
-		this.id = id;
+		if (id > 0) {
+			this.id = id;
+		} else {
+			throw new IllegalArgumentException("ID should be positive integer.");
+		}
 	}
 
 	/**
