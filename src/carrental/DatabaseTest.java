@@ -1,7 +1,5 @@
 package carrental;
 
-import carrental.entities.*;
-import carrental.managers.*;
 import java.sql.*;
 
 /**
@@ -10,13 +8,6 @@ import java.sql.*;
  */
 public class DatabaseTest {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-		AddressManager adm = new AddressManagerImpl();
-		adm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
-		adm.createNewAddress(234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
-		adm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
-		adm.createNewAddress(77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
-		adm.findAllAddresses();
-
 		//CustomerManager cm = new CustomerManagerImpl() {};
 		//Address addr = new Address(1, 234, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		//Customer newCustomer = cm.createNewCustomer("Kare", "Novak", addr);

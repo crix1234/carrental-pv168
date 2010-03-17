@@ -11,7 +11,6 @@ public class Address {
 	private String town;
 	private String state;
 	private String zipcode;
-
 	public Address(int id, int houseNumber, String street, String town, String state, String zipcode) {
 		setId(id);
 		setHouseNumber(houseNumber);
@@ -142,31 +141,43 @@ public class Address {
 	@Override
 	public int hashCode() {
 		int hash = 7;
-		hash = 67 * hash + this.houseNumber;
-		hash = 67 * hash + (this.street != null ? this.street.hashCode() : 0);
-		hash = 67 * hash + (this.town != null ? this.town.hashCode() : 0);
-		hash = 67 * hash + (this.state != null ? this.state.hashCode() : 0);
-		hash = 67 * hash + (this.zipcode != null ? this.zipcode.hashCode() : 0);
+		hash = 29 * hash + this.id;
+		hash = 29 * hash + this.houseNumber;
+		hash = 29 * hash + (this.street != null ? this.street.hashCode() : 0);
+		hash = 29 * hash + (this.town != null ? this.town.hashCode() : 0);
+		hash = 29 * hash + (this.state != null ? this.state.hashCode() : 0);
+		hash = 29 * hash + (this.zipcode != null ? this.zipcode.hashCode() : 0);
 		return hash;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Address) {
-			Address address = (Address) obj;
-			if (this.houseNumber == address.getHouseNumber()) {
-				if (this.street.equals(address.getStreet())) {
-					if (this.state.equals(address.getState())) {
-						if (this.town.equals(address.getTown())) {
-							if (this.zipcode.equals(address.getZipcode())) {
-								return true;
-							}
-						}
-					}
-				}
-			}
+		if (obj == null) {
+			return false;
 		}
-		return false;
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Address other = (Address) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if (this.houseNumber != other.houseNumber) {
+			return false;
+		}
+		if ((this.street == null) ? (other.street != null) : !this.street.equals(other.street)) {
+			return false;
+		}
+		if ((this.town == null) ? (other.town != null) : !this.town.equals(other.town)) {
+			return false;
+		}
+		if ((this.state == null) ? (other.state != null) : !this.state.equals(other.state)) {
+			return false;
+		}
+		if ((this.zipcode == null) ? (other.zipcode != null) : !this.zipcode.equals(other.zipcode)) {
+			return false;
+		}
+		return true;
 	}
 
 }
