@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import org.omg.CORBA.PRIVATE_MEMBER;
 
 /**
  *
@@ -26,10 +25,10 @@ public class AddressManagerImpl implements AddressManager {
 	 */
 	public Address createNewAddress(int houseNumber, String street, String town, String state, String zipcode) throws AddressManagerException {
 		//initialize db connection
-		street = reduceLongString(street,40);
-		town = reduceLongString(town,40);
-		state = reduceLongString(state,40);
-		zipcode = reduceLongString(zipcode,20);
+		street = ReduceLongString.reduceLongString(street,40);
+		town = ReduceLongString.reduceLongString(town,40);
+		state = ReduceLongString.reduceLongString(state,40);
+		zipcode = ReduceLongString.reduceLongString(zipcode,20);
 		DBManager db = new DBManager();
 		Address addr = null;
 		if (db.connect()) { //connecting to the database was successfull
@@ -173,17 +172,6 @@ public class AddressManagerImpl implements AddressManager {
 							"state			VARCHAR(40)," +
 							"zipcode		VARCHAR(20)";
 		return db.createTable("ADDRESS",columns);
-	}
-
-
-	private static String reduceLongString(String value, int maxLength) {
-		String strNew = value;
-		if (value != null) {
-			if (value.length() > maxLength) {
-				strNew = value.substring(0, maxLength);
-			}
-		}
-		return strNew;
 	}
 
 	private static ArrayList<Address> getAddressFromResultSet(ResultSet rs) throws SQLException {
