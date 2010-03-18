@@ -11,7 +11,7 @@ import java.util.Collection;
 public class CustomerManagerImpl implements CustomerManager {
 
 	public Customer createNewCustomer(String name, String surname, Address address) {
-		int id = 1; //TODO id generator
+		int id = 1;
 		Customer newCustomer = null;
 		newCustomer = new Customer(id, name, surname, address);
 		return newCustomer;
