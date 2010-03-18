@@ -107,4 +107,41 @@ public class Customer {
 			throw new IllegalArgumentException("Customers address can not be set to null.");
 		}
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Customer other = (Customer) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+			return false;
+		}
+		if ((this.surname == null) ? (other.surname != null) : !this.surname.equals(other.surname)) {
+			return false;
+		}
+		if (this.address != other.address && (this.address == null || !this.address.equals(other.address))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 67 * hash + this.id;
+		hash = 67 * hash + (this.name != null ? this.name.hashCode() : 0);
+		hash = 67 * hash + (this.surname != null ? this.surname.hashCode() : 0);
+		hash = 67 * hash + (this.address != null ? this.address.hashCode() : 0);
+		return hash;
+	}
+
+
 }
