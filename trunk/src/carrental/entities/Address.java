@@ -71,13 +71,13 @@ public class Address {
 
 	/**
 	 * sets address <code>street</code>. Maximum length of the given <code>String</code>
-	 * is 40 chars. Larger names will be shortened up to the length of 40 chars.
+	 * is defined earlier. Larger names will be shortened up to this length.
 	 * @param street String representation of real houses street
 	 * @throws IllegalArgumentException <code>street</code> should not be null
 	 */
 	public void setStreet(String street) throws IllegalArgumentException {
 		if (street != null) {
-			this.street = ReduceLongString.reduceLongString(street, 40);
+			this.street = street;
 		} else {
 			throw new IllegalArgumentException("String street can not be set to null.");
 		}
@@ -91,14 +91,13 @@ public class Address {
 	}
 
 	/**
-	 * sets address <code>town</code>. Maximum length of the given <code>String</code>
-	 * is 40 chars. Larger names will be shortened up to the length of 40 chars.
+	 * sets address <code>town</code>.
 	 * @param town String representation of real house town
 	 * @throws IllegalArgumentException <code>town</code> should not be null
 	 */
 	public void setTown(String town) throws IllegalArgumentException {
 		if (town != null) {
-			this.town = ReduceLongString.reduceLongString(town, 40);
+			this.town = town;
 		} else {
 			throw new IllegalArgumentException("String town can not be set to null.");
 		}
@@ -113,13 +112,13 @@ public class Address {
 
 	/**
 	 * sets address <code>state</code>. Maximum length of the given <code>String</code>
-	 * is 40 chars. Larger names will be shortened up to the length of 40 chars.
+	 * is defined earlier. Larger names will be shortened up to this length.
 	 * @param zipcode String representation of real state
 	 * @throws IllegalArgumentException <code>state</code> should not be null
 	 */
 	public void setState(String state) throws IllegalArgumentException {
 		if (state != null) {
-			this.state = ReduceLongString.reduceLongString(state, 40);
+			this.state = state;
 		} else {
 			throw new IllegalArgumentException("String state can not be set to null.");
 		}
@@ -133,14 +132,13 @@ public class Address {
 	}
 
 	/**
-	 * sets address <code>zipcode</code>. Maximum length of the given <code>String</code>
-	 * is 20 chars. Larger names will be shortened up to the length of 40 chars.
+	 * sets address <code>zipcode</code>.
 	 * @param zipcode String representation of real zipcode
 	 * @throws IllegalArgumentException <code>zipcode</code> should not be null
 	 */
 	public void setZipcode(String zipcode) throws IllegalArgumentException {
 		if (zipcode != null) {
-			this.zipcode = ReduceLongString.reduceLongString(zipcode, 20);
+			this.zipcode = zipcode;
 		} else {
 			throw new IllegalArgumentException("String zipcode can not be set to null.");
 		}

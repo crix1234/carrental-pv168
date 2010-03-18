@@ -11,24 +11,28 @@ import java.util.ArrayList;
  * @author Pavel Mican
  */
 public class AddressManagerImpl implements AddressManager {
+	private static final int MAXLENGTH_STREET = 40;
+	private static final int MAXLENGTH_TOWN = 40;
+	private static final int MAXLENGTH_STATE = 40;
+	private static final int MAXLENGTH_ZIPCODE = 20;
 
 	/**
 	 * Creates new <code>Address</code> and saves it into the database
 	 * 
 	 * @param houseNumber
-	 * @param street String containing street name. MAX 40 chars - longer names will be reduced
-	 * @param town String containing town name. MAX 40 chars - longer names will be reduced
-	 * @param state String containing state name. MAX 40 chars - longer names will be reduced
-	 * @param zipcode String containing zipcode. MAX 20 chars - longer names will be reduced
+	 * @param street String containing street name. Longer than database capacity names will be reduced
+	 * @param town String containing town name. Longer than database capacity names will be reduced
+	 * @param state String containing state name. Longer than database capacity names will be reduced
+	 * @param zipcode String containing zipcode. Longer than database capacity names will be reduced
 	 * @return Address generated <code>Address</code> reflecting input parameters
 	 * @return null if <code>Address</code> generating was unsuccessfull
 	 */
 	public Address createNewAddress(int houseNumber, String street, String town, String state, String zipcode) throws AddressManagerException {
 		//initialize db connection
-		street = ReduceLongString.reduceLongString(street,40);
-		town = ReduceLongString.reduceLongString(town,40);
-		state = ReduceLongString.reduceLongString(state,40);
-		zipcode = ReduceLongString.reduceLongString(zipcode,20);
+		street = DBManager.reduceLongString(street,MAXLENGTH_STREET);
+		town = DBManager.reduceLongString(town,MAXLENGTH_TOWN);
+		state = DBManager.reduceLongString(state,MAXLENGTH_STATE);
+		zipcode = DBManager.reduceLongString(zipcode,MAXLENGTH_ZIPCODE);
 		DBManager db = new DBManager();
 		Address addr = null;
 		if (db.connect()) { //connecting to the database was successfull
@@ -169,19 +173,26 @@ public class AddressManagerImpl implements AddressManager {
 	 * @return true if successfull creation
 	 * @return false if the database respond was unsuccessfull for some reason
 	 */
-	private static boolean createTable(DBManager db) {
+	private static final boolean createTable(DBManager db) {
 		String columns =	"ID				INTEGER NOT NULL" +
 							"				PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
 							"				(START WITH 1, INCREMENT BY 1)," +
 							"houseNumber	INTEGER," +
-							"street			VARCHAR(40)," +
-							"town			VARCHAR(40)," +
-							"state			VARCHAR(40)," +
-							"zipcode		VARCHAR(20)";
+							"street			VARCHAR(" + MAXLENGTH_STREET + ")," +
+							"town			VARCHAR(" + MAXLENGTH_TOWN + ")," +
+							"state			VARCHAR(" + MAXLENGTH_STATE + ")," +
+							"zipcode		VARCHAR(" + MAXLENGTH_ZIPCODE + ")";
 		return db.createTable("ADDRESS",columns);
 	}
 
-	private static ArrayList<Address> getAddressFromResultSet(ResultSet rs) throws SQLException {
+	/**
+	 * Handles creating <code>Address</code> instances from database <code>ResultSet</code>
+	 * 
+	 * @param rs <code>ResultSet</code> retreaved from the previous database query
+	 * @return ArrayList<Address> of all retreaved addresses
+	 * @throws SQLException if reading arguments fails
+	 */
+	private static final ArrayList<Address> getAddressFromResultSet(ResultSet rs) throws SQLException {
 		ArrayList<Address> addresses = new ArrayList<Address>();
 		Address newAddress;
 		while(rs.next()) {

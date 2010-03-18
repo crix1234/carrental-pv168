@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package carrental.entities;
 
 /**
@@ -15,7 +10,7 @@ public class Customer {
 	private String surname;
 	private Address address;
 
-	public Customer(int id, String name, String surname, Address address) {
+	public Customer(int id, String name, String surname, Address address) throws IllegalArgumentException {
 		setId(id);
 		setName(name);
 		setSurname(surname);
@@ -107,7 +102,6 @@ public class Customer {
 			throw new IllegalArgumentException("Customers address can not be set to null.");
 		}
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
