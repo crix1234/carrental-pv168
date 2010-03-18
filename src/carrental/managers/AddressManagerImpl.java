@@ -65,9 +65,16 @@ public class AddressManagerImpl implements AddressManager {
 	}
 
 
-	public void editAddress(Address newAddress, int id) throws AddressManagerException, IllegalArgumentException {
+	/**
+	 * Edits existing <code>Address</code> accessed in the database by ID
+	 * @param newAddress <code>Address</code> that should be inserted into the new database.
+	 * @param id
+	 * @throws AddressManagerException
+	 * @throws IllegalArgumentException
+	 */
+	public void editAddress(Address newAddress) throws AddressManagerException, IllegalArgumentException {
 		//initialize db connection
-		if (id < 1) {
+		if (newAddress.getId() < 1) {
 			throw new IllegalArgumentException("Can't find Address with id < 1");
 		}
 		DBManager db = new DBManager();
@@ -80,7 +87,7 @@ public class AddressManagerImpl implements AddressManager {
 					st.setString(3, newAddress.getTown());
 					st.setString(4, newAddress.getState());
 					st.setString(5, newAddress.getZipcode());
-					st.setInt(6, id); //sets ID value into the statement condition (WHERE ID = ?)
+					st.setInt(6, newAddress.getId()); //sets ID value into the statement condition (WHERE ID = ?)
 					int updates = st.executeUpdate();
 					if (updates < 1) {
 						throw new IllegalArgumentException("Given ID was not found during update");

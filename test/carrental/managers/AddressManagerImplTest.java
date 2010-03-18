@@ -122,18 +122,13 @@ public class AddressManagerImplTest {
 			addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 			addm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
 			Address address = new Address(1,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
-			addm.editAddress(address, 1);
+			addm.editAddress(address);
 			Address result = addm.findAddressByID(1);
 			assertEquals(result, address);
 
+			address =  new Address(3,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
 			try {
-				addm.editAddress(address, 3);
-				fail();
-			} catch (IllegalArgumentException ex) {
-			}
-
-			try {
-				addm.editAddress(address, 0);
+				addm.editAddress(address);
 				fail();
 			} catch (IllegalArgumentException ex) {
 			}
