@@ -40,16 +40,71 @@ public class CustomerManagerImplTest {
 	 */
 	@Test
 	public void testCreateNewCustomer() {
-		System.out.println("createNewCustomer");
-		String name = "";
-		String surname = "";
-		Address address = null;
-		CustomerManagerImpl instance = new CustomerManagerImpl();
-		Customer expResult = null;
-		Customer result = instance.createNewCustomer(name, surname, address);
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		//initialize database
+		initializeDatabase();
+		//new customer generation
+		CustomerManagerImpl custm = new CustomerManagerImpl();
+		Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		Address addr2 = new Address(2,234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+		Address addr3 = new Address(3,157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+		Address addr4 = new Address(4,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+
+		try {
+			Customer cust1 = custm.createNewCustomer("Karolina", "Světlá",addr1);
+			Customer cust2 = custm.createNewCustomer("Eliška","Krásnohorská",addr2);
+			Customer cust3 = custm.createNewCustomer("Klučina","Chlupatý",addr3);
+			Customer cust4 = custm.createNewCustomer("Vopičákyně","Zagorová",addr4);
+
+			Customer expResult = new Customer(1,"Karolina", "Světlá",addr1);
+			assertEquals(expResult, cust1);
+			expResult = new Customer(2,"Eliška","Krásnohorská",addr2);
+			assertEquals(expResult, cust2);
+			expResult = new Customer(3,"Klučina","Chlupatý",addr3);
+			assertEquals(expResult, cust3);
+			expResult = new Customer(4,"Vopičákyně","Zagorová",addr4);
+			assertEquals(expResult, cust4);
+
+			expResult = new Customer(5,"Vopičákyně","Zagorová",addr1);
+			cust2 = custm.createNewCustomer(expResult);
+			assertEquals(expResult, cust2);
+
+			try {
+				custm.createNewCustomer(null);
+				fail();
+			} catch (CustomerManagerException e) {
+			}
+
+			try {
+				cust1 = custm.createNewCustomer(null, null, null);
+				fail();
+			} catch (CustomerManagerException e) {
+			}
+			try {
+				cust1 = custm.createNewCustomer("íéahécý=+ěcřě19++/19+/*+", null, addr3);
+				fail();
+			} catch (CustomerManagerException e) {
+			}try {
+				cust1 = custm.createNewCustomer("&#B)*!@)_!@$LJLJKK? ? L:", "(#@ce n8pqn90//1*/?? ?, null);", null);
+				fail();
+			} catch (CustomerManagerException e) {
+			}
+			try { //too long argument
+				cust1 = custm.createNewCustomer("01234567890123456789012345678901234567890123456789012345678901234567890123456789", "(#@ce n8pqn90//1*/?? ?, null);", addr4);
+				assertEquals(CustomerManagerImpl.MAXLENGTH_NAME, cust1.getName().length());
+			} catch (CustomerManagerException e){
+				fail();
+			}
+			try { //too long argument
+				cust1 = custm.createNewCustomer("01234567890123456789012345678901234567890123456789012345678901234567890123456789", "01234567890123456789012345678901234567890123456789012345678901234567890123456789",addr2);
+				assertEquals(CustomerManagerImpl.MAXLENGTH_SURNAME, cust1.getName().length());
+			} catch (CustomerManagerException e){
+				fail();
+			}
+
+		} catch (CustomerManagerException ex) {
+			ex.printStackTrace();
+			fail();
+		}
 	}
 
 	/**
@@ -135,4 +190,12 @@ public class CustomerManagerImplTest {
 		fail("The test case is a prototype.");
 	}
 
+
+	private static final void initializeDatabase(){
+		DBManager dbm = new DBManager();
+		dbm.connect();
+		dbm.dropTable("ADDRESS");
+		dbm.dropTable("CUSTOMER");
+		dbm.disconnect();
+	}
 }

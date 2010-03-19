@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package carrental.managers;
 
 import org.junit.After;
@@ -11,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author SirGlorg
  */
-public class ReduceLongStringTest {
+public class DBManagerTest {
 
-    public ReduceLongStringTest() {
+    public DBManagerTest() {
     }
 
 	@BeforeClass
@@ -32,6 +37,7 @@ public class ReduceLongStringTest {
     public void tearDown() {
     }
 
+
 	/**
 	 * Test of reduceLongString method, of class ReduceLongString.
 	 */
@@ -40,28 +46,28 @@ public class ReduceLongStringTest {
 		String value = "";
 		int maxLength = 0;
 		String expResult = "";
-		String result = ReduceLongString.reduceLongString(value, maxLength);
+		String result = DBManager.reduceLongString(value, maxLength);
 		assertEquals(expResult, result);
 
 		value = null;
 		expResult = null;
-		result = ReduceLongString.reduceLongString(value, maxLength);
+		result = DBManager.reduceLongString(value, maxLength);
 		assertEquals(expResult, result);
 
 		value = "123456789";
 		maxLength = 5;
 		expResult = "12345";
-		result = ReduceLongString.reduceLongString(value, maxLength);
+		result = DBManager.reduceLongString(value, maxLength);
 		assertEquals(expResult, result);
 
 		maxLength = 0;
 		expResult = "";
-		result = ReduceLongString.reduceLongString(value, maxLength);
+		result = DBManager.reduceLongString(value, maxLength);
 		assertEquals(expResult, result);
 
 		maxLength = -4;
 		expResult = null;
-		result = ReduceLongString.reduceLongString(value, maxLength);
+		result = DBManager.reduceLongString(value, maxLength);
 		assertEquals(expResult, result);
 	}
 

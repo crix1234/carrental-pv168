@@ -11,10 +11,10 @@ import java.util.ArrayList;
  * @author Pavel Mican
  */
 public class AddressManagerImpl implements AddressManager {
-	private static final int MAXLENGTH_STREET = 40;
-	private static final int MAXLENGTH_TOWN = 40;
-	private static final int MAXLENGTH_STATE = 40;
-	private static final int MAXLENGTH_ZIPCODE = 20;
+	public static final int MAXLENGTH_STREET = 40;
+	public static final int MAXLENGTH_TOWN = 40;
+	public static final int MAXLENGTH_STATE = 40;
+	public static final int MAXLENGTH_ZIPCODE = 20;
 
 	/**
 	 * Creates new <code>Address</code> and saves it into the database
@@ -24,8 +24,9 @@ public class AddressManagerImpl implements AddressManager {
 	 * @param town String containing town name. Longer than database capacity names will be reduced
 	 * @param state String containing state name. Longer than database capacity names will be reduced
 	 * @param zipcode String containing zipcode. Longer than database capacity names will be reduced
-	 * @return Address generated <code>Address</code> reflecting input parameters
-	 * @return null if <code>Address</code> generating was unsuccessfull
+	 * @return Address generated <code>Address</code> reflecting input parameters;
+	 *         null if <code>Address</code> generating was unsuccessfull
+	 * @throws AddressManagerException if address creating was unsuccessfull
 	 */
 	public Address createNewAddress(int houseNumber, String street, String town, String state, String zipcode) throws AddressManagerException {
 		//initialize db connection
@@ -38,7 +39,7 @@ public class AddressManagerImpl implements AddressManager {
 		if (db.connect()) { //connecting to the database was successfull
 			if (createTable(db)) { //TODO remove table creation on createNewAddress call and replace it by database initialisation at program start up
 				int id = -1;
-				PreparedStatement st = db.getInsertIntoTableStatement("ADDRESS", "houseNumber, street, town, state, zipcode", 5);
+				PreparedStatement st = db.getInsertIntoTableStatement("ADDRESS", "houseNumber", "street", "town", "state", "zipcode");
 				try {
 					st.clearParameters();
 					st.setInt(1, houseNumber);
@@ -68,11 +69,24 @@ public class AddressManagerImpl implements AddressManager {
 		return addr;
 	}
 
+	/**
+	 * Calls createNewAddress with values gathered from given parameter <code>Address</code>
+	 * @param address <code>Address</code> containing values to be set into the database
+	 * @return Address generated <code>Address</code> reflecting input parameters;
+	 *         null if <code>Address</code> generating was unsuccessfull
+	 * @throws AddressManagerException if address creating was unsuccessfull
+	 */
+	public Address createNewAddress(Address address) throws AddressManagerException {
+		if (address != null) {
+			return createNewAddress(address.getHouseNumber(), address.getStreet(), address.getTown(), address.getState(), address.getZipcode());
+		} else {
+			throw new AddressManagerException("createNewAddress argument should be an existing instance of Address, not null.");
+		}
+	}
 
 	/**
 	 * Edits existing <code>Address</code> accessed in the database by ID
 	 * @param newAddress <code>Address</code> that should be inserted into the new database.
-	 * @param id
 	 * @throws AddressManagerException
 	 * @throws IllegalArgumentException
 	 */
@@ -170,8 +184,8 @@ public class AddressManagerImpl implements AddressManager {
 	 * creates new table if it's not already in the database
 	 * 
 	 * @param db <code>DBManager</code> that handles db connection and table creation
-	 * @return true if successfull creation
-	 * @return false if the database respond was unsuccessfull for some reason
+	 * @return true if successfull creation;
+	 *         false if the database respond was unsuccessfull for some reason
 	 */
 	private static final boolean createTable(DBManager db) {
 		String columns =	"ID				INTEGER NOT NULL" +

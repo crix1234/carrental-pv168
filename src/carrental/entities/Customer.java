@@ -17,7 +17,6 @@ public class Customer {
 		setAddress(address);
 	}
 
-
 	/**
 	 * @return <code>id</code> integer
 	 */
@@ -135,6 +134,12 @@ public class Customer {
 		hash = 67 * hash + (this.surname != null ? this.surname.hashCode() : 0);
 		hash = 67 * hash + (this.address != null ? this.address.hashCode() : 0);
 		return hash;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer: ID: " + id + ", Name: " + name +
+				", Surname: " + surname + "; "+ address;
 	}
 
 
