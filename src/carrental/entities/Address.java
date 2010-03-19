@@ -187,7 +187,7 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "Address: ID" + id + ", House number: " + houseNumber +
+		return "Address: ID: " + id + ", House number: " + houseNumber +
 				", Street: " + street + ", Town: " + town +
 				", State: " + state + ", Zipcode: " + zipcode;
 	}

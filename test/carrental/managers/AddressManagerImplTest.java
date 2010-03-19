@@ -139,6 +139,7 @@ public class AddressManagerImplTest {
 			Address result = addm.findAddressByID(1);
 			assertEquals(result, address);
 
+			//try to edit non existing address id
 			address =  new Address(3,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
 			try {
 				addm.editAddress(address);

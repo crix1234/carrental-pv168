@@ -91,10 +91,10 @@ public class AddressManagerImpl implements AddressManager {
 	 * @throws IllegalArgumentException
 	 */
 	public void editAddress(Address newAddress) throws AddressManagerException, IllegalArgumentException {
-		//initialize db connection
 		if (newAddress.getId() < 1) {
 			throw new IllegalArgumentException("Can't find Address with id < 1");
 		}
+		//initialize db connection
 		DBManager db = new DBManager();
 		if (db.connect()) { //connecting to the database was successfull
 			if (db.tableExists("ADDRESS")) {
@@ -130,10 +130,10 @@ public class AddressManagerImpl implements AddressManager {
 	 * @throws IllegalArgumentException on id out of range (id > 0)
 	 */
 	public Address findAddressByID(int id) throws AddressManagerException, IllegalArgumentException {
-		//initialize db connection
 		if (id < 1) {
 			throw new IllegalArgumentException("Can't find Address with id < 1");
 		}
+		//initialize db connection
 		DBManager db = new DBManager();
 		Address addr = null;
 		if (db.connect()) { //connecting to the database was successfull
@@ -200,7 +200,7 @@ public class AddressManagerImpl implements AddressManager {
 	}
 
 	/**
-	 * Handles creating <code>Address</code> instances from database <code>ResultSet</code>
+	 * Handles creating <code>Address</code> instances from database's <code>ResultSet</code>
 	 * 
 	 * @param rs <code>ResultSet</code> retreaved from the previous database query
 	 * @return ArrayList<Address> of all retreaved addresses

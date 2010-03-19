@@ -2,7 +2,7 @@ package carrental.managers;
 
 import carrental.entities.Address;
 import carrental.entities.Customer;
-import java.util.Collection;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,6 +40,7 @@ public class CustomerManagerImplTest {
 	 */
 	@Test
 	public void testCreateNewCustomer() {
+		System.out.println("createNewCustomer");
 		//initialize database
 		initializeDatabase();
 		//new customer generation
@@ -63,9 +64,11 @@ public class CustomerManagerImplTest {
 			assertEquals(expResult, cust3);
 			expResult = new Customer(4,"Vopičákyně","Zagorová",addr4);
 			assertEquals(expResult, cust4);
-
+			
+			//4 address slots are already taken, so next address will have database ID 5; the same applies to the Customer
+			addr1 = new Address(5,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 			expResult = new Customer(5,"Vopičákyně","Zagorová",addr1);
-			cust2 = custm.createNewCustomer(expResult);
+			cust2 = custm.createNewCustomer(expResult); //test of creating record using Customer instance instead of passing separate arguments
 			assertEquals(expResult, cust2);
 
 			try {
@@ -101,8 +104,8 @@ public class CustomerManagerImplTest {
 				fail();
 			}
 
-		} catch (CustomerManagerException ex) {
-			ex.printStackTrace();
+		} catch (CustomerManagerException e) {
+			e.printStackTrace();
 			fail();
 		}
 	}
@@ -113,10 +116,33 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testEditCustomer() {
 		System.out.println("editCustomer");
-		CustomerManagerImpl instance = new CustomerManagerImpl();
-		instance.editCustomer();
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		//initialize database
+		initializeDatabase();
+		//new addresses generation
+		CustomerManagerImpl custm = new CustomerManagerImpl();
+		try {
+			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			Address addr2 = new Address(2,157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+			Address addr3 = new Address(1,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+			custm.createNewCustomer("Sir","Glorg",addr1);
+			custm.createNewCustomer("Jára!","Cimrman!!",addr2);
+			Customer custommer = new Customer(2,"Nouhwej","Customér",addr3);
+			//edit existing customer
+			custm.editCustomer(custommer);
+			Customer result = custm.findCustomerByID(2);
+			assertEquals(result, custommer);
+
+			//try to edit nonexisting Customer ID
+			custommer =  new Customer(3,"Nonexisting","Customer",addr2);
+			try {
+				custm.editCustomer(custommer);
+				fail();
+			} catch (IllegalArgumentException e) {
+			}
+		} catch (CustomerManagerException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 
 	/**
@@ -125,10 +151,24 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testDeleteCustomer() {
 		System.out.println("deleteCustomer");
-		CustomerManagerImpl instance = new CustomerManagerImpl();
-		instance.deleteCustomer();
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		fail();
+		//initialize database
+		initializeDatabase();
+		//new addresses generation
+		CustomerManagerImpl custm = new CustomerManagerImpl();
+		try {
+			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			Address addr2 = new Address(2,157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+			Address addr3 = new Address(1,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+			Customer cust1 = custm.createNewCustomer("Sir","Glorg",addr1);
+			Customer cust2 = custm.createNewCustomer("Jára!","Cimrman!!",addr2);
+			Customer cust3 = new Customer(2,"Nouhwej","Customér",addr3);
+			//TODO make this test realy testing sth
+		} catch (CustomerManagerException e) {
+			e.printStackTrace();
+			fail();
+		}
+		
 	}
 
 	/**
@@ -137,13 +177,36 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testFindCustomerByID() {
 		System.out.println("findCustomerByID");
-		int id = 0;
-		CustomerManagerImpl instance = new CustomerManagerImpl();
-		Customer expResult = null;
-		Customer result = instance.findCustomerByID(id);
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		//initialize database
+		initializeDatabase();
+		//new addresses generation
+		CustomerManagerImpl custm = new CustomerManagerImpl();
+		try {
+			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			Address addr2 = new Address(2,157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+			Address addr3 = new Address(3,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+			Customer cust1 = new Customer(1,"Sir","Glorg",addr1);
+			Customer cust2 = new Customer(2,"Jára!","Cimrman!!",addr2);
+			Customer cust3 = new Customer(3,"Nouhwej","Customér",addr3);
+			custm.createNewCustomer(cust1);
+			custm.createNewCustomer(cust2);
+			custm.createNewCustomer(cust3);
+			Customer found1 = custm.findCustomerByID(1);
+			Customer found2 = custm.findCustomerByID(2);
+			Customer found3 = custm.findCustomerByID(3);
+			assertEquals(cust1, found1);
+			assertEquals(cust2, found2);
+			assertEquals(cust3, found3);
+			assertNotSame(cust1, found2);
+			assertNotSame(cust1, found3);
+			assertNotSame(cust2, found3);
+			assertNull(custm.findCustomerByID(4)); // try to reach customer, that is not in the database
+			assertNotNull(custm.findCustomerByID(3)); //last in database
+			//TODO make this test realy testing sth
+		} catch (CustomerManagerException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 
 	/**
@@ -152,13 +215,45 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testFindCustomerByName() {
 		System.out.println("findCustomerByName");
-		String name = "";
-		CustomerManagerImpl instance = new CustomerManagerImpl();
-		Customer expResult = null;
-		Customer result = instance.findCustomerByName(name);
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		//initialize database
+		initializeDatabase();
+		//new addresses generation
+		CustomerManagerImpl custm = new CustomerManagerImpl();
+		try {
+			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			Address addr2 = new Address(2,157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+			Address addr3 = new Address(3,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+			Customer cust1 = new Customer(1,"Sir","Glorg",addr1);
+			Customer cust2 = new Customer(2,"Jára!","Cimrman!!",addr2);
+			Customer cust3 = new Customer(3,"Nouhwej","Customér",addr3);
+			custm.createNewCustomer(cust1);
+			custm.createNewCustomer(cust2);
+			custm.createNewCustomer(cust3);
+			custm.createNewCustomer(new Customer(1,"Sir","Olin",addr2));
+			custm.createNewCustomer(new Customer(879,"Sir","Felixys",addr3));
+			ArrayList<Customer> found1 = custm.findCustomerByName("Sir");
+			ArrayList<Customer> found2 = custm.findCustomerByName("Jára!");
+			ArrayList<Customer> found3 = custm.findCustomerByName("Customér");
+			for (Customer cust : found1) {
+				assertEquals("Sir", cust.getName());
+			}
+			assertEquals(3,found1.size());	// there should be 3 Customers found
+
+			for (Customer cust : found2) {
+				assertEquals("Jára!", cust.getName());
+			}
+			assertEquals(1,found2.size());
+			assertEquals(0,found3.size());	// there should be no successful search
+
+			try {
+				found1 = custm.findCustomerByName(null);
+				fail();
+			} catch (IllegalArgumentException e) {
+			}
+		} catch (CustomerManagerException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 
 	/**
@@ -167,13 +262,45 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testFindCustomerBySurname() {
 		System.out.println("findCustomerBySurname");
-		String surname = "";
-		CustomerManagerImpl instance = new CustomerManagerImpl();
-		Customer expResult = null;
-		Customer result = instance.findCustomerBySurname(surname);
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		//initialize database
+		initializeDatabase();
+		//new addresses generation
+		CustomerManagerImpl custm = new CustomerManagerImpl();
+		try {
+			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			Address addr2 = new Address(2,157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+			Address addr3 = new Address(3,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+			Customer cust1 = new Customer(1,"Sir","Glorg",addr1);
+			Customer cust2 = new Customer(2,"Jára!","Cimrman!!",addr2);
+			Customer cust3 = new Customer(3,"Nouhwej","Customér",addr3);
+			custm.createNewCustomer(cust1);
+			custm.createNewCustomer(cust2);
+			custm.createNewCustomer(cust3);
+			custm.createNewCustomer(new Customer(1,"Olej","Cimrman!!",addr2));
+			custm.createNewCustomer(new Customer(879,"Krtek","Cimrman!!",addr3));
+			ArrayList<Customer> found1 = custm.findCustomerBySurname("Cimrman!!");
+			ArrayList<Customer> found2 = custm.findCustomerBySurname("Customér");
+			ArrayList<Customer> found3 = custm.findCustomerBySurname("Nouhwej");
+			for (Customer cust : found1) {
+				assertEquals("Cimrman!!", cust.getSurname());
+			}
+			assertEquals(3,found1.size());	// there should be 3 Customers found
+
+			for (Customer cust : found2) {
+				assertEquals("Customér", cust.getSurname());
+			}
+			assertEquals(1,found2.size());
+			assertEquals(0,found3.size());	// there should be no successful search
+
+			try {
+				custm.findCustomerBySurname(null);
+				fail();
+			} catch (IllegalArgumentException e) {
+			}
+		} catch (CustomerManagerException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 
 	/**
@@ -182,12 +309,43 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testFindAllCustomers() {
 		System.out.println("findAllCustomers");
-		CustomerManagerImpl instance = new CustomerManagerImpl();
-		Collection expResult = null;
-		Collection result = instance.findAllCustomers();
-		assertEquals(expResult, result);
-		// TODO review the generated test code and remove the default call to fail.
-		fail("The test case is a prototype.");
+		//initialize database
+		initializeDatabase();
+		//new addresses generation
+		CustomerManagerImpl custm = new CustomerManagerImpl();
+		try {
+			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			Address addr2 = new Address(2,157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+			Address addr3 = new Address(3,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+			Address addr4 = new Address(4,77400, "1v35/*53", "avb6006y", "atva535", "236548 88");
+			Address addr5 = new Address(5,77400, "59483 řepa", "1345ab00af0ac6y", "Banglafs34q", "2asdf6546");
+			Customer cust1 = new Customer(1,"Sir","Glorg",addr1);
+			Customer cust2 = new Customer(2,"Jára!","Cimrman!!",addr2);
+			Customer cust3 = new Customer(3,"Nouhwej","Customér",addr3);
+			Customer cust4 = new Customer(4,"Olej","Cimrman!!",addr4);
+			Customer cust5 = new Customer(5,"Krtek","Cimrman!!",addr5);
+			custm.createNewCustomer(cust1);
+			custm.createNewCustomer(cust2);
+			custm.createNewCustomer(cust3);
+			custm.createNewCustomer(cust4);
+			custm.createNewCustomer(cust5);
+			ArrayList<Customer> found = custm.findAllCustomers();
+			assertEquals(5,found.size());	// there should be 3 Customers found
+			assertEquals(cust1,found.get(0));
+			assertEquals(cust2,found.get(1));
+			assertEquals(cust3,found.get(2));
+			assertEquals(cust4,found.get(3));
+			assertEquals(cust5,found.get(4));
+			
+			assertNotSame(cust1, found.get(1)); //totaly different
+			assertNotSame(cust2, found.get(0)); //totaly different
+			assertNotSame(cust3, found.get(4)); //totaly different
+			assertNotSame(cust4, found.get(2)); //totaly different
+			assertNotSame(cust5, found.get(3)); //totaly different
+		} catch (CustomerManagerException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 
 
