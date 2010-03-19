@@ -44,7 +44,7 @@ public class AddressManagerImplTest {
 		//initialize database
 		initializeDatabase();
 		//new addresses generation
-		AddressManager addm = new AddressManagerImpl();
+		AddressManagerImpl addm = new AddressManagerImpl();
 		try {
 			Address addr1 = addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 			Address addr2 = addm.createNewAddress(234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
@@ -59,6 +59,18 @@ public class AddressManagerImplTest {
 			assertEquals(expResult, addr3);
 			expResult = new Address(4,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
 			assertEquals(expResult, addr4);
+
+			//create address with passing Address instance
+			expResult = new Address(5,234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			addr1 = addm.createNewAddress(expResult);
+			assertEquals(expResult, addr1);
+
+			try {
+				addr1 = addm.createNewAddress(null);
+				fail();
+			} catch (AddressManagerException e) {
+				e.printStackTrace();
+			}
 
 			try {
 				addr1 = addm.createNewAddress(-3,  "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
@@ -92,20 +104,21 @@ public class AddressManagerImplTest {
 			}
 			try { //too long argument
 				addr1 = addm.createNewAddress(8, "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "b", "c", "d");
-				assertEquals(40, addr1.getStreet().length());
+				assertEquals(AddressManagerImpl.MAXLENGTH_STREET, addr1.getStreet().length());
 			} catch (AddressManagerException e){
 				fail();
 			}
 			try { //too long / precise length
 				addr1 = addm.createNewAddress(8, "a", "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", "12345678901234567890");
-				assertEquals(40, addr1.getTown().length());
-				assertEquals(40, addr1.getState().length());
-				assertEquals(20, addr1.getZipcode().length());
+				assertEquals(AddressManagerImpl.MAXLENGTH_TOWN, addr1.getTown().length());
+				assertEquals(AddressManagerImpl.MAXLENGTH_STATE, addr1.getState().length());
+				assertEquals(AddressManagerImpl.MAXLENGTH_ZIPCODE, addr1.getZipcode().length());
 			} catch (AddressManagerException e){
 				fail();
 			}
 		} catch (AddressManagerException ex) {
 			ex.printStackTrace();
+			fail();
 		}
 	}
 
@@ -117,7 +130,7 @@ public class AddressManagerImplTest {
 		//initialize database
 		initializeDatabase();
 		//new addresses generation
-		AddressManager addm = new AddressManagerImpl();
+		AddressManagerImpl addm = new AddressManagerImpl();
 		try {
 			addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 			addm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
@@ -147,7 +160,7 @@ public class AddressManagerImplTest {
 			//initialize database
 			initializeDatabase();
 			//new addresses generation
-			AddressManager addm = new AddressManagerImpl();
+			AddressManagerImpl addm = new AddressManagerImpl();
 			Address addr1 = addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 			Address addr2 = addm.createNewAddress(234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 			addm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
@@ -196,7 +209,7 @@ public class AddressManagerImplTest {
 		}
 	}
 
-	public void initializeDatabase(){
+	private static final void initializeDatabase(){
 		DBManager dbm = new DBManager();
 		dbm.connect();
 		dbm.dropTable("ADDRESS");

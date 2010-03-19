@@ -162,15 +162,22 @@ public class DBManager {
 	 *
 	 *
 	 * @param tableName String name of an existing table in the database
-	 * @param valueNames String containing new values
-	 * @param values
-	 * @return PreparedStatement
+	 * @param valueNames custom amount of <code>String</code> arguments containing
+	 *                   names of values that are to be changed
+	 * @return PreparedStatement Statement used for database calling
 	 */
-	public PreparedStatement getInsertIntoTableStatement(String tableName, String valueNames, int valuesCount) {
+	public PreparedStatement getInsertIntoTableStatement(String tableName, String ... valueNames) {
 		PreparedStatement st = null;	//prepare new statement for inserting Address into the database
 		if (connection != null) {
-			String strStatement = "INSERT INTO APP." + tableName + "(" + valueNames + ") VALUES (";// + ")";
-			for (int i = 0; i < valuesCount; i++) {	// adds question marks at places for later inserting certain values
+			String strStatement = "INSERT INTO APP." + tableName + "(";
+			for (int i = 0; i < valueNames.length; i++) {	// adds value names that are to be changed
+				if (i > 0) {
+					strStatement += ", ";
+				}
+				strStatement += valueNames[i];
+			}
+			 strStatement += ") VALUES (";
+			for (int i = 0; i < valueNames.length; i++) {	// adds question marks at places for later inserting certain values
 				if (i > 0) {
 					strStatement += ", ";
 				}

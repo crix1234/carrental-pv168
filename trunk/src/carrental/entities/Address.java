@@ -1,6 +1,5 @@
 package carrental.entities;
 
-import carrental.managers.ReduceLongString;
 /**
  *
  * @author Pavel Mican
@@ -184,6 +183,13 @@ public class Address {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Address: ID" + id + ", House number: " + houseNumber +
+				", Street: " + street + ", Town: " + town +
+				", State: " + state + ", Zipcode: " + zipcode;
 	}
 
 }
