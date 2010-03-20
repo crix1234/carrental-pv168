@@ -118,7 +118,7 @@ public class CustomerManagerImplTest {
 		System.out.println("editCustomer");
 		//initialize database
 		initializeDatabase();
-		//new addresses generation
+		//new customer generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		try {
 			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
@@ -151,24 +151,32 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testDeleteCustomer() {
 		System.out.println("deleteCustomer");
-		fail();
 		//initialize database
 		initializeDatabase();
-		//new addresses generation
+		//new customer generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
+		AddressManagerImpl addrm = new AddressManagerImpl();
 		try {
 			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 			Address addr2 = new Address(2,157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
-			Address addr3 = new Address(1,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+			Address addr3 = new Address(3,77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
 			Customer cust1 = custm.createNewCustomer("Sir","Glorg",addr1);
 			Customer cust2 = custm.createNewCustomer("Jára!","Cimrman!!",addr2);
-			Customer cust3 = new Customer(2,"Nouhwej","Customér",addr3);
-			//TODO make this test realy testing sth
-		} catch (CustomerManagerException e) {
+			Customer cust3 = custm.createNewCustomer("Nouhwej","Customér",addr3);
+			Customer deleted = custm.deleteCustomer(cust2);
+			ArrayList<Customer> results = custm.findAllCustomers();
+			assertEquals(2,results.size());
+			assertEquals(cust2,deleted);
+			assertEquals(cust1, results.get(0));
+			assertEquals(cust3, results.get(1));
+			assertNotSame(cust2, results.get(0));
+			assertNotSame(cust2, results.get(1));
+			assertNull(addrm.findAddressByID(addr2.getId()));	//should be deleted too
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
-		
 	}
 
 	/**
@@ -179,7 +187,7 @@ public class CustomerManagerImplTest {
 		System.out.println("findCustomerByID");
 		//initialize database
 		initializeDatabase();
-		//new addresses generation
+		//new customer generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		try {
 			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
@@ -202,7 +210,6 @@ public class CustomerManagerImplTest {
 			assertNotSame(cust2, found3);
 			assertNull(custm.findCustomerByID(4)); // try to reach customer, that is not in the database
 			assertNotNull(custm.findCustomerByID(3)); //last in database
-			//TODO make this test realy testing sth
 		} catch (CustomerManagerException e) {
 			e.printStackTrace();
 			fail();
@@ -217,7 +224,7 @@ public class CustomerManagerImplTest {
 		System.out.println("findCustomerByName");
 		//initialize database
 		initializeDatabase();
-		//new addresses generation
+		//new customer generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		try {
 			Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
