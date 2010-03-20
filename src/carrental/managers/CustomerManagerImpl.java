@@ -40,7 +40,7 @@ public class CustomerManagerImpl implements CustomerManager {
 		DBManager db = new DBManager();
 		Customer customer = null;
 		if (db.connect()) { //connecting to the database was successfull
-			if (createTable(db)) { //TODO remove table creation on createNewAddress call and replace it by database initialisation at program start up
+			if (createTable(db)) { //TODO remove table creation on createNewCustomer call and replace it by database initialisation at program start up
 				int customerID = -1;
 				int addressID = savedAddress.getId();
 				PreparedStatement st = db.getInsertIntoTableStatement("CUSTOMER", "name", "surname", "addressID");
@@ -62,7 +62,7 @@ public class CustomerManagerImpl implements CustomerManager {
 					customer = new Customer(customerID, name, surname, savedAddress);
 				} catch (IllegalArgumentException ex) {
 					ex.printStackTrace();
-					//TODO sql Addres insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
+					//TODO sql Customer insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
 					throw new CustomerManagerException(ex);
 				}
 			}
@@ -87,6 +87,13 @@ public class CustomerManagerImpl implements CustomerManager {
 	}
 
 
+	/**
+	 * Edits existing <code>Customer</code> accessed in the database by ID
+	 * @param newCustomer <code>Customer</code> that should be inserted into the database
+	 * @throws CustomerManagerException	on SQL queries failure
+	 * @throws IllegalArgumentException on failure accessing given <code>Customer</code>'s <code>id</code> in the database
+	 *                                  or <code>id</code> < 1
+	 */
 	public void editCustomer(Customer newCustomer) throws CustomerManagerException, IllegalArgumentException {
 		if (newCustomer.getId() < 1) {
 			throw new IllegalArgumentException("Can't find Address with id < 1");
@@ -124,10 +131,76 @@ public class CustomerManagerImpl implements CustomerManager {
 		throw new CustomerManagerException("Database connection was not reached.");
 	}
 
-	public void deleteCustomer(Customer customer) {
-		throw new UnsupportedOperationException("Not supported yet.");
+
+	/**
+	 * deletes given customer from the database; Only customer ID is searched
+	 * @param customer the <code>Customer</code> that should be removed from the database.
+	 * @return Customer representation of the deleted <code>Custommer</code>
+	 * @throws CustomerManagerException on customer deletion failure;
+	 *         IllegalArgumentException if argument is null or customer <code>id</code> < 1
+	 */
+	public Customer deleteCustomer(Customer customer) throws CustomerManagerException, IllegalArgumentException {
+		if (customer != null) {
+			return deleteCustomer(customer.getId());
+		} else {
+			throw new IllegalArgumentException("Can't delete customer that is null");
+		}
 	}
 
+	/**
+	 * deletes <code>Customer</code> with the given id from the database
+	 * @param custId the <code>id</code> of the <code>Customer</code> record in the database
+	 *           that should be removed
+	 * @return Customer representation of the deleted <code>Customer</code>
+	 * @throws CustomerManagerException on customer deletion failure;
+	 *         IllegalArgumentException if argument is null or customer <code>id</code> < 1
+	 */
+	public Customer deleteCustomer(int id) throws CustomerManagerException, IllegalArgumentException {
+		if (id > 0) {
+			AddressManagerImpl addrm = new AddressManagerImpl();
+			Customer customerToDelete = findCustomerByID(id);
+			Address customersAddress = customerToDelete.getAddress();
+			try {
+				addrm.deleteAddress(customersAddress);
+			} catch (AddressManagerException ex) {
+				ex.printStackTrace();
+				throw new CustomerManagerException(ex);
+			}
+			if (customerToDelete != null) {
+				//initialize db connection
+				DBManager db = new DBManager();
+				if (db.connect()) { //connecting to the database was successfull
+					try {
+						if (db.deleteRow("CUSTOMER", id) == 0) {
+							return null;	// no address was actually deleted
+						} else {
+							return customerToDelete;
+						}
+					} catch (SQLException ex) {
+						try {
+							addrm.createNewAddress(customersAddress); //customer was not delted, but his address was, so it's necessarry to put it back into the database
+						} catch (AddressManagerException addrEx) {
+							addrEx.printStackTrace();
+							throw new CustomerManagerException("FATAL ERROR - it's highly probable, that the database has been corrupted. Customers addres was to be removed but failed and its Address reentry into the database failed to");
+						}
+						ex.printStackTrace();
+						throw new CustomerManagerException(ex);
+					}
+				}
+			}
+			return null;
+		} else {
+			throw new IllegalArgumentException("Customer id should be positive integer!");
+		}
+	}
+
+	/**
+	 * Finds <code>Customer</code> with a given <code>id</code>
+	 * @param id <code>Customer</code>'s <code>id</code> in the database
+	 * @return <code>Customer</code> with a given <code>id</code> or <code>null</code>
+	 * @throws CustomerManagerException on SQL failure
+	 * @throws IllegalArgumentException on <code>id</code> out of range (if <code>id</code> < 1)
+	 */
 	public Customer findCustomerByID(int id) throws CustomerManagerException, IllegalArgumentException  {
 		if (id < 1) {
 			throw new IllegalArgumentException("Can't find Customer with id < 1");
@@ -157,6 +230,14 @@ public class CustomerManagerImpl implements CustomerManager {
 		return customer;
 	}
 
+	/**
+	 * Finds <code>Customer</code> with a given <code>name</code>
+	 * @param name <code>Customer</code>'s <code>name</code> in the database
+	 * @return <code>ArrayList<Customer></code> with a given <code>name</code>
+	 *               (including empty <code>ArrayList</code> if no result found)
+	 * @throws CustomerManagerException on SQL failure
+	 * @throws IllegalArgumentException if <code>name</code> is null
+	 */
 	public ArrayList<Customer> findCustomerByName(String name) throws CustomerManagerException, IllegalArgumentException  {
 		if (name == null) {
 			throw new IllegalArgumentException("Argument String can not be null");
@@ -164,6 +245,14 @@ public class CustomerManagerImpl implements CustomerManager {
 		return findCustomerByValue("name",name);
 	}
 
+	/**
+	 * Finds <code>Customer</code> with a given <code>surname</code>
+	 * @param surname <code>Customer</code>'s <code>surname</code> in the database
+	 * @return <code>ArrayList<Customer></code> with a given <code>surname</code>
+	 *               (including empty <code>ArrayList</code> if no result found)
+	 * @throws CustomerManagerException on SQL failure
+	 * @throws IllegalArgumentException if <code>surname</code> is null
+	 */
 	public ArrayList<Customer> findCustomerBySurname(String surname) throws CustomerManagerException  {
 		if (surname == null) {
 			throw new IllegalArgumentException("Argument String can not be null");
@@ -171,6 +260,12 @@ public class CustomerManagerImpl implements CustomerManager {
 		return findCustomerByValue("surname",surname);
 	}
 
+	/**
+	 * Finds all <code>Customer</code>s and returns the <code>ArrayList</code>
+	 * containing instances of found <code>Customer</code>s.
+	 * @return ArrayList<Customer> containing all the found values
+	 * @throws CustomerManagerException on SQL query failure
+	 */
 	public ArrayList<Customer> findAllCustomers() throws CustomerManagerException  {
 		return findCustomerByValue(null,null);
 	}
@@ -199,7 +294,7 @@ public class CustomerManagerImpl implements CustomerManager {
 	 * @param rs <code>ResultSet</code> retreaved from the previous database query
 	 * @return ArrayList<Customer> of all retreaved customers
 	 * @throws SQLException if reading arguments fails
-	 * @throws CustomerManagerException if calling customer's Address fails
+	 * @throws CustomerManagerException if calling customer's <code>Address</code> fails
 	 */
 	private static final ArrayList<Customer> getCustomerFromResultSet(ResultSet rs) throws SQLException, CustomerManagerException {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
@@ -224,7 +319,17 @@ public class CustomerManagerImpl implements CustomerManager {
 		return customers;
 	}
 
-	private static final ArrayList<Customer> findCustomerByValue(String valueName, String value) throws CustomerManagerException, IllegalArgumentException  {
+	/**
+	 * Supporting method handling SQL searches using the given value name and the
+	 * corresponding value. Select search is triggered with given parameters and
+	 * the result is returned.
+	 * @param valueName the name of the attribute in the database, that should be checked
+	 * @param value records with this value in <code>valueName</code> column of the database
+	 *              will be returned.
+	 * @return ArrayList<Customer> <code>Collection</code> of all the results
+	 * @throws CustomerManagerException on SQL query failure
+	 */
+	private static final ArrayList<Customer> findCustomerByValue(String valueName, String value) throws CustomerManagerException  {
 		//initialize db connection
 		DBManager db = new DBManager();
 		ArrayList<Customer> queryResult = null;

@@ -123,6 +123,38 @@ public class AddressManagerImplTest {
 	}
 
 	/**
+	 * Test of deleteAddress method, of class AddressManagerImpl.
+	 */
+	@Test
+	public void testDeleteAddress() {
+		System.out.println("deleteAddress");
+		//initialize database
+		initializeDatabase();
+		//new customer generation
+		AddressManagerImpl addm = new AddressManagerImpl();
+		try {
+			Address addr1 = addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			Address addr2 = addm.createNewAddress(234, "Elisky Krasnohorske", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
+			Address addr3 = addm.createNewAddress(157, "Kluka Chlupateho", "Tábor", "Čechy", "123 48");
+			Address addr4 = addm.createNewAddress(77400, "Žluťouličatá řepa", "Šílené koňské měchy", "Bangladéš", "238 88");
+
+			assertEquals(addr3,addm.deleteAddress(addr3));	//should delete only one row
+			ArrayList<Address> results = addm.findAllAddresses();
+			assertEquals(3,results.size());
+			assertEquals(addr1, results.get(0));
+			assertEquals(addr2, results.get(1));
+			assertEquals(addr4, results.get(2));
+			assertNotSame(addr3, results.get(0));
+			assertNotSame(addr3, results.get(1));
+			assertNotSame(addr3, results.get(2));
+			assertNull(addm.deleteAddress(5));	//nonexisting id -> no deletion
+		} catch (AddressManagerException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	/**
 	 * Test of editAddress method, of class AddressManagerImpl.
 	 */
 	@Test

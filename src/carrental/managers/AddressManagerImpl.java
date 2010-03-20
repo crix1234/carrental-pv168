@@ -60,7 +60,7 @@ public class AddressManagerImpl implements AddressManager {
 					addr = new Address(id, houseNumber, street, town, state, zipcode);
 				} catch (IllegalArgumentException ex) {
 					ex.printStackTrace();
-					//TODO sql Addres insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
+					//TODO sql Address insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
 					throw new AddressManagerException(ex);
 				}
 			}
@@ -85,10 +85,58 @@ public class AddressManagerImpl implements AddressManager {
 	}
 
 	/**
+	 * deletes given address from the database; Only address ID is searched
+	 * @param address the <code>Address</code> that should be removed from the database.
+	 * @return Address representation of the deleted <code>Address</code>
+	 * @throws AddressManagerException on address deletion failure;
+	 *         IllegalArgumentException if argument is null or address id < 1
+	 */
+	public Address deleteAddress(Address address) throws AddressManagerException, IllegalArgumentException {
+		if (address != null) {
+			return deleteAddress(address.getId());
+		} else {
+			throw new IllegalArgumentException("Can't delete address that is null");
+		}
+	}
+
+
+	/**
+	 * deletes <code>Address</code> with the given id from the database
+	 * @param id the <code>id</code> of the <code>Address</code> record in the database
+	 *           that should be removed
+	 * @return Address representation of the deleted <code>Address</code>
+	 * @throws AddressManagerException on address deletion failure;
+	 *         IllegalArgumentException if argument is null or address id < 1
+	 */
+	public Address deleteAddress(int id) throws AddressManagerException, IllegalArgumentException {
+		if (id > 0) {
+			Address deletedAddress = findAddressByID(id);
+			if (deletedAddress != null) {
+				//initialize db connection
+				DBManager db = new DBManager();
+				if (db.connect()) { //connecting to the database was successfull
+					try {
+						if (db.deleteRow("ADDRESS", id) == 0) {
+							return null;	// no address was actually deleted
+						}
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+						throw new AddressManagerException(ex);
+					}
+				}
+			}
+			return deletedAddress;
+		} else {
+			throw new IllegalArgumentException("Address id should be positive integer!");
+		}
+	}
+
+	/**
 	 * Edits existing <code>Address</code> accessed in the database by ID
-	 * @param newAddress <code>Address</code> that should be inserted into the new database.
-	 * @throws AddressManagerException
-	 * @throws IllegalArgumentException
+	 * @param newAddress <code>Address</code> that should be inserted into the database.
+	 * @throws CustomerManagerException	on SQL queries failure
+	 * @throws IllegalArgumentException on failure accessing given <code>Address</code>'s <code>id</code> in the database
+	 *                                  or <code>id</code> < 1
 	 */
 	public void editAddress(Address newAddress) throws AddressManagerException, IllegalArgumentException {
 		if (newAddress.getId() < 1) {
@@ -121,17 +169,12 @@ public class AddressManagerImpl implements AddressManager {
 		throw new AddressManagerException("Database connection was not reached.");
 	}
 
-	public void deleteAddress(Address address) throws AddressManagerException {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-
 	/**
-	 * Finds <code>Addres</code> with a given ID in the database
-	 * @param id database ID
-	 * @return <code>Address</code> with a given ID
+	 * Finds <code>Addres</code> with a given <code>id</code> in the database
+	 * @param id <code>Address</code> <code>id</code> in the database
+	 * @return <code>Address</code> with a given <code>id</code> or <code>null</code>
 	 * @throws AddressManagerException on SQL failure
-	 * @throws IllegalArgumentException on id out of range (id > 0)
+	 * @throws IllegalArgumentException on <code>id</code> out of range (if <code>id</code> < 1)
 	 */
 	public Address findAddressByID(int id) throws AddressManagerException, IllegalArgumentException {
 		if (id < 1) {
@@ -159,10 +202,10 @@ public class AddressManagerImpl implements AddressManager {
 	}
 
 	/**
-	 * Finds all addresses in the database and returns the <code>List</code>
-	 * containing instances of <code>Address</code>.
-	 * @return List<Address> containing all the found values
-	 * @throws AddressManagerException
+	 * Finds all <code>Address</code>es in the database and returns the <code>List</code>
+	 * containing instances of found <code>Address</code>es.
+	 * @return ArrayList<Address> containing all the found values
+	 * @throws AddressManagerException on SQL query failure
 	 */
 	public ArrayList<Address> findAllAddresses() throws AddressManagerException {
 		//initialize db connection

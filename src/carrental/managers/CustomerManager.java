@@ -14,7 +14,8 @@ public interface CustomerManager {
 	public Customer createNewCustomer(String name, String surname, Address address) throws CustomerManagerException;
 	public Customer createNewCustomer(Customer customer) throws CustomerManagerException;
 	public void editCustomer(Customer customer) throws CustomerManagerException ;
-	public void deleteCustomer(Customer customer) throws CustomerManagerException ;
+	public Customer deleteCustomer(Customer customer) throws CustomerManagerException, IllegalArgumentException;
+	public Customer deleteCustomer(int id) throws CustomerManagerException, IllegalArgumentException;
 	public Customer findCustomerByID(int id) throws CustomerManagerException ;
 	public ArrayList<Customer> findCustomerByName(String name) throws CustomerManagerException ;
 	public ArrayList<Customer> findCustomerBySurname(String surname) throws CustomerManagerException ;

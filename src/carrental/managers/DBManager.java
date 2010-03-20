@@ -1,7 +1,6 @@
 package carrental.managers;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -114,6 +113,26 @@ public class DBManager {
 			}
 		}
 		return true;
+	}
+
+
+	/**
+	 * Deletes existing row in <code>tableName</code>, identified by
+	 * the given <code>id</code>.
+	 * @param tableName name of the table to be dropped
+	 * @param id integer of a certain row in the database
+	 * @return int representing the number of deleted rows
+	 * @throws SQLException on addres deletion failure
+	 */
+	public int deleteRow(String tableName, int id) throws SQLException {
+		if (tableExists(tableName)) {
+			if (connection != null) {
+				PreparedStatement st = connection.prepareStatement("DELETE FROM APP." + tableName + " WHERE ID = ?");
+				st.setInt(1, id);	//sets ID to delete
+				return st.executeUpdate();
+			}
+		}
+		return 0;
 	}
 
 	/**
