@@ -121,6 +121,10 @@ public class AddressManagerImpl implements AddressManager {
 		throw new AddressManagerException("Database connection was not reached.");
 	}
 
+	public void deleteAddress(Address address) throws AddressManagerException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
 
 	/**
 	 * Finds <code>Addres</code> with a given ID in the database
