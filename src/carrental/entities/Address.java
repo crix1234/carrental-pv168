@@ -29,7 +29,7 @@ public class Address {
 
 	/**
 	 * sets address <code>id</code>. Should not be directly changed.
-	 * @param id new unique car id.
+	 * @param id new unique address id.
 	 * @throws IllegalArgumentException defined id is out of range (id >= 0)
 	 */
 	private void setId(int id) throws IllegalArgumentException {
