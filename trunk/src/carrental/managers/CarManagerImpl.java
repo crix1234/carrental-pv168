@@ -48,7 +48,7 @@ public class CarManagerImpl implements CarManager {
 					st.setString(1, name);
 					st.setString(2, licensePlate);
 					st.setString(3, state);
-					st.setString(4, carType);
+					//TODO st.setString(4, carType);
 					st.executeUpdate();
 					ResultSet results = st.getGeneratedKeys();
 					if (results.next()) {
@@ -107,7 +107,7 @@ public class CarManagerImpl implements CarManager {
 					st.setString(1, newCar.getName());
 					st.setString(2, newCar.getLicencePlate());
 					st.setString(3, newCar.getState());
-					st.setString(4, newCar.getCarType());
+					//TODO st.setString(4, newCar.getCarType());
 					st.setInt(5, newCar.getId()); //sets ID value into the statement condition (WHERE ID = ?)
 					int updates = st.executeUpdate();
 					if (updates < 1) {
@@ -132,7 +132,7 @@ public class CarManagerImpl implements CarManager {
          * @throws CarManagerException on SQL query failure
          */
 	public ArrayList<Car> findAllCars() throws CarManagerException {
-
+                throw new UnsupportedOperationException();
         }
 
         /**
@@ -144,7 +144,7 @@ public class CarManagerImpl implements CarManager {
          * @throws IllegalArgumentException on <code>id</code> out of range (if <code>id</code> < 1)
          */
 	public Car findCarById(int id) throws CarManagerException, IllegalArgumentException {
-
+                throw new UnsupportedOperationException();
         }
 
         /**
@@ -157,6 +157,7 @@ public class CarManagerImpl implements CarManager {
          */
 	public ArrayList<Car> findCarByState(String state) throws CarManagerException {
         //TODO ma to vlastne vracat kolekciu, alebo len auto?
+                throw new UnsupportedOperationException();
         }
 
         /**
@@ -167,7 +168,7 @@ public class CarManagerImpl implements CarManager {
          * @throws CarManagerException on SQL query failure
          */
 	public Car findCarByName(String name) throws CarManagerException {
-
+                throw new UnsupportedOperationException();
         }
 
         /**
@@ -208,7 +209,8 @@ public class CarManagerImpl implements CarManager {
 	 * @throws SQLException if reading arguments fails
 	 */
 	private static final ArrayList<Car> getCarFromResultSet(ResultSet rs) throws SQLException {
-		ArrayList<Car> cars = new ArrayList<Car>();
+                throw new UnsupportedOperationException();
+		/*ArrayList<Car> cars = new ArrayList<Car>();
 		Car newCar;
 		while(rs.next()) {
 			newCar = new Car(rs.getInt("ID"),
@@ -218,7 +220,7 @@ public class CarManagerImpl implements CarManager {
 					rs.getString("carType"));
 			cars.add(newCar);
 		}
-		return cars;
+		return cars;*/
 	}
 
 }
