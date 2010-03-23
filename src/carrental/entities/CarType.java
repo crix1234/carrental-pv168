@@ -8,5 +8,6 @@ package carrental.entities;
 public enum CarType {
 	PERSONAL,
 	VAN,
-	MICROBUS;
+	MICROBUS,
+        SPORTCAR;
 }
