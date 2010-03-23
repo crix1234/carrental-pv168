@@ -9,12 +9,14 @@ public class Car {
 	private String name;
 	private String licencePlate;
 	private String state;
+        private CarType carType;
 
-	public Car(int id, String name, String licencePlate, String state) throws IllegalArgumentException {
+	public Car(int id, String name, String licencePlate, String state, CarType carType) throws IllegalArgumentException {
 		setId(id);
 		setName(name);
 		setLicencePlate(licencePlate);
 		setState(state);
+                setCarType(carType);
 	}
 
 	/**
@@ -96,36 +98,47 @@ public class Car {
 		this.id = id;
 	}
 
+        public CarType getCarType() {
+                    return carType;
+        }
 
-	@Override
-	public int hashCode() {
-		int hash = 3;
-		hash = 97 * hash + (this.name != null ? this.name.hashCode() : 0);
-		hash = 97 * hash + (this.licencePlate != null ? this.licencePlate.hashCode() : 0);
-		hash = 97 * hash + (this.state != null ? this.state.hashCode() : 0);
-		return hash;
-	}
+        public void setCarType(CarType carType) {
+                this.carType = carType;
+        }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final Car other = (Car) obj;
-		if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
-			return false;
-		}
-		if ((this.licencePlate == null) ? (other.licencePlate != null) : !this.licencePlate.equals(other.licencePlate)) {
-			return false;
-		}
-		if ((this.state == null) ? (other.state != null) : !this.state.equals(other.state)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 59 * hash + (this.licencePlate != null ? this.licencePlate.hashCode() : 0);
+        hash = 59 * hash + (this.state != null ? this.state.hashCode() : 0);
+        hash = 59 * hash + (this.carType != null ? this.carType.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Car other = (Car) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if ((this.licencePlate == null) ? (other.licencePlate != null) : !this.licencePlate.equals(other.licencePlate)) {
+            return false;
+        }
+        if ((this.state == null) ? (other.state != null) : !this.state.equals(other.state)) {
+            return false;
+        }
+        if (this.carType != other.carType && (this.carType == null || !this.carType.equals(other.carType))) {
+            return false;
+        }
+        return true;
+    }
 
 
 }
