@@ -6,13 +6,20 @@
 package carrental.managers;
 
 import carrental.entities.Car;
-import java.util.Collection;
+import carrental.entities.CarType;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
  * @author Matej Cizik
  */
 public class CarManagerImpl implements CarManager {
+        public static final int MAXLENGTH_NAME = 40;
+        public static final int MAXLENGTH_LICENSE_PLATE = 40;
+        public static final int MAXLENGTH_STATE = 40;
 
         /**
          * Creates new <code>Car</code> and saves it into the database
@@ -27,19 +34,21 @@ public class CarManagerImpl implements CarManager {
          */
         public Car createNewCar(String name, String licensePlate, String state, CarType carType) throws CarManagerException {
                 //initialize db connection
+                name = DBManager.reduceLongString(name,MAXLENGTH_NAME);
+                licensePlate = DBManager.reduceLongString(licensePlate,MAXLENGTH_LICENSE_PLATE);
+                state = DBManager.reduceLongString(state,MAXLENGTH_STATE);
                 DBManager db = new DBManager();
 		Car car = null;
 		if (db.connect()) { //connecting to the database was successfull
 			if (createTable(db)) { //TODO remove table creation on createNewAddress call and replace it by database initialisation at program start up
 				int id = -1;
-				PreparedStatement st = db.getInsertIntoTableStatement("CARS", "houseNumber", "street", "town", "state", "zipcode");
+				PreparedStatement st = db.getInsertIntoTableStatement("CARS", "name", "licensePlate", "state", "carType");
 				try {
 					st.clearParameters();
-					st.setInt(1, houseNumber);
-					st.setString(2, street);
-					st.setString(3, town);
-					st.setString(4, state);
-					st.setString(5, zipcode);
+					st.setString(1, name);
+					st.setString(2, licensePlate);
+					st.setString(3, state);
+					st.setString(4, carType);
 					st.executeUpdate();
 					ResultSet results = st.getGeneratedKeys();
 					if (results.next()) {
@@ -47,32 +56,72 @@ public class CarManagerImpl implements CarManager {
 					}
 				} catch (SQLException ex) {
 					ex.printStackTrace();
-					throw new AddressManagerException(ex);
+					throw new CarManagerException(ex);
 				}
 				try {
-					addr = new Address(id, houseNumber, street, town, state, zipcode);
+					car = new Car(id, name, licensePlate, state, carType);
 				} catch (IllegalArgumentException ex) {
 					ex.printStackTrace();
 					//TODO sql Address insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
-					throw new AddressManagerException(ex);
+					throw new CarManagerException(ex);
 				}
 			}
 			db.disconnect();
 		}
-		return addr;
+		return car;
 	}
-        }
+
+        /**
+	 * Calls createNewCar with values gathered from given parameter <code>car</code>
+	 * @param car <code>Car</code> containing values to be set into the database
+	 * @return Car generated <code>Car</code> reflecting input parameters;
+	 *         null if <code>Car</code> generating was unsuccessfull
+	 * @throws CarManagerException if address creating was unsuccessfull
+	 */
+	public Car createNewCar(Car car) throws CarManagerException {
+		if (car != null) {
+			return createNewCar(car.getName(), car.getLicencePlate(), car.getState(), car.getCarType());
+		} else {
+			throw new CarManagerException("createNewCar argument should be an existing instance of Car, not null.");
+		}
+	}
 
         /**
          * Edits existing <code>Car</code> accessed in the database by ID
          *
-         * @param car <code>Car</code> that should be inserted into the database.
+         * @param newCar <code>Car</code> that should be inserted into the database.
          * @throws CarManagerException on SQL queries failure
          * @throws IllegalArgumentException on failure accessing given <code>Car</code>'s <code>id</code> in the database
 	 *                                  or <code>id</code> < 1
          */
-	public void editCar(Car car) throws CarManagerException, IllegalArgumentException{
-
+	public void editCar(Car newCar) throws CarManagerException, IllegalArgumentException{
+                if (newCar.getId() < 1) {
+			throw new IllegalArgumentException("Can't find Car with id < 1");
+		}
+		//initialize db connection
+		DBManager db = new DBManager();
+		if (db.connect()) { //connecting to the database was successfull
+			if (db.tableExists("CAR")) {
+				try {
+					PreparedStatement st = db.getUpdateTableStatement("CAR", "name","licensePlate","state","carType");
+					st.setString(1, newCar.getName());
+					st.setString(2, newCar.getLicencePlate());
+					st.setString(3, newCar.getState());
+					st.setString(4, newCar.getCarType());
+					st.setInt(5, newCar.getId()); //sets ID value into the statement condition (WHERE ID = ?)
+					int updates = st.executeUpdate();
+					if (updates < 1) {
+						throw new IllegalArgumentException("Given ID was not found during update");
+					}
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+					throw new CarManagerException(ex);
+				}
+				return;
+			}
+			throw new CarManagerException("Could not find CAR table.");
+		}
+		throw new CarManagerException("Database connection was not reached.");
         }
 
         /**
@@ -82,7 +131,7 @@ public class CarManagerImpl implements CarManager {
          * @return ArrayList<Car> containing all the found values
          * @throws CarManagerException on SQL query failure
          */
-	public Collection<Car> findAllCars() throws CarManagerException {
+	public ArrayList<Car> findAllCars() throws CarManagerException {
 
         }
 
@@ -106,7 +155,7 @@ public class CarManagerImpl implements CarManager {
          * @return ArrayList<Car> containing all the found values
          * @throws CarManagerException on SQL query failure
          */
-	public Collection<Car> findCarByState(String state) throws CarManagerException {
+	public ArrayList<Car> findCarByState(String state) throws CarManagerException {
         //TODO ma to vlastne vracat kolekciu, alebo len auto?
         }
 
@@ -132,5 +181,44 @@ public class CarManagerImpl implements CarManager {
         public void deleteCar(int id) throws CarManagerException {
 
         }
+
+        /**
+	 * creates new table if it's not already in the database
+	 *
+	 * @param db <code>DBManager</code> that handles db connection and table creation
+	 * @return true if successfull creation;
+	 *         false if the database respond was unsuccessfull for some reason
+	 */
+	private static final boolean createTable(DBManager db) {
+		String columns =	"ID				INTEGER NOT NULL" +
+							"				PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
+							"				(START WITH 1, INCREMENT BY 1)," +
+							"name			VARCHAR(" + MAXLENGTH_NAME + ")," +
+							"licensePlate		VARCHAR(" + MAXLENGTH_LICENSE_PLATE + ")," +
+							"state			VARCHAR(" + MAXLENGTH_STATE + ")," +
+                                                        "carType                VARCHAR";
+		return db.createTable("CAR",columns);
+	}
+
+        /**
+	 * Handles creating <code>Car</code> instances from database's <code>ResultSet</code>
+	 *
+	 * @param rs <code>ResultSet</code> retreaved from the previous database query
+	 * @return ArrayList<Car> of all retreaved addresses
+	 * @throws SQLException if reading arguments fails
+	 */
+	private static final ArrayList<Car> getCarFromResultSet(ResultSet rs) throws SQLException {
+		ArrayList<Car> cars = new ArrayList<Car>();
+		Car newCar;
+		while(rs.next()) {
+			newCar = new Car(rs.getInt("ID"),
+					rs.getString("name"),
+					rs.getString("licencePlate"),
+					rs.getString("state"),
+					rs.getString("carType"));
+			cars.add(newCar);
+		}
+		return cars;
+	}
 
 }
