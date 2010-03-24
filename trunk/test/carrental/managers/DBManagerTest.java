@@ -18,6 +18,7 @@ public class DBManagerTest {
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
+		System.out.println("DB MANAGER TESTS:");
 	}
 
 	@AfterClass
@@ -38,6 +39,7 @@ public class DBManagerTest {
 	 */
 	@Test
 	public void testReduceLongString() {
+		System.out.println("reduceLongString");
 		String value = "";
 		int maxLength = 0;
 		String expResult = "";

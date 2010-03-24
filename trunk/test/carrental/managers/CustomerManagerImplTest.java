@@ -21,6 +21,7 @@ public class CustomerManagerImplTest {
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
+		System.out.println("CUSTOMER MANAGER TESTS:");
 	}
 
 	@AfterClass

@@ -18,6 +18,7 @@ public class CustomerTest {
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
+		System.out.println("CUSTOMER TESTS:");
 	}
 
 	@AfterClass
@@ -37,6 +38,7 @@ public class CustomerTest {
 	 */
 	@Test
 	public void testGetId() {
+		System.out.println("getId");
 		int expResult = 88;
 		Address address = new Address(1,31, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		Customer customer = new Customer(expResult,"Pavel","Mičan",address);
@@ -61,6 +63,7 @@ public class CustomerTest {
 	 */
 	@Test
 	public void testSetName() {
+		System.out.println("setName");
 		Address address = new Address(1,12, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		String expResult = "Eliškyš";
 		Customer instance = new Customer(88,expResult,"Mičan",address);
@@ -83,6 +86,7 @@ public class CustomerTest {
 	 */
 	@Test
 	public void testGetSurname() {
+		System.out.println("getSurname");
 		String expResult = "Ňuma ňumi ňuhňamáš";
 		Address address = new Address(1,8493, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		Customer customer = new Customer(88,"?Ovoce",expResult,address);
@@ -95,6 +99,7 @@ public class CustomerTest {
 	 */
 	@Test
 	public void testSetSurname() {
+		System.out.println("setSurname");
 		Address address = new Address(1,12, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		String expResult = "Mičan";
 		Customer instance = new Customer(88,"Eliškyš",expResult,address);
@@ -117,6 +122,7 @@ public class CustomerTest {
 	 */
 	@Test
 	public void testGetAddress() {
+		System.out.println("getAddress");
 		Address expResult = new Address(1,8493, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		Address address = new Address(1,8493, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		Customer customer = new Customer(88,"?Ovoce","Zeh#lenina",address);
@@ -129,6 +135,7 @@ public class CustomerTest {
 	 */
 	@Test
 	public void testSetAddress() {
+		System.out.println("setAddress");
 		Address address = new Address(1,12, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		Address expResult = new Address(879,12, "Karohžíéqěcébžžqř", "19š1čmýáýá--_/908ˇů!''12¨¨¨", "Czech\"\" Republic¨¨¨¨''Z\\34q5", "544 \"\"\"}}__)()()))01");
 		Customer instance = new Customer(88,"Eliškyš","adsfpíáýféíasdfaklndvla",address);
@@ -147,6 +154,7 @@ public class CustomerTest {
 	 */
 	@Test
 	public void testEquals() {
+		System.out.println("equals");
 		// define couples of identical addresses
 		Address addr1 = new Address(2,43545, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		Address addr2 = new Address(79,43545, "Alžbjety přeříznuté", "Ulanbhattar", "Planet X", "Xy xero žero");
@@ -184,6 +192,7 @@ public class CustomerTest {
 	 */
 	@Test
 	public void testHashCode() {
+		System.out.println("hashCode");
 		int result1;
 		int result2;
 		Address addr1 = new Address(2,43545, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");

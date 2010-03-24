@@ -34,7 +34,6 @@ public class CustomerManagerImpl implements CustomerManager {
 		try {
 			savedAddress = addrm.createNewAddress(address);
 		} catch (AddressManagerException ex) {
-			ex.printStackTrace();
 			throw new CustomerManagerException(ex);
 		}
 		DBManager db = new DBManager();
@@ -55,13 +54,11 @@ public class CustomerManagerImpl implements CustomerManager {
 						customerID = results.getInt(1);
 					}
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new CustomerManagerException(ex);
 				}
 				try {
 					customer = new Customer(customerID, name, surname, savedAddress);
 				} catch (IllegalArgumentException ex) {
-					ex.printStackTrace();
 					//TODO sql Customer insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
 					throw new CustomerManagerException(ex);
 				}
@@ -108,7 +105,6 @@ public class CustomerManagerImpl implements CustomerManager {
 					try {
 						addrm.editAddress(newAddress);
 					} catch (Exception ex) {
-						ex.printStackTrace();
 						throw new CustomerManagerException(ex);
 					}
 					PreparedStatement st = db.getUpdateTableStatement("CUSTOMER", "name","surname","addressID");
@@ -121,7 +117,6 @@ public class CustomerManagerImpl implements CustomerManager {
 						throw new IllegalArgumentException("Given ID was not found during update");
 					}
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new CustomerManagerException(ex);
 				}
 				return;
@@ -163,7 +158,6 @@ public class CustomerManagerImpl implements CustomerManager {
 			try {
 				addrm.deleteAddress(customersAddress);
 			} catch (AddressManagerException ex) {
-				ex.printStackTrace();
 				throw new CustomerManagerException(ex);
 			}
 			if (customerToDelete != null) {
@@ -180,10 +174,8 @@ public class CustomerManagerImpl implements CustomerManager {
 						try {
 							addrm.createNewAddress(customersAddress); //customer was not delted, but his address was, so it's necessarry to put it back into the database
 						} catch (AddressManagerException addrEx) {
-							addrEx.printStackTrace();
 							throw new CustomerManagerException("FATAL ERROR - it's highly probable, that the database has been corrupted. Customers addres was to be removed but failed and its Address reentry into the database failed to");
 						}
-						ex.printStackTrace();
 						throw new CustomerManagerException(ex);
 					}
 				}
@@ -218,7 +210,6 @@ public class CustomerManagerImpl implements CustomerManager {
 						customer = queryResult.get(0);
 					}
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new CustomerManagerException(ex);
 				}
 			} else {
@@ -305,7 +296,6 @@ public class CustomerManagerImpl implements CustomerManager {
 			try {	// frist receive Customers Address using retrieved ID from the database
 				customersAddress = addrm.findAddressByID(rs.getInt("addressID"));
 			} catch (Exception ex) {	//IllegalArgumentException or AddressManagerException
-				ex.printStackTrace();
 				throw new CustomerManagerException(ex);
 			}
 			// now create new Customer using all retrieved info from the database
@@ -346,7 +336,6 @@ public class CustomerManagerImpl implements CustomerManager {
 					ResultSet rs = st.executeQuery();
 					queryResult = getCustomerFromResultSet(rs);
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new CustomerManagerException(ex);
 				}
 			} else {
