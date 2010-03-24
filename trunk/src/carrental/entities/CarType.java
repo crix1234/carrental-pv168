@@ -9,5 +9,5 @@ public enum CarType {
 	PERSONAL,
 	VAN,
 	MICROBUS,
-        SPORTCAR;
+	SPORTCAR;
 }

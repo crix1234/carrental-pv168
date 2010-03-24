@@ -30,6 +30,7 @@ public class AddressManagerImplTest {
 
     @Before
     public void setUp() {
+		initializeDatabase();
     }
 
     @After
@@ -41,8 +42,6 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testCreateNewAddress() {
-		//initialize database
-		initializeDatabase();
 		//new addresses generation
 		AddressManagerImpl addm = new AddressManagerImpl();
 		try {
@@ -128,8 +127,6 @@ public class AddressManagerImplTest {
 	@Test
 	public void testDeleteAddress() {
 		System.out.println("deleteAddress");
-		//initialize database
-		initializeDatabase();
 		//new customer generation
 		AddressManagerImpl addm = new AddressManagerImpl();
 		try {
@@ -159,8 +156,6 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testEditAddress() {
-		//initialize database
-		initializeDatabase();
 		//new addresses generation
 		AddressManagerImpl addm = new AddressManagerImpl();
 		try {
@@ -190,8 +185,6 @@ public class AddressManagerImplTest {
 	@Test
 	public void testFindAddressByID() {
 		try {
-			//initialize database
-			initializeDatabase();
 			//new addresses generation
 			AddressManagerImpl addm = new AddressManagerImpl();
 			Address addr1 = addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
@@ -219,8 +212,6 @@ public class AddressManagerImplTest {
 	@Test
 	public void testFindAllAddresses() {
 		try {
-			//initialize database
-			initializeDatabase();
 			//new addresses generation
 			AddressManager addm = new AddressManagerImpl();
 			Address addr1 = addm.createNewAddress(13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
@@ -248,5 +239,7 @@ public class AddressManagerImplTest {
 		dbm.dropTable("ADDRESS");
 		dbm.disconnect();
 	}
+
+
 
 }

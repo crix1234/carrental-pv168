@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package carrental.managers;
 
 import carrental.entities.Car;
@@ -17,27 +12,28 @@ import java.util.ArrayList;
  * @author Matej Cizik
  */
 public class CarManagerImpl implements CarManager {
-        public static final int MAXLENGTH_NAME = 40;
-        public static final int MAXLENGTH_LICENSE_PLATE = 40;
-        public static final int MAXLENGTH_STATE = 40;
 
-        /**
-         * Creates new <code>Car</code> and saves it into the database
-         * 
-         * @param name String containing car name. Longer than database capacity names will be reduced
-         * @param licensePlate String containing car licensePlate. Longer than database capacity names will be reduced
-         * @param state String containing car state. Longer than database capacity names will be reduced
-         * @param carType type of the car
-         * @return Car generated <code>Car</code> reflecting input parameters;
-         *         null if <code>Car</code> generating was unsuccessfull 
-         * @throws CarManagerException if car creating was unsuccessfull
-         */
-        public Car createNewCar(String name, String licensePlate, String state, CarType carType) throws CarManagerException {
-                //initialize db connection
-                name = DBManager.reduceLongString(name,MAXLENGTH_NAME);
-                licensePlate = DBManager.reduceLongString(licensePlate,MAXLENGTH_LICENSE_PLATE);
-                state = DBManager.reduceLongString(state,MAXLENGTH_STATE);
-                DBManager db = new DBManager();
+	public static final int MAXLENGTH_NAME = 40;
+	public static final int MAXLENGTH_LICENSE_PLATE = 40;
+	public static final int MAXLENGTH_STATE = 40;
+
+	/**
+	 * Creates new <code>Car</code> and saves it into the database
+	 *
+	 * @param name String containing car name. Longer than database capacity names will be reduced
+	 * @param licensePlate String containing car licensePlate. Longer than database capacity names will be reduced
+	 * @param state String containing car state. Longer than database capacity names will be reduced
+	 * @param carType type of the car
+	 * @return Car generated <code>Car</code> reflecting input parameters;
+	 *         null if <code>Car</code> generating was unsuccessfull
+	 * @throws CarManagerException if car creating was unsuccessfull
+	 */
+	public Car createNewCar(String name, String licensePlate, String state, CarType carType) throws CarManagerException {
+		//initialize db connection
+		name = DBManager.reduceLongString(name, MAXLENGTH_NAME);
+		licensePlate = DBManager.reduceLongString(licensePlate, MAXLENGTH_LICENSE_PLATE);
+		state = DBManager.reduceLongString(state, MAXLENGTH_STATE);
+		DBManager db = new DBManager();
 		Car car = null;
 		if (db.connect()) { //connecting to the database was successfull
 			if (createTable(db)) { //TODO remove table creation on createNewAddress call and replace it by database initialisation at program start up
@@ -48,7 +44,7 @@ public class CarManagerImpl implements CarManager {
 					st.setString(1, name);
 					st.setString(2, licensePlate);
 					st.setString(3, state);
-					//TODO st.setString(4, carType);
+					st.setString(4, carType.name());
 					st.executeUpdate();
 					ResultSet results = st.getGeneratedKeys();
 					if (results.next()) {
@@ -71,7 +67,7 @@ public class CarManagerImpl implements CarManager {
 		return car;
 	}
 
-        /**
+	/**
 	 * Calls createNewCar with values gathered from given parameter <code>car</code>
 	 * @param car <code>Car</code> containing values to be set into the database
 	 * @return Car generated <code>Car</code> reflecting input parameters;
@@ -86,16 +82,16 @@ public class CarManagerImpl implements CarManager {
 		}
 	}
 
-        /**
-         * Edits existing <code>Car</code> accessed in the database by ID
-         *
-         * @param newCar <code>Car</code> that should be inserted into the database.
-         * @throws CarManagerException on SQL queries failure
-         * @throws IllegalArgumentException on failure accessing given <code>Car</code>'s <code>id</code> in the database
+	/**
+	 * Edits existing <code>Car</code> accessed in the database by ID
+	 *
+	 * @param newCar <code>Car</code> that should be inserted into the database.
+	 * @throws CarManagerException on SQL queries failure
+	 * @throws IllegalArgumentException on failure accessing given <code>Car</code>'s <code>id</code> in the database
 	 *                                  or <code>id</code> < 1
-         */
-	public void editCar(Car newCar) throws CarManagerException, IllegalArgumentException{
-                if (newCar.getId() < 1) {
+	 */
+	public void editCar(Car newCar) throws CarManagerException, IllegalArgumentException {
+		if (newCar.getId() < 1) {
 			throw new IllegalArgumentException("Can't find Car with id < 1");
 		}
 		//initialize db connection
@@ -103,7 +99,7 @@ public class CarManagerImpl implements CarManager {
 		if (db.connect()) { //connecting to the database was successfull
 			if (db.tableExists("CAR")) {
 				try {
-					PreparedStatement st = db.getUpdateTableStatement("CAR", "name","licensePlate","state","carType");
+					PreparedStatement st = db.getUpdateTableStatement("CAR", "name", "licensePlate", "state", "carType");
 					st.setString(1, newCar.getName());
 					st.setString(2, newCar.getLicencePlate());
 					st.setString(3, newCar.getState());
@@ -122,68 +118,67 @@ public class CarManagerImpl implements CarManager {
 			throw new CarManagerException("Could not find CAR table.");
 		}
 		throw new CarManagerException("Database connection was not reached.");
-        }
+	}
 
-        /**
-         * Finds all <code>Cars</code> in the database and returns the <code>List</code>
-         * containing instances of found <code>Cars</code>.
-         *
-         * @return ArrayList<Car> containing all the found values
-         * @throws CarManagerException on SQL query failure
-         */
+	/**
+	 * Finds all <code>Cars</code> in the database and returns the <code>List</code>
+	 * containing instances of found <code>Cars</code>.
+	 *
+	 * @return ArrayList<Car> containing all the found values
+	 * @throws CarManagerException on SQL query failure
+	 */
 	public ArrayList<Car> findAllCars() throws CarManagerException {
-                throw new UnsupportedOperationException();
-        }
+		throw new UnsupportedOperationException();
+	}
 
-        /**
-         * Finds <code>Car</code> with a given <code>id</code> in the database
-         *
-         * @param id <code>Car</code> <code>id</code> in the database
-         * @return <code>Car</code> with a given <code>id</code> or <code>null</code>
-         * @throws CarManagerException on SQL query failure
-         * @throws IllegalArgumentException on <code>id</code> out of range (if <code>id</code> < 1)
-         */
+	/**
+	 * Finds <code>Car</code> with a given <code>id</code> in the database
+	 *
+	 * @param id <code>Car</code> <code>id</code> in the database
+	 * @return <code>Car</code> with a given <code>id</code> or <code>null</code>
+	 * @throws CarManagerException on SQL query failure
+	 * @throws IllegalArgumentException on <code>id</code> out of range (if <code>id</code> < 1)
+	 */
 	public Car findCarById(int id) throws CarManagerException, IllegalArgumentException {
-                throw new UnsupportedOperationException();
-        }
+		throw new UnsupportedOperationException();
+	}
 
-        /**
-         * Finds all <code>Cars</code> with given state in the database and returns
-         * the <code>List</code> containing instances of found <code>Cars</code>.
-         *
-         * @param state <code>state</code> of wanted cars
-         * @return ArrayList<Car> containing all the found values
-         * @throws CarManagerException on SQL query failure
-         */
+	/**
+	 * Finds all <code>Cars</code> with given state in the database and returns
+	 * the <code>List</code> containing instances of found <code>Cars</code>.
+	 *
+	 * @param state <code>state</code> of wanted cars
+	 * @return ArrayList<Car> containing all the found values
+	 * @throws CarManagerException on SQL query failure
+	 */
 	public ArrayList<Car> findCarByState(String state) throws CarManagerException {
-        //TODO ma to vlastne vracat kolekciu, alebo len auto?
-                throw new UnsupportedOperationException();
-        }
+		//TODO ma to vlastne vracat kolekciu, alebo len auto?
+		throw new UnsupportedOperationException();
+	}
 
-        /**
-         * Finds <code>Car</code> with a given <code>name</code> in the database
-         *
-         * @param name <code>Car</code> <code>name</code> in the database
-         * @return <code>Car</code> with a given <code>name</code> or <code>null</code>
-         * @throws CarManagerException on SQL query failure
-         */
+	/**
+	 * Finds <code>Car</code> with a given <code>name</code> in the database
+	 *
+	 * @param name <code>Car</code> <code>name</code> in the database
+	 * @return <code>Car</code> with a given <code>name</code> or <code>null</code>
+	 * @throws CarManagerException on SQL query failure
+	 */
 	public Car findCarByName(String name) throws CarManagerException {
-                throw new UnsupportedOperationException();
-        }
+		throw new UnsupportedOperationException();
+	}
 
-        /**
-         * Deletes <code>Car</code> with the given id from the database
-         *
-         * @param id the <code>id</code> of the <code>Car</code> record in the database
+	/**
+	 * Deletes <code>Car</code> with the given id from the database
+	 *
+	 * @param id the <code>id</code> of the <code>Car</code> record in the database
 	 *           that should be removed
-         * @throws CarManagerException on car deletion failure
-         *         IllegalArgumentException if argument is null or car id < 1
-         */
-        public void deleteCar(int id) throws CarManagerException {
+	 * @throws CarManagerException on car deletion failure
+	 *         IllegalArgumentException if argument is null or car id < 1
+	 */
+	public void deleteCar(int id) throws CarManagerException {
+	}
 
-        }
-
-        /**
+	/**
 	 * creates new table if it's not already in the database
 	 *
 	 * @param db <code>DBManager</code> that handles db connection and table creation
@@ -191,17 +186,17 @@ public class CarManagerImpl implements CarManager {
 	 *         false if the database respond was unsuccessfull for some reason
 	 */
 	private static final boolean createTable(DBManager db) {
-		String columns =	"ID				INTEGER NOT NULL" +
-							"				PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
-							"				(START WITH 1, INCREMENT BY 1)," +
-							"name			VARCHAR(" + MAXLENGTH_NAME + ")," +
-							"licensePlate		VARCHAR(" + MAXLENGTH_LICENSE_PLATE + ")," +
-							"state			VARCHAR(" + MAXLENGTH_STATE + ")," +
-                                                        "carType                VARCHAR";
-		return db.createTable("CAR",columns);
+		String columns = "ID				INTEGER NOT NULL"
+				+ "				PRIMARY KEY GENERATED ALWAYS AS IDENTITY"
+				+ "				(START WITH 1, INCREMENT BY 1),"
+				+ "name			VARCHAR(" + MAXLENGTH_NAME + "),"
+				+ "licensePlate		VARCHAR(" + MAXLENGTH_LICENSE_PLATE + "),"
+				+ "state			VARCHAR(" + MAXLENGTH_STATE + "),"
+				+ "carType                VARCHAR";
+		return db.createTable("CAR", columns);
 	}
 
-        /**
+	/**
 	 * Handles creating <code>Car</code> instances from database's <code>ResultSet</code>
 	 *
 	 * @param rs <code>ResultSet</code> retreaved from the previous database query
@@ -209,18 +204,17 @@ public class CarManagerImpl implements CarManager {
 	 * @throws SQLException if reading arguments fails
 	 */
 	private static final ArrayList<Car> getCarFromResultSet(ResultSet rs) throws SQLException {
-                throw new UnsupportedOperationException();
+		throw new UnsupportedOperationException();
 		/*ArrayList<Car> cars = new ArrayList<Car>();
 		Car newCar;
 		while(rs.next()) {
-			newCar = new Car(rs.getInt("ID"),
-					rs.getString("name"),
-					rs.getString("licencePlate"),
-					rs.getString("state"),
-					rs.getString("carType"));
-			cars.add(newCar);
+		newCar = new Car(rs.getInt("ID"),
+		rs.getString("name"),
+		rs.getString("licencePlate"),
+		rs.getString("state"),
+		rs.getString("carType"));
+		cars.add(newCar);
 		}
 		return cars;*/
 	}
-
 }
