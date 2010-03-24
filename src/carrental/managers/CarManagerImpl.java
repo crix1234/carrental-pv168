@@ -101,7 +101,7 @@ public class CarManagerImpl implements CarManager {
 					st.setString(1, newCar.getName());
 					st.setString(2, newCar.getLicencePlate());
 					st.setString(3, newCar.getState());
-					//TODO st.setString(4, newCar.getCarType());
+					st.setString(4, newCar.getCarType().name());
 					st.setInt(5, newCar.getId()); //sets ID value into the statement condition (WHERE ID = ?)
 					int updates = st.executeUpdate();
 					if (updates < 1) {
@@ -149,7 +149,6 @@ public class CarManagerImpl implements CarManager {
 	 * @throws CarManagerException on SQL query failure
 	 */
 	public ArrayList<Car> findCarByState(String state) throws CarManagerException {
-		//TODO ma to vlastne vracat kolekciu, alebo len auto?
 		throw new UnsupportedOperationException();
 	}
 
@@ -187,9 +186,9 @@ public class CarManagerImpl implements CarManager {
 				+ "				PRIMARY KEY GENERATED ALWAYS AS IDENTITY"
 				+ "				(START WITH 1, INCREMENT BY 1),"
 				+ "name			VARCHAR(" + MAXLENGTH_NAME + "),"
-				+ "licensePlate		VARCHAR(" + MAXLENGTH_LICENSE_PLATE + "),"
-				+ "state			VARCHAR(" + MAXLENGTH_STATE + "),"
-				+ "carType                VARCHAR";
+				+ "licensePlate	VARCHAR(" + MAXLENGTH_LICENSE_PLATE + "),"
+				+ "state		VARCHAR(" + MAXLENGTH_STATE + "),"
+				+ "carType      VARCHAR";
 		return db.createTable("CAR", columns);
 	}
 
@@ -201,17 +200,16 @@ public class CarManagerImpl implements CarManager {
 	 * @throws SQLException if reading arguments fails
 	 */
 	private static final ArrayList<Car> getCarFromResultSet(ResultSet rs) throws SQLException {
-		throw new UnsupportedOperationException();
-		/*ArrayList<Car> cars = new ArrayList<Car>();
+		ArrayList<Car> cars = new ArrayList<Car>();
 		Car newCar;
-		while(rs.next()) {
-		newCar = new Car(rs.getInt("ID"),
-		rs.getString("name"),
-		rs.getString("licencePlate"),
-		rs.getString("state"),
-		rs.getString("carType"));
-		cars.add(newCar);
+		while (rs.next()) {
+			newCar = new Car(rs.getInt("ID"),
+					rs.getString("name"),
+					rs.getString("licencePlate"),
+					rs.getString("state"),
+					CarType.valueOf(rs.getString("carType")));
+			cars.add(newCar);
 		}
-		return cars;*/
+		return cars;
 	}
 }
