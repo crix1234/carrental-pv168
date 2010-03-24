@@ -51,13 +51,11 @@ public class CarManagerImpl implements CarManager {
 						id = results.getInt(1);
 					}
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new CarManagerException(ex);
 				}
 				try {
 					car = new Car(id, name, licensePlate, state, carType);
 				} catch (IllegalArgumentException ex) {
-					ex.printStackTrace();
 					//TODO sql Address insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
 					throw new CarManagerException(ex);
 				}
@@ -110,7 +108,6 @@ public class CarManagerImpl implements CarManager {
 						throw new IllegalArgumentException("Given ID was not found during update");
 					}
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new CarManagerException(ex);
 				}
 				return;

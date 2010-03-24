@@ -18,6 +18,7 @@ public class AddressTest {
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
+		System.out.println("ADDRESS TESTS:");
 	}
 
 	@AfterClass
@@ -37,6 +38,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testGetId() {
+		System.out.println("getId");
 		int expResult = 88;
 		Address instance = new Address(expResult,776, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		int result = instance.getId();
@@ -48,6 +50,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testGetHouseNumber() {
+		System.out.println("getHouseNumber");
 		int expResult = 88;
 		Address instance = new Address(1,expResult, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		int result = instance.getHouseNumber();
@@ -59,6 +62,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testSetHouseNumber() {
+		System.out.println("setHouseNumber");
 		Address instance = new Address(1,12, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		int expResult = 88;
 		instance.setHouseNumber(expResult);
@@ -96,6 +100,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testGetStreet() {
+		System.out.println("getStreet");
 		String expResult = "Karoliny Svetle";
 		Address instance = new Address(1,8488, expResult, "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		String result = instance.getStreet();
@@ -107,6 +112,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testSetStreet() {
+		System.out.println("setStreet");
 		Address instance = new Address(1,12, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		String expResult = "Elišky Krásnohorské";
 		instance.setStreet(expResult);
@@ -128,6 +134,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testGetTown() {
+		System.out.println("getTown");
 		String expResult = "Dvur Kralove nad Labem";
 		Address instance = new Address(1,8488, "Karoliny Svetle", expResult, "Czech Republic", "544 01");
 		String result = instance.getTown();
@@ -139,6 +146,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testSetTown() {
+		System.out.println("setTown");
 		Address instance = new Address(1,12, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		String expResult = "Liberec";
 		instance.setTown(expResult);
@@ -160,6 +168,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testGetState() {
+		System.out.println("getState");
 		String expResult = "Czech Republic";
 		Address instance = new Address(1,8488, "Karoliny Svetle", "Dvur Kralove nad Labem", expResult, "544 01");
 		String result = instance.getState();
@@ -171,6 +180,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testSetState() {
+		System.out.println("setState");
 		Address instance = new Address(1,12, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		String expResult = "United States of America";
 		instance.setState(expResult);
@@ -192,6 +202,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testGetZipcode() {
+		System.out.println("getZipcode");
 		String expResult = "544 01";
 		Address instance = new Address(1,8488, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", expResult);
 		String result = instance.getZipcode();
@@ -203,6 +214,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testSetZipcode() {
+		System.out.println("setZipcode");
 		Address instance = new Address(1,12, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		String expResult = "123 45/500";
 		instance.setZipcode(expResult);
@@ -224,6 +236,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testHashCode() {
+		System.out.println("hashCode");
 		int result1;
 		int result2;
 		Address addr1 = new Address(2,43545, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
@@ -254,6 +267,7 @@ public class AddressTest {
 	 */
 	@Test
 	public void testEquals() {
+		System.out.println("equals");
 		// define couples of identical addresses
 		Address addr1 = new Address(2,43545, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
 		Address addr1_2 = new Address(2,43545, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");

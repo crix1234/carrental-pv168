@@ -53,13 +53,11 @@ public class AddressManagerImpl implements AddressManager {
 						id = results.getInt(1);
 					}
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new AddressManagerException(ex);
 				}
 				try {
 					addr = new Address(id, houseNumber, street, town, state, zipcode);
 				} catch (IllegalArgumentException ex) {
-					ex.printStackTrace();
 					//TODO sql Address insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
 					throw new AddressManagerException(ex);
 				}
@@ -120,7 +118,6 @@ public class AddressManagerImpl implements AddressManager {
 							return null;	// no address was actually deleted
 						}
 					} catch (SQLException ex) {
-						ex.printStackTrace();
 						throw new AddressManagerException(ex);
 					}
 				}
@@ -159,7 +156,6 @@ public class AddressManagerImpl implements AddressManager {
 						throw new IllegalArgumentException("Given ID was not found during update");
 					}
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new AddressManagerException(ex);
 				}
 				return;
@@ -193,7 +189,6 @@ public class AddressManagerImpl implements AddressManager {
 						addr = queryResult.get(0);
 					}
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new AddressManagerException(ex);
 				}
 			}
@@ -218,7 +213,6 @@ public class AddressManagerImpl implements AddressManager {
 					ResultSet rs = st.executeQuery();
 					addr.addAll(getAddressFromResultSet(rs));
 				} catch (SQLException ex) {
-					ex.printStackTrace();
 					throw new AddressManagerException(ex);
 				}
 			}

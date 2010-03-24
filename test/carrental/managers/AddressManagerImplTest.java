@@ -22,6 +22,7 @@ public class AddressManagerImplTest {
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
+		System.out.println("ADDRESS MANAGER TESTS:");
 	}
 
 	@AfterClass
@@ -42,6 +43,7 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testCreateNewAddress() {
+		System.out.println("createNewAddress");
 		//new addresses generation
 		AddressManagerImpl addm = new AddressManagerImpl();
 		try {
@@ -68,7 +70,6 @@ public class AddressManagerImplTest {
 				addr1 = addm.createNewAddress(null);
 				fail();
 			} catch (AddressManagerException e) {
-				e.printStackTrace();
 			}
 
 			try {
@@ -156,6 +157,7 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testEditAddress() {
+		System.out.println("editAddress");
 		//new addresses generation
 		AddressManagerImpl addm = new AddressManagerImpl();
 		try {
@@ -184,6 +186,7 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testFindAddressByID() {
+		System.out.println("findAddressByID");
 		try {
 			//new addresses generation
 			AddressManagerImpl addm = new AddressManagerImpl();
@@ -211,6 +214,7 @@ public class AddressManagerImplTest {
 	 */
 	@Test
 	public void testFindAllAddresses() {
+		System.out.println("findAllAddresses");
 		try {
 			//new addresses generation
 			AddressManager addm = new AddressManagerImpl();
