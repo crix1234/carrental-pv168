@@ -285,12 +285,12 @@ public class CarManagerImpl implements CarManager {
 	 */
 	private static final boolean createTable(DBManager db) {
 		String columns = "ID				INTEGER NOT NULL" +
-						 "				PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
-						 "				(START WITH 1, INCREMENT BY 1)," +
-						 "name			VARCHAR(" + MAXLENGTH_NAME + ")," +
-						 "licensePlate	VARCHAR(" + MAXLENGTH_LICENSE_PLATE + ")," +
-					     "state			VARCHAR(" + MAXLENGTH_STATE + ")," +
-						 "carType       VARCHAR";
+						 "					PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
+						 "					(START WITH 1, INCREMENT BY 1)," +
+						 "name				VARCHAR(" + MAXLENGTH_NAME + ")," +
+						 "licensePlate		VARCHAR(" + MAXLENGTH_LICENSE_PLATE + ")," +
+					     "state				VARCHAR(" + MAXLENGTH_STATE + ")," +
+						 "carType			VARCHAR";
 		return db.createTable("CAR", columns);
 	}
 
