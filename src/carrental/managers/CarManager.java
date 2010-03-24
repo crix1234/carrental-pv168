@@ -15,5 +15,6 @@ public interface CarManager {
 	public Car findCarById(int id) throws CarManagerException, IllegalArgumentException;
 	public ArrayList<Car> findCarByState(String state) throws CarManagerException;
 	public Car findCarByName(String name) throws CarManagerException;
-        public void deleteCar(int id) throws CarManagerException, IllegalArgumentException;
+    public Car deleteCar(int id) throws CarManagerException, IllegalArgumentException;
+	public Car deleteCar(Car car) throws CarManagerException, IllegalArgumentException;
 }

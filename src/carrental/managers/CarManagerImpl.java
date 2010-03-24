@@ -125,7 +125,22 @@ public class CarManagerImpl implements CarManager {
 	 * @throws CarManagerException on SQL query failure
 	 */
 	public ArrayList<Car> findAllCars() throws CarManagerException {
-		throw new UnsupportedOperationException();
+		//initialize db connection
+		DBManager db = new DBManager();
+		ArrayList<Car> car = new ArrayList<Car>();
+		if (db.connect()) { //connecting to the database was successfull
+			if (db.tableExists("CAR")) {
+				PreparedStatement st = db.getSelectFromTableStatement("CAR", "*");
+				try {
+					ResultSet rs = st.executeQuery();
+					car.addAll(getCarFromResultSet(rs));
+				} catch (SQLException ex) {
+					throw new CarManagerException(ex);
+				}
+			}
+			db.disconnect();
+		}
+		return car;
 	}
 
 	/**
@@ -137,7 +152,27 @@ public class CarManagerImpl implements CarManager {
 	 * @throws IllegalArgumentException on <code>id</code> out of range (if <code>id</code> < 1)
 	 */
 	public Car findCarById(int id) throws CarManagerException, IllegalArgumentException {
-		throw new UnsupportedOperationException();
+		if (id < 1) {
+			throw new IllegalArgumentException("Can't find Car with id < 1");
+		}
+		//initialize db connection
+		DBManager db = new DBManager();
+		Car car = null;
+		if (db.connect()) { //connecting to the database was successfull
+			if (db.tableExists("CAR")) {
+				PreparedStatement st = db.getSelectFromTableStatement("CAR", "*", "id = "+id);
+				try {
+					ResultSet rs = st.executeQuery();
+					ArrayList<Car> queryResult = getCarFromResultSet(rs);
+					if (queryResult.size() > 0) {
+						car = queryResult.get(0);
+					}
+				} catch (SQLException ex) {
+					throw new CarManagerException(ex);
+				}
+			}
+		}
+		return car;
 	}
 
 	/**
@@ -149,7 +184,21 @@ public class CarManagerImpl implements CarManager {
 	 * @throws CarManagerException on SQL query failure
 	 */
 	public ArrayList<Car> findCarByState(String state) throws CarManagerException {
-		throw new UnsupportedOperationException();
+		//initialize db connection
+		DBManager db = new DBManager();
+		ArrayList<Car> car = new ArrayList<Car>();
+		if (db.connect()) { //connecting to the database was successfull
+			if (db.tableExists("CAR")) {
+				PreparedStatement st = db.getSelectFromTableStatement("CAR", "*", "state = "+state);
+				try {
+					ResultSet rs = st.executeQuery();
+					car.addAll(getCarFromResultSet(rs));
+				} catch (SQLException ex) {
+					throw new CarManagerException(ex);
+				}
+			}
+		}
+		return car;
 	}
 
 	/**
@@ -160,7 +209,40 @@ public class CarManagerImpl implements CarManager {
 	 * @throws CarManagerException on SQL query failure
 	 */
 	public Car findCarByName(String name) throws CarManagerException {
-		throw new UnsupportedOperationException();
+		//initialize db connection
+		DBManager db = new DBManager();
+		Car car = null;
+		if (db.connect()) { //connecting to the database was successfull
+			if (db.tableExists("CAR")) {
+				PreparedStatement st = db.getSelectFromTableStatement("CAR", "*", "name = "+name);
+				try {
+					ResultSet rs = st.executeQuery();
+					ArrayList<Car> queryResult = getCarFromResultSet(rs);
+					if (queryResult.size() > 0) {
+						car = queryResult.get(0);
+					}
+				} catch (SQLException ex) {
+					throw new CarManagerException(ex);
+				}
+			}
+		}
+		return car;
+	}
+
+	/**
+	 * Deletes given <code>Car</code> from the database
+	 *
+	 * @param car the <code>Car</code> record in the database that should be removed
+	 * @return Car representation of the deleted <code>Car</code>
+	 * @throws CarManagerException on car deletion failure
+	 *         IllegalArgumentException if argument is null or car id < 1
+	 */
+	public Car deleteCar(Car car) throws CarManagerException, IllegalArgumentException {
+		if (car != null) {
+			return deleteCar(car.getId());
+		} else {
+			throw new IllegalArgumentException("Can't delete car that is null");
+		}
 	}
 
 	/**
@@ -168,10 +250,30 @@ public class CarManagerImpl implements CarManager {
 	 *
 	 * @param id the <code>id</code> of the <code>Car</code> record in the database
 	 *           that should be removed
+	 * @return Car representation of the deleted <code>Car</code>
 	 * @throws CarManagerException on car deletion failure
 	 *         IllegalArgumentException if argument is null or car id < 1
 	 */
-	public void deleteCar(int id) throws CarManagerException {
+	public Car deleteCar(int id) throws CarManagerException, IllegalArgumentException {
+		if (id > 0) {
+			Car deletedCar = findCarById(id);
+			if (deletedCar != null) {
+				//initialize db connection
+				DBManager db = new DBManager();
+				if (db.connect()) { //connecting to the database was successfull
+					try {
+						if (db.deleteRow("CAR", id) == 0) {
+							return null;	// no car was actually deleted
+						}
+					} catch (SQLException ex) {
+						throw new CarManagerException(ex);
+					}
+				}
+			}
+			return deletedCar;
+		} else {
+			throw new IllegalArgumentException("Car id should be positive integer!");
+		}
 	}
 
 	/**
@@ -182,13 +284,13 @@ public class CarManagerImpl implements CarManager {
 	 *         false if the database respond was unsuccessfull for some reason
 	 */
 	private static final boolean createTable(DBManager db) {
-		String columns = "ID				INTEGER NOT NULL"
-				+ "				PRIMARY KEY GENERATED ALWAYS AS IDENTITY"
-				+ "				(START WITH 1, INCREMENT BY 1),"
-				+ "name			VARCHAR(" + MAXLENGTH_NAME + "),"
-				+ "licensePlate	VARCHAR(" + MAXLENGTH_LICENSE_PLATE + "),"
-				+ "state		VARCHAR(" + MAXLENGTH_STATE + "),"
-				+ "carType      VARCHAR";
+		String columns = "ID				INTEGER NOT NULL" +
+						 "				PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
+						 "				(START WITH 1, INCREMENT BY 1)," +
+						 "name			VARCHAR(" + MAXLENGTH_NAME + ")," +
+						 "licensePlate	VARCHAR(" + MAXLENGTH_LICENSE_PLATE + ")," +
+					     "state			VARCHAR(" + MAXLENGTH_STATE + ")," +
+						 "carType       VARCHAR";
 		return db.createTable("CAR", columns);
 	}
 
