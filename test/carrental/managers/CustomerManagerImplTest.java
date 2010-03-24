@@ -29,6 +29,7 @@ public class CustomerManagerImplTest {
 
     @Before
     public void setUp() {
+		initializeDatabase();
     }
 
     @After
@@ -41,8 +42,6 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testCreateNewCustomer() {
 		System.out.println("createNewCustomer");
-		//initialize database
-		initializeDatabase();
 		//new customer generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		Address addr1 = new Address(1,13, "Karoliny Svetle", "Dvur Kralove nad Labem", "Czech Republic", "544 01");
@@ -116,8 +115,6 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testEditCustomer() {
 		System.out.println("editCustomer");
-		//initialize database
-		initializeDatabase();
 		//new customer generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		try {
@@ -151,8 +148,6 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testDeleteCustomer() {
 		System.out.println("deleteCustomer");
-		//initialize database
-		initializeDatabase();
 		//new customer generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		AddressManagerImpl addrm = new AddressManagerImpl();
@@ -185,8 +180,6 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testFindCustomerByID() {
 		System.out.println("findCustomerByID");
-		//initialize database
-		initializeDatabase();
 		//new customer generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		try {
@@ -222,8 +215,6 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testFindCustomerByName() {
 		System.out.println("findCustomerByName");
-		//initialize database
-		initializeDatabase();
 		//new customer generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		try {
@@ -269,8 +260,6 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testFindCustomerBySurname() {
 		System.out.println("findCustomerBySurname");
-		//initialize database
-		initializeDatabase();
 		//new addresses generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		try {
@@ -316,8 +305,6 @@ public class CustomerManagerImplTest {
 	@Test
 	public void testFindAllCustomers() {
 		System.out.println("findAllCustomers");
-		//initialize database
-		initializeDatabase();
 		//new addresses generation
 		CustomerManagerImpl custm = new CustomerManagerImpl();
 		try {
