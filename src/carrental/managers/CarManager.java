@@ -6,10 +6,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author SirGlorg
+ * @author Pavel Mican
  */
 public interface CarManager {
 	public Car createNewCar(String name, String licensePlate, String state, CarType carType) throws CarManagerException;
+	public Car createNewCar(Car car) throws CarManagerException;
 	public void editCar(Car newCar) throws CarManagerException, IllegalArgumentException;
 	public ArrayList<Car> findAllCars() throws CarManagerException;
 	public Car findCarById(int id) throws CarManagerException, IllegalArgumentException;

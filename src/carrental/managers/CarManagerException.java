@@ -12,7 +12,6 @@ public class CarManagerException extends Exception {
     public CarManagerException() {
     }
 
-
     /**
      * Constructs an instance of <code>CarManagerException</code> with the specified detail message.
      * @param msg the detail message.
