@@ -5,18 +5,19 @@ package carrental.entities;
  * @author Pavel Mican
  */
 public class Car {
+
 	private int id;
 	private String name;
 	private String licencePlate;
 	private String state;
-        private CarType carType;
+	private CarType carType;
 
 	public Car(int id, String name, String licencePlate, String state, CarType carType) throws IllegalArgumentException {
 		setId(id);
 		setName(name);
 		setLicencePlate(licencePlate);
 		setState(state);
-                setCarType(carType);
+		setCarType(carType);
 	}
 
 	/**
@@ -48,18 +49,17 @@ public class Car {
 	}
 
 	/**
-	 * sets cars <code>licencePlate</code>
+	 * sets cars <code>licencePlate</code>. Should not be directly changed.
 	 * @param licencePlate not null String
 	 * @throws IllegalArgumentException
 	 */
-	public void setLicencePlate(String licencePlate) throws IllegalArgumentException {
+	private void setLicencePlate(String licencePlate) throws IllegalArgumentException {
 		if (licencePlate != null) {
 			this.licencePlate = licencePlate;
 		} else {
 			throw new IllegalArgumentException("String licencePlate of the car can not be set to null.");
 		}
 	}
-
 
 	/**
 	 * @return <code>state</code> String
@@ -93,52 +93,79 @@ public class Car {
 	 * @param id new unique car id.
 	 * @throws IllegalArgumentException defined id is already in use
 	 */
-	private void setId(int id) {
-		//TODO check for id existence
-		this.id = id;
+	private void setId(int id) throws IllegalArgumentException {
+		if (id > 0) {
+			this.id = id;
+		} else {
+			throw new IllegalArgumentException("ID should be positive integer.");
+		}
 	}
 
-        public CarType getCarType() {
-                    return carType;
-        }
+	/**
+	 * @return <code>carType</code> CarType
+	 */
+	public CarType getCarType() {
+		return carType;
+	}
 
-        public void setCarType(CarType carType) {
-                this.carType = carType;
-        }
+	/**
+	 * sets cars <code>carType</code>. Should not be directly changed.
+	 * @param carType new carType.
+	 */
+	private void setCarType(CarType carType) throws IllegalArgumentException {
+		if (carType != null) {
+			this.carType = carType;
+		} else {
+			throw new IllegalArgumentException("carType of the car can not be set to null.");
+		}
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 59 * hash + (this.licencePlate != null ? this.licencePlate.hashCode() : 0);
-        hash = 59 * hash + (this.state != null ? this.state.hashCode() : 0);
-        hash = 59 * hash + (this.carType != null ? this.carType.hashCode() : 0);
-        return hash;
-    }
+	
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Car other = (Car) obj;
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
-            return false;
-        }
-        if ((this.licencePlate == null) ? (other.licencePlate != null) : !this.licencePlate.equals(other.licencePlate)) {
-            return false;
-        }
-        if ((this.state == null) ? (other.state != null) : !this.state.equals(other.state)) {
-            return false;
-        }
-        if (this.carType != other.carType && (this.carType == null || !this.carType.equals(other.carType))) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Car other = (Car) obj;
+		if (this.id != other.id) {
+			return false;
+		}
+		if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+			return false;
+		}
+		if ((this.licencePlate == null) ? (other.licencePlate != null) : !this.licencePlate.equals(other.licencePlate)) {
+			return false;
+		}
+		if ((this.state == null) ? (other.state != null) : !this.state.equals(other.state)) {
+			return false;
+		}
+		if (this.carType != other.carType && (this.carType == null || !this.carType.equals(other.carType))) {
+			return false;
+		}
+		return true;
+	}
 
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		hash = 31 * hash + this.id;
+		hash = 31 * hash + (this.name != null ? this.name.hashCode() : 0);
+		hash = 31 * hash + (this.licencePlate != null ? this.licencePlate.hashCode() : 0);
+		hash = 31 * hash + (this.state != null ? this.state.hashCode() : 0);
+		hash = 31 * hash + (this.carType != null ? this.carType.hashCode() : 0);
+		return hash;
+	}
 
+	@Override
+	public String toString() {
+		return "Car: ID: " + id + ", Name: " + name +
+				", Licence plate: " + licencePlate + ", State: " + state +
+				", Car type: " + carType + ".";
+	}
+
+	
 }

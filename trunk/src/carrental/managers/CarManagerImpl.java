@@ -5,6 +5,7 @@ import carrental.entities.CarType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 /**
@@ -14,35 +15,36 @@ import java.util.ArrayList;
 public class CarManagerImpl implements CarManager {
 
 	public static final int MAXLENGTH_NAME = 40;
-	public static final int MAXLENGTH_LICENSE_PLATE = 40;
+	public static final int MAXLENGTH_LICENCE_PLATE = 40;
 	public static final int MAXLENGTH_STATE = 40;
+	public static final int MAXLENGTH_CAR_TYPE = 10;
 
 	/**
 	 * Creates new <code>Car</code> and saves it into the database
 	 *
 	 * @param name String containing car name. Longer than database capacity names will be reduced
-	 * @param licensePlate String containing car licensePlate. Longer than database capacity names will be reduced
+	 * @param licencePlate String containing car licensePlate. Longer than database capacity names will be reduced
 	 * @param state String containing car state. Longer than database capacity names will be reduced
 	 * @param carType type of the car
 	 * @return Car generated <code>Car</code> reflecting input parameters;
 	 *         null if <code>Car</code> generating was unsuccessfull
 	 * @throws CarManagerException if car creating was unsuccessfull
 	 */
-	public Car createNewCar(String name, String licensePlate, String state, CarType carType) throws CarManagerException {
+	public Car createNewCar(String name, String licencePlate, String state, CarType carType) throws CarManagerException {
 		//initialize db connection
 		name = DBManager.reduceLongString(name, MAXLENGTH_NAME);
-		licensePlate = DBManager.reduceLongString(licensePlate, MAXLENGTH_LICENSE_PLATE);
+		licencePlate = DBManager.reduceLongString(licencePlate, MAXLENGTH_LICENCE_PLATE);
 		state = DBManager.reduceLongString(state, MAXLENGTH_STATE);
 		DBManager db = new DBManager();
 		Car car = null;
 		if (db.connect()) { //connecting to the database was successfull
-			if (createTable(db)) { //TODO remove table creation on createNewAddress call and replace it by database initialisation at program start up
+			if (createTable(db)) { //TODO remove table creation on createNewCar call and replace it by database initialisation at program start up
 				int id = -1;
-				PreparedStatement st = db.getInsertIntoTableStatement("CARS", "name", "licensePlate", "state", "carType");
+				PreparedStatement st = db.getInsertIntoTableStatement("CAR", "name", "licencePlate", "state", "carType");
 				try {
 					st.clearParameters();
 					st.setString(1, name);
-					st.setString(2, licensePlate);
+					st.setString(2, licencePlate);
 					st.setString(3, state);
 					st.setString(4, carType.name());
 					st.executeUpdate();
@@ -50,13 +52,16 @@ public class CarManagerImpl implements CarManager {
 					if (results.next()) {
 						id = results.getInt(1);
 					}
+				} catch (SQLIntegrityConstraintViolationException exs) {
+					//exs.printStackTrace();
+					throw new CarManagerException("Licence plate duplicity");
 				} catch (SQLException ex) {
 					throw new CarManagerException(ex);
 				}
 				try {
-					car = new Car(id, name, licensePlate, state, carType);
+					car = new Car(id, name, licencePlate, state, carType);
 				} catch (IllegalArgumentException ex) {
-					//TODO sql Address insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
+					//TODO sql Car insertion succeeded, but class creation doesnt so it's necessarry to remove created row from the database again;
 					throw new CarManagerException(ex);
 				}
 			}
@@ -70,9 +75,10 @@ public class CarManagerImpl implements CarManager {
 	 * @param car <code>Car</code> containing values to be set into the database
 	 * @return Car generated <code>Car</code> reflecting input parameters;
 	 *         null if <code>Car</code> generating was unsuccessfull
-	 * @throws CarManagerException if address creating was unsuccessfull
+	 * @throws CarManagerException if car creating was unsuccessfull
 	 */
 	public Car createNewCar(Car car) throws CarManagerException {
+		//TODO car with id 5 is put into database with changed id
 		if (car != null) {
 			return createNewCar(car.getName(), car.getLicencePlate(), car.getState(), car.getCarType());
 		} else {
@@ -97,7 +103,8 @@ public class CarManagerImpl implements CarManager {
 		if (db.connect()) { //connecting to the database was successfull
 			if (db.tableExists("CAR")) {
 				try {
-					PreparedStatement st = db.getUpdateTableStatement("CAR", "name", "licensePlate", "state", "carType");
+					PreparedStatement st = db.getUpdateTableStatement("CAR", "name", "licencePlate", "state", "carType");
+					st.clearParameters();
 					st.setString(1, newCar.getName());
 					st.setString(2, newCar.getLicencePlate());
 					st.setString(3, newCar.getState());
@@ -189,8 +196,9 @@ public class CarManagerImpl implements CarManager {
 		ArrayList<Car> car = new ArrayList<Car>();
 		if (db.connect()) { //connecting to the database was successfull
 			if (db.tableExists("CAR")) {
-				PreparedStatement st = db.getSelectFromTableStatement("CAR", "*", "state = "+state);
 				try {
+					PreparedStatement st = db.getSelectFromTableStatement("CAR", "*", "state = ?");
+					st.setString(1, state);
 					ResultSet rs = st.executeQuery();
 					car.addAll(getCarFromResultSet(rs));
 				} catch (SQLException ex) {
@@ -214,8 +222,9 @@ public class CarManagerImpl implements CarManager {
 		Car car = null;
 		if (db.connect()) { //connecting to the database was successfull
 			if (db.tableExists("CAR")) {
-				PreparedStatement st = db.getSelectFromTableStatement("CAR", "*", "name = "+name);
 				try {
+					PreparedStatement st = db.getSelectFromTableStatement("CAR", "*", "name = ?");
+					st.setString(1,name);
 					ResultSet rs = st.executeQuery();
 					ArrayList<Car> queryResult = getCarFromResultSet(rs);
 					if (queryResult.size() > 0) {
@@ -235,7 +244,7 @@ public class CarManagerImpl implements CarManager {
 	 * @param car the <code>Car</code> record in the database that should be removed
 	 * @return Car representation of the deleted <code>Car</code>
 	 * @throws CarManagerException on car deletion failure
-	 *         IllegalArgumentException if argument is null or car id < 1
+	 * @throws IllegalArgumentException if argument is null or car id < 1
 	 */
 	public Car deleteCar(Car car) throws CarManagerException, IllegalArgumentException {
 		if (car != null) {
@@ -252,7 +261,7 @@ public class CarManagerImpl implements CarManager {
 	 *           that should be removed
 	 * @return Car representation of the deleted <code>Car</code>
 	 * @throws CarManagerException on car deletion failure
-	 *         IllegalArgumentException if argument is null or car id < 1
+	 * @throws IllegalArgumentException if argument is null or car id < 1
 	 */
 	public Car deleteCar(int id) throws CarManagerException, IllegalArgumentException {
 		if (id > 0) {
@@ -288,9 +297,9 @@ public class CarManagerImpl implements CarManager {
 						 "					PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
 						 "					(START WITH 1, INCREMENT BY 1)," +
 						 "name				VARCHAR(" + MAXLENGTH_NAME + ")," +
-						 "licensePlate		VARCHAR(" + MAXLENGTH_LICENSE_PLATE + ")," +
+						 "licencePlate		VARCHAR(" + MAXLENGTH_LICENCE_PLATE + ") UNIQUE," +
 					     "state				VARCHAR(" + MAXLENGTH_STATE + ")," +
-						 "carType			VARCHAR";
+						 "carType			VARCHAR(" + MAXLENGTH_CAR_TYPE + ")";
 		return db.createTable("CAR", columns);
 	}
 
@@ -298,7 +307,7 @@ public class CarManagerImpl implements CarManager {
 	 * Handles creating <code>Car</code> instances from database's <code>ResultSet</code>
 	 *
 	 * @param rs <code>ResultSet</code> retreaved from the previous database query
-	 * @return ArrayList<Car> of all retreaved addresses
+	 * @return ArrayList<Car> of all retreaved cars
 	 * @throws SQLException if reading arguments fails
 	 */
 	private static final ArrayList<Car> getCarFromResultSet(ResultSet rs) throws SQLException {
