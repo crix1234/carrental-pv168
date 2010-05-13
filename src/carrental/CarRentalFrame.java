@@ -10,8 +10,6 @@
  */
 package carrental;
 
-import carrental.entities.Car;
-import carrental.entities.CarType;
 import com.toedter.calendar.JCalendar;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -27,7 +25,6 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.ComparisonType;
@@ -56,11 +53,11 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		}
 		initComponents();
 		jTextField1.setText("Find a customer");
-		CarsTableModel cars = (CarsTableModel) jTable2.getModel();
+		CarsTableModel cars = (CarsTableModel) jTableCars.getModel();
 		cars.loadCars();
-		CustomersTableModel customers = (CustomersTableModel) jTable1.getModel();
+		CustomersTableModel customers = (CustomersTableModel) jTableCustomers.getModel();
 		customers.loadCustomers();
-		OrdersTableModel orders = (OrdersTableModel) jTable3.getModel();
+		OrdersTableModel orders = (OrdersTableModel) jTableOrders.getModel();
 		orders.loadOrders();
 	}
 
@@ -77,36 +74,36 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonCustomerFind = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCustomers = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        jButtonCustomerAdd = new javax.swing.JButton();
+        jButtonCustomerEdit = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jButtonCarFind = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableCars = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jButtonCarAdd = new javax.swing.JButton();
+        jButtonCarEdit = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        jButtonOrderFind = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jTableOrders = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -144,8 +141,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
+        jButtonCustomerFind.setText(resourceMap.getString("jButtonCustomerFind.text")); // NOI18N
+        jButtonCustomerFind.setName("jButtonCustomerFind"); // NOI18N
 
         jSeparator1.setName("jSeparator1"); // NOI18N
 
@@ -155,24 +152,24 @@ public class CarRentalFrame extends javax.swing.JFrame {
         TableRowSorter sorter = new TableRowSorter(ctm);
         //sorter.setRowFilter(RowFilter.regexFilter(jTextField1.getText()));
         //System.out.println(jTextField1.getText());
-        jTable1.setModel(ctm);
-        jTable1.setName("jTable1"); // NOI18N
-        jTable1.setRowSorter(sorter);
-        jScrollPane1.setViewportView(jTable1);
+        jTableCustomers.setModel(ctm);
+        jTableCustomers.setName("jTableCustomers"); // NOI18N
+        jTableCustomers.setRowSorter(sorter);
+        jScrollPane1.setViewportView(jTableCustomers);
 
         jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
 
-        jButton6.setText(resourceMap.getString("jButton6.text")); // NOI18N
-        jButton6.setName("jButton6"); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCustomerAdd.setText(resourceMap.getString("jButtonCustomerAdd.text")); // NOI18N
+        jButtonCustomerAdd.setName("jButtonCustomerAdd"); // NOI18N
+        jButtonCustomerAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButtonCustomerAddActionPerformed(evt);
             }
         });
 
-        jButton8.setText(resourceMap.getString("jButton8.text")); // NOI18N
-        jButton8.setName("jButton8"); // NOI18N
+        jButtonCustomerEdit.setText(resourceMap.getString("jButtonCustomerEdit.text")); // NOI18N
+        jButtonCustomerEdit.setName("jButtonCustomerEdit"); // NOI18N
 
         jButton10.setIcon(resourceMap.getIcon("jButton10.icon")); // NOI18N
         jButton10.setText(resourceMap.getString("jButton10.text")); // NOI18N
@@ -196,9 +193,9 @@ public class CarRentalFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonCustomerFind)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
-                        .addComponent(jButton6)
+                        .addComponent(jButtonCustomerAdd)
                         .addGap(66, 66, 66)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -209,7 +206,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jButtonCustomerEdit, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -219,9 +216,9 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonCustomerFind)
                         .addComponent(jLabel1)
-                        .addComponent(jButton6)
+                        .addComponent(jButtonCustomerAdd)
                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6))
                     .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,7 +228,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton8)
+                .addComponent(jButtonCustomerEdit)
                 .addContainerGap(80, Short.MAX_VALUE))
         );
 
@@ -255,8 +252,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
-        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
+        jButtonCarFind.setText(resourceMap.getString("jButtonCarFind.text")); // NOI18N
+        jButtonCarFind.setName("jButtonCarFind"); // NOI18N
 
         jSeparator2.setName("jSeparator2"); // NOI18N
 
@@ -264,20 +261,20 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         CarsTableModel cartm = new CarsTableModel();
         TableRowSorter carsorter = new TableRowSorter(cartm);
-        jTable2.setModel(cartm);
-        jTable2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTable2.setName("jTable2"); // NOI18N
-        jTable2.setRowSorter(carsorter);
-        jScrollPane2.setViewportView(jTable2);
+        jTableCars.setModel(cartm);
+        jTableCars.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableCars.setName("jTableCars"); // NOI18N
+        jTableCars.setRowSorter(carsorter);
+        jScrollPane2.setViewportView(jTableCars);
 
         jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
         jLabel8.setName("jLabel8"); // NOI18N
 
-        jButton7.setText(resourceMap.getString("jButton7.text")); // NOI18N
-        jButton7.setName("jButton7"); // NOI18N
+        jButtonCarAdd.setText(resourceMap.getString("jButtonCarAdd.text")); // NOI18N
+        jButtonCarAdd.setName("jButtonCarAdd"); // NOI18N
 
-        jButton9.setText(resourceMap.getString("jButton9.text")); // NOI18N
-        jButton9.setName("jButton9"); // NOI18N
+        jButtonCarEdit.setText(resourceMap.getString("jButtonCarEdit.text")); // NOI18N
+        jButtonCarEdit.setName("jButtonCarEdit"); // NOI18N
 
         jButton13.setIcon(resourceMap.getIcon("jButton13.icon")); // NOI18N
         jButton13.setName("jButton13"); // NOI18N
@@ -300,9 +297,9 @@ public class CarRentalFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonCarFind)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
-                        .addComponent(jButton7)
+                        .addComponent(jButtonCarAdd)
                         .addGap(83, 83, 83)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -313,7 +310,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                         .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jButtonCarEdit, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -323,9 +320,9 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonCarFind)
                         .addComponent(jLabel2)
-                        .addComponent(jButton7)
+                        .addComponent(jButtonCarAdd)
                         .addComponent(jLabel8))
                     .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,7 +332,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton9)
+                .addComponent(jButtonCarEdit)
                 .addContainerGap(80, Short.MAX_VALUE))
         );
 
@@ -349,8 +346,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
-        jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
-        jButton3.setName("jButton3"); // NOI18N
+        jButtonOrderFind.setText(resourceMap.getString("jButtonOrderFind.text")); // NOI18N
+        jButtonOrderFind.setName("jButtonOrderFind"); // NOI18N
 
         jSeparator3.setName("jSeparator3"); // NOI18N
 
@@ -358,10 +355,10 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         OrdersTableModel ordertm = new OrdersTableModel();
         TableRowSorter orderSorter = new TableRowSorter(ordertm);
-        jTable3.setModel(ordertm);
-        jTable3.setName("jTable3"); // NOI18N
-        jTable3.setRowSorter(orderSorter);
-        jScrollPane3.setViewportView(jTable3);
+        jTableOrders.setModel(ordertm);
+        jTableOrders.setName("jTableOrders"); // NOI18N
+        jTableOrders.setRowSorter(orderSorter);
+        jScrollPane3.setViewportView(jTableOrders);
 
         jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
@@ -432,7 +429,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(jButtonOrderFind)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -450,7 +447,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3)
+                        .addComponent(jButtonOrderFind)
                         .addComponent(jLabel3)
                         .addComponent(jLabel7))
                     .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -524,7 +521,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 				} catch (ParseException ex) {
 					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 				}
-				TableRowSorter sort = (TableRowSorter) jTable3.getRowSorter();
+				TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
 				if (date == null) {
 					sort.setRowFilter(null);
 				} else {
@@ -554,30 +551,34 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		frame.setVisible(true);
 }//GEN-LAST:event_jButton4ActionPerformed
 
-	private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+	private void jButtonCustomerAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerAddActionPerformed
 		final JDialog dialogAddCustomer = new AddCustomerDialog(this, rootPaneCheckingEnabled);
-		final CustomersTableModel model = (CustomersTableModel) jTable1.getModel();
+		final CustomersTableModel model = (CustomersTableModel) jTableCustomers.getModel();
 		dialogAddCustomer.setLocation(300, 100);
 		dialogAddCustomer.setVisible(true);
-		HierarchyListener component = new HierarchyListener() {
-
-			public void hierarchyChanged(HierarchyEvent e) {
-				Component[] components = dialogAddCustomer.getContentPane().getComponents();
-				for (Component component1 : components) {
-					//System.out.println(component1.getName());
-				}
-				JTextField text = (JTextField) components[1];
-				//System.out.println(text.getText());
-				model.loadCustomers();
-				model.fireTableDataChanged();
-			}
-		};
-		dialogAddCustomer.addHierarchyListener(component);
-}//GEN-LAST:event_jButton6ActionPerformed
+		model.loadCustomers();
+		//model.fireTableDataChanged();
+		int rowCount = model.getRowCount() - 1;
+		model.fireTableRowsInserted(rowCount, rowCount);
+//		HierarchyListener component = new HierarchyListener() {
+//
+//			public void hierarchyChanged(HierarchyEvent e) {
+//				Component[] components = dialogAddCustomer.getContentPane().getComponents();
+//				for (Component component1 : components) {
+//					//System.out.println(component1.getName());
+//				}
+//				JTextField text = (JTextField) components[1];
+//				//System.out.println(text.getText());
+//				model.loadCustomers();
+//				model.fireTableDataChanged();
+//			}
+//		};
+//		dialogAddCustomer.addHierarchyListener(component);
+}//GEN-LAST:event_jButtonCustomerAddActionPerformed
 
 	private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
 		String text = jTextField1.getText();
-		TableRowSorter sort = (TableRowSorter) jTable1.getRowSorter();
+		TableRowSorter sort = (TableRowSorter) jTableCustomers.getRowSorter();
 		if (text.length() == 0) {
 			sort.setRowFilter(null);
 		} else {
@@ -595,7 +596,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 	private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
 		String text = jTextField2.getText();
-		TableRowSorter sort = (TableRowSorter) jTable2.getRowSorter();
+		TableRowSorter sort = (TableRowSorter) jTableCars.getRowSorter();
 		if (text.length() == 0) {
 			sort.setRowFilter(null);
 		} else {
@@ -631,7 +632,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		});
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -641,14 +641,15 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButtonCarAdd;
+    private javax.swing.JButton jButtonCarEdit;
+    private javax.swing.JButton jButtonCarFind;
+    private javax.swing.JButton jButtonCustomerAdd;
+    private javax.swing.JButton jButtonCustomerEdit;
+    private javax.swing.JButton jButtonCustomerFind;
+    private javax.swing.JButton jButtonOrderFind;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -668,9 +669,9 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTableCars;
+    private javax.swing.JTable jTableCustomers;
+    private javax.swing.JTable jTableOrders;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
