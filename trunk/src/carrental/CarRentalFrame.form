@@ -63,9 +63,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jTextField1" min="-2" pref="173" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonCustomerFind" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="151" max="32767" attributes="0"/>
-                              <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonCustomerAdd" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -77,7 +77,7 @@
                           </Group>
                           <Component id="jSeparator1" alignment="1" pref="775" max="32767" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" pref="775" max="32767" attributes="0"/>
-                          <Component id="jButton8" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCustomerEdit" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -90,9 +90,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonCustomerFind" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonCustomerAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton10" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -104,7 +104,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton8" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCustomerEdit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="80" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -130,10 +130,10 @@
                 <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="jButtonCustomerFind">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
-                <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="jButtonCustomerFind.text"/>
+                <Property name="name" type="java.lang.String" value="jButtonCustomerFind" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -151,7 +151,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable1">
+                <Component class="javax.swing.JTable" name="jTableCustomers">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="ctm" type="code"/>
@@ -159,7 +159,7 @@
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0"/>
                     </Property>
-                    <Property name="name" type="java.lang.String" value="jTable1" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="jTableCustomers" noResource="true"/>
                     <Property name="rowSorter" type="javax.swing.RowSorter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="sorter" type="code"/>
                     </Property>
@@ -179,19 +179,19 @@
                 <Property name="name" type="java.lang.String" value="jLabel6" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton6">
+            <Component class="javax.swing.JButton" name="jButtonCustomerAdd">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton6.text"/>
-                <Property name="name" type="java.lang.String" value="jButton6" noResource="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="jButtonCustomerAdd.text"/>
+                <Property name="name" type="java.lang.String" value="jButtonCustomerAdd" noResource="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomerAddActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton8">
+            <Component class="javax.swing.JButton" name="jButtonCustomerEdit">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton8.text"/>
-                <Property name="name" type="java.lang.String" value="jButton8" noResource="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="jButtonCustomerEdit.text"/>
+                <Property name="name" type="java.lang.String" value="jButtonCustomerEdit" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton10">
@@ -238,9 +238,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jTextField2" min="-2" pref="173" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonCarFind" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="190" max="32767" attributes="0"/>
-                              <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonCarAdd" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -252,7 +252,7 @@
                           </Group>
                           <Component id="jSeparator2" alignment="1" pref="775" max="32767" attributes="0"/>
                           <Component id="jScrollPane2" alignment="0" pref="775" max="32767" attributes="0"/>
-                          <Component id="jButton9" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCarEdit" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -265,9 +265,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonCarFind" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonCarAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jButton13" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
@@ -279,7 +279,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton9" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCarEdit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="80" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -302,10 +302,10 @@
                 <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="jButtonCarFind">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton2.text"/>
-                <Property name="name" type="java.lang.String" value="jButton2" noResource="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="jButtonCarFind.text"/>
+                <Property name="name" type="java.lang.String" value="jButtonCarFind" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator2">
@@ -323,7 +323,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable2">
+                <Component class="javax.swing.JTable" name="jTableCars">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="cartm" type="code"/>
@@ -334,7 +334,7 @@
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="Default Cursor"/>
                     </Property>
-                    <Property name="name" type="java.lang.String" value="jTable2" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="jTableCars" noResource="true"/>
                     <Property name="rowSorter" type="javax.swing.RowSorter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="carsorter" type="code"/>
                     </Property>
@@ -354,16 +354,16 @@
                 <Property name="name" type="java.lang.String" value="jLabel8" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton7">
+            <Component class="javax.swing.JButton" name="jButtonCarAdd">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton7.text"/>
-                <Property name="name" type="java.lang.String" value="jButton7" noResource="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="jButtonCarAdd.text"/>
+                <Property name="name" type="java.lang.String" value="jButtonCarAdd" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton9">
+            <Component class="javax.swing.JButton" name="jButtonCarEdit">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton9.text"/>
-                <Property name="name" type="java.lang.String" value="jButton9" noResource="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="jButtonCarEdit.text"/>
+                <Property name="name" type="java.lang.String" value="jButtonCarEdit" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton13">
@@ -425,7 +425,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jTextField3" min="-2" pref="173" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonOrderFind" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="342" max="32767" attributes="0"/>
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -447,7 +447,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonOrderFind" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -496,10 +496,10 @@
                 <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="jButtonOrderFind">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton3.text"/>
-                <Property name="name" type="java.lang.String" value="jButton3" noResource="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="jButtonOrderFind.text"/>
+                <Property name="name" type="java.lang.String" value="jButtonOrderFind" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator3">
@@ -517,7 +517,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable3">
+                <Component class="javax.swing.JTable" name="jTableOrders">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="ordertm" type="code"/>
@@ -541,7 +541,7 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
-                    <Property name="name" type="java.lang.String" value="jTable3" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="jTableOrders" noResource="true"/>
                     <Property name="rowSorter" type="javax.swing.RowSorter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="orderSorter" type="code"/>
                     </Property>
