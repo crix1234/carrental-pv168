@@ -4,7 +4,7 @@
  */
 
 /*
- * CarRentalCustomerView.java
+ * CarRentalFrame.java
  *
  * Created on 28.4.2010, 18:32:01
  */
@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -38,20 +39,20 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Jerrycek
  */
-public class CarRentalCustomerView extends javax.swing.JFrame {
+public class CarRentalFrame extends javax.swing.JFrame {
 
-	/** Creates new form CarRentalCustomerView */
-	public CarRentalCustomerView() {
+	/** Creates new form CarRentalFrame */
+	public CarRentalFrame() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException ex) {
-			Logger.getLogger(CarRentalCustomerView.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			Logger.getLogger(CarRentalCustomerView.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			Logger.getLogger(CarRentalCustomerView.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (UnsupportedLookAndFeelException ex) {
-			Logger.getLogger(CarRentalCustomerView.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		initComponents();
 		jTextField1.setText("Find a customer");
@@ -125,7 +126,7 @@ public class CarRentalCustomerView extends javax.swing.JFrame {
 
         jPanel1.setName("jPanel1"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(CarRentalCustomerView.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(CarRentalFrame.class);
         jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
         jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextField1.setName("jTextField1"); // NOI18N
@@ -499,7 +500,7 @@ public class CarRentalCustomerView extends javax.swing.JFrame {
 		try {
 			dat = datf.parse(jTextField4.getText());
 		} catch (ParseException ex) {
-			//Logger.getLogger(CarRentalCustomerView.class.getName()).log(Level.SEVERE, null, ex);
+			//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		if (dat != null) {
 			cal.setDate(dat);
@@ -521,7 +522,7 @@ public class CarRentalCustomerView extends javax.swing.JFrame {
 					date = df.parse(jTextField4.getText());
 					//System.out.println(date);
 				} catch (ParseException ex) {
-					Logger.getLogger(CarRentalCustomerView.class.getName()).log(Level.SEVERE, null, ex);
+					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 				}
 				TableRowSorter sort = (TableRowSorter) jTable3.getRowSorter();
 				if (date == null) {
@@ -554,14 +555,14 @@ public class CarRentalCustomerView extends javax.swing.JFrame {
 }//GEN-LAST:event_jButton4ActionPerformed
 
 	private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-		final JFrame frame = new AddCustomerFrame();
+		final JDialog dialogAddCustomer = new AddCustomerDialog(this, rootPaneCheckingEnabled);
 		final CustomersTableModel model = (CustomersTableModel) jTable1.getModel();
-		frame.setLocation(300, 100);
-		frame.setVisible(true);
+		dialogAddCustomer.setLocation(300, 100);
+		dialogAddCustomer.setVisible(true);
 		HierarchyListener component = new HierarchyListener() {
 
 			public void hierarchyChanged(HierarchyEvent e) {
-				Component[] components = frame.getContentPane().getComponents();
+				Component[] components = dialogAddCustomer.getContentPane().getComponents();
 				for (Component component1 : components) {
 					//System.out.println(component1.getName());
 				}
@@ -571,7 +572,7 @@ public class CarRentalCustomerView extends javax.swing.JFrame {
 				model.fireTableDataChanged();
 			}
 		};
-		frame.addHierarchyListener(component);
+		dialogAddCustomer.addHierarchyListener(component);
 }//GEN-LAST:event_jButton6ActionPerformed
 
 	private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
@@ -625,7 +626,7 @@ public class CarRentalCustomerView extends javax.swing.JFrame {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 
 			public void run() {
-				new CarRentalCustomerView().setVisible(true);
+				new CarRentalFrame().setVisible(true);
 			}
 		});
 	}
