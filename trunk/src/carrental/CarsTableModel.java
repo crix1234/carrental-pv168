@@ -9,6 +9,8 @@ import carrental.managers.CarManagerException;
 import carrental.managers.CarManagerImpl;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -29,6 +31,47 @@ public class CarsTableModel extends AbstractTableModel {
 		} catch (CarManagerException cme) {
 			cme.printStackTrace();
 		}
+	}
+
+	public void addCar(Car car) {
+		cars.add(car);
+	}
+
+	public void deleteCar(Car car) {
+		CarManagerImpl cmi = new CarManagerImpl();
+		try {
+			cmi.deleteCar(car);
+		} catch (CarManagerException ex) {
+			Logger.getLogger(CarsTableModel.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IllegalArgumentException ex) {
+			Logger.getLogger(CarsTableModel.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		cars.remove(car);
+		fireTableDataChanged();
+	}
+
+	public void editCar(Car car) {
+		CarManagerImpl cmi = new CarManagerImpl();
+		try {
+			cmi.editCar(car);
+		} catch (CarManagerException ex) {
+			Logger.getLogger(CarsTableModel.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IllegalArgumentException ex) {
+			Logger.getLogger(CarsTableModel.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		int index = 0;
+		for (Car car1 : cars) {
+			if (car1.getId() == car.getId()) {
+				index = cars.indexOf(car1);
+			}
+		}
+		cars.remove(index);
+		cars.add(index, car);
+		fireTableDataChanged();
+	}
+
+	public Car getCarAt(int i) {
+		return cars.get(i);
 	}
 
 	@Override

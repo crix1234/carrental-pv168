@@ -252,7 +252,11 @@
                           </Group>
                           <Component id="jSeparator2" alignment="1" pref="775" max="32767" attributes="0"/>
                           <Component id="jScrollPane2" alignment="0" pref="775" max="32767" attributes="0"/>
-                          <Component id="jButtonCarEdit" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jButtonCarEdit" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -279,7 +283,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButtonCarEdit" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonCarEdit" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace pref="80" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -359,12 +366,18 @@
                 <Property name="text" type="java.lang.String" resourceKey="jButtonCarAdd.text"/>
                 <Property name="name" type="java.lang.String" value="jButtonCarAdd" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCarAddActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCarEdit">
               <Properties>
                 <Property name="text" type="java.lang.String" resourceKey="jButtonCarEdit.text"/>
                 <Property name="name" type="java.lang.String" value="jButtonCarEdit" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCarEditActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton13">
               <Properties>
@@ -383,6 +396,15 @@
                 <Property name="icon" type="javax.swing.Icon" resourceKey="jButton15.icon"/>
                 <Property name="name" type="java.lang.String" value="jButton15" noResource="true"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
+                <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
