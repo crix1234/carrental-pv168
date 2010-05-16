@@ -221,8 +221,10 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab 2">
-                <Property name="tabTitle" type="java.lang.String" resourceKey="jPanel2.TabConstraints.tabTitle"/>
+              <JTabbedPaneConstraints tabName="&lt;User Code&gt;">
+                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Cars&quot;)" type="code"/>
+                </Property>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -237,8 +239,6 @@
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jTextField2" min="-2" pref="173" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonCarFind" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="190" max="32767" attributes="0"/>
                               <Component id="jButtonCarAdd" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
@@ -254,7 +254,7 @@
                           <Component id="jScrollPane2" alignment="0" pref="775" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jButtonCarEdit" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -269,7 +269,6 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonCarFind" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonCarAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -295,7 +294,9 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="jTextField2">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jTextField2.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Find a car&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="jTextField2" noResource="true"/>
               </Properties>
               <Events>
@@ -305,14 +306,10 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jLabel2.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Find&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButtonCarFind">
-              <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButtonCarFind.text"/>
-                <Property name="name" type="java.lang.String" value="jButtonCarFind" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator2">
@@ -357,13 +354,17 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jLabel8.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Language&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="jLabel8" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCarAdd">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButtonCarAdd.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Add a car&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="jButtonCarAdd" noResource="true"/>
               </Properties>
               <Events>
@@ -372,7 +373,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCarEdit">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButtonCarEdit.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Edit car&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="jButtonCarEdit" noResource="true"/>
               </Properties>
               <Events>
@@ -384,22 +387,33 @@
                 <Property name="icon" type="javax.swing.Icon" resourceKey="jButton13.icon"/>
                 <Property name="name" type="java.lang.String" value="jButton13" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton13ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton14">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" resourceKey="jButton14.icon"/>
                 <Property name="name" type="java.lang.String" value="jButton14" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton15">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" resourceKey="jButton15.icon"/>
                 <Property name="name" type="java.lang.String" value="jButton15" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton15ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Delete car&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
               </Properties>
               <Events>
@@ -479,7 +493,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
@@ -607,6 +621,9 @@
                 <Property name="name" type="java.lang.String" value="jButton5" noResource="true"/>
                 <Property name="rolloverEnabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -625,12 +642,19 @@
                 <Property name="text" type="java.lang.String" resourceKey="jTextField4.text"/>
                 <Property name="name" type="java.lang.String" value="jTextField4" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextField4MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField5">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="text" type="java.lang.String" resourceKey="jTextField5.text"/>
                 <Property name="name" type="java.lang.String" value="jTextField5" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextField5MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton16">
               <Properties>

@@ -65,8 +65,9 @@ public class CarsTableModel extends AbstractTableModel {
 				index = cars.indexOf(car1);
 			}
 		}
-		cars.remove(index);
-		cars.add(index, car);
+		//cars.remove(index);
+		//cars.add(index, car);
+		cars.set(index, car);
 		fireTableDataChanged();
 	}
 
@@ -116,6 +117,21 @@ public class CarsTableModel extends AbstractTableModel {
 				return "State";
 			case 4:
 				return "Type";
+			default:
+				throw new IllegalArgumentException("columnIndex");
+		}
+	}
+
+	@Override
+	public Class<?> getColumnClass(int columnIndex) {
+		switch (columnIndex) {
+			case 0:
+				return Integer.class;
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+				return String.class;
 			default:
 				throw new IllegalArgumentException("columnIndex");
 		}

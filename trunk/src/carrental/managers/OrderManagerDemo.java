@@ -17,13 +17,13 @@ public class OrderManagerDemo {
 		//DateFormat df = new DateFormat("dd-MM-yyyy");
 		//Date bf = new Date();
 		//GregorianCalendar gc = new GregorianCalendar(1995, 11, 1);
-		//Date bf = new GregorianCalendar(2010, 2, 28).getTime();
+		Date bf = new GregorianCalendar(2011, 2, 28).getTime();
 		//System.out.println(bf);
 
-		//Date bt = new Date();
+		Date bt = new Date();
 		//Order order = new Order(3, bf, bf, "edit");
 		//System.out.println(bt.getTime());
-//		om.createNewOrder(bf, bt, "first");
+		om.createNewOrder(bt, bf, "first");
 //		om.createNewOrder(bf, bt, "second");
 //		om.createNewOrder(bf, bt, "third");
 		//om.createNewOrder(order);
@@ -34,9 +34,9 @@ public class OrderManagerDemo {
 //			System.out.println(order1);
 //		}
 
-		ArrayList<Order> list = om.findOrderByOrderState("second");
-		for (Order order : list) {
-			System.out.println(order);
-		}
+//		ArrayList<Order> list = om.findOrderByOrderState("second");
+//		for (Order order : list) {
+//			System.out.println(order);
+//		}
 	}
 }
