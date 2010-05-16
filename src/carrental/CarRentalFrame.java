@@ -28,6 +28,8 @@ import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -48,6 +50,8 @@ import javax.swing.table.TableRowSorter;
  * @author Jerrycek
  */
 public class CarRentalFrame extends javax.swing.JFrame {
+
+	static Locale locale = new Locale("cs", "CZ");
 
 	/** Creates new form CarRentalFrame */
 	public CarRentalFrame() {
@@ -98,7 +102,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButtonCarFind = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableCars = new javax.swing.JTable();
@@ -248,7 +251,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         jPanel2.setName("jPanel2"); // NOI18N
 
-        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
+        jTextField2.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find a car"));
         jTextField2.setName("jTextField2"); // NOI18N
         jTextField2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -261,11 +264,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find"));
         jLabel2.setName("jLabel2"); // NOI18N
-
-        jButtonCarFind.setText(resourceMap.getString("jButtonCarFind.text")); // NOI18N
-        jButtonCarFind.setName("jButtonCarFind"); // NOI18N
 
         jSeparator2.setName("jSeparator2"); // NOI18N
 
@@ -279,10 +279,10 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jTableCars.setRowSorter(carsorter);
         jScrollPane2.setViewportView(jTableCars);
 
-        jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
+        jLabel8.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Language"));
         jLabel8.setName("jLabel8"); // NOI18N
 
-        jButtonCarAdd.setText(resourceMap.getString("jButtonCarAdd.text")); // NOI18N
+        jButtonCarAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Add a car"));
         jButtonCarAdd.setName("jButtonCarAdd"); // NOI18N
         jButtonCarAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,7 +290,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonCarEdit.setText(resourceMap.getString("jButtonCarEdit.text")); // NOI18N
+        jButtonCarEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Edit car"));
         jButtonCarEdit.setName("jButtonCarEdit"); // NOI18N
         jButtonCarEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -300,14 +300,29 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         jButton13.setIcon(resourceMap.getIcon("jButton13.icon")); // NOI18N
         jButton13.setName("jButton13"); // NOI18N
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setIcon(resourceMap.getIcon("jButton14.icon")); // NOI18N
         jButton14.setName("jButton14"); // NOI18N
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jButton15.setIcon(resourceMap.getIcon("jButton15.icon")); // NOI18N
         jButton15.setName("jButton15"); // NOI18N
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Delete car"));
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,8 +341,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCarFind)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
                         .addComponent(jButtonCarAdd)
                         .addGap(83, 83, 83)
@@ -342,7 +355,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonCarEdit)))
                 .addContainerGap())
         );
@@ -353,7 +366,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonCarFind)
                         .addComponent(jLabel2)
                         .addComponent(jButtonCarAdd)
                         .addComponent(jLabel8))
@@ -371,7 +383,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addContainerGap(80, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(resourceMap.getString("jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
+        jTabbedPane1.addTab(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Cars"), jPanel2);
 
         jPanel3.setName("jPanel3"); // NOI18N
 
@@ -415,6 +427,11 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jButton5.setText(resourceMap.getString("jButton5.text")); // NOI18N
         jButton5.setName("jButton5"); // NOI18N
         jButton5.setRolloverEnabled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
         jLabel7.setName("jLabel7"); // NOI18N
@@ -424,9 +441,20 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jTextField4.setEditable(false);
         jTextField4.setText(resourceMap.getString("jTextField4.text")); // NOI18N
         jTextField4.setName("jTextField4"); // NOI18N
+        jTextField4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField4MouseClicked(evt);
+            }
+        });
 
+        jTextField5.setEditable(false);
         jTextField5.setText(resourceMap.getString("jTextField5.text")); // NOI18N
         jTextField5.setName("jTextField5"); // NOI18N
+        jTextField5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField5MouseClicked(evt);
+            }
+        });
 
         jButton16.setIcon(resourceMap.getIcon("jButton16.icon")); // NOI18N
         jButton16.setName("jButton16"); // NOI18N
@@ -490,7 +518,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                     .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -537,7 +565,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		if (dat != null) {
 			cal.setDate(dat);
 		}
-		final JFrame frame = new JFrame("JCalendar");
+		final JFrame frame = new JFrame("JCALENDAR");
 		frame.getContentPane().setLayout(new FlowLayout());
 		frame.getContentPane().add(cal);
 		JButton helloButton = new JButton();
@@ -671,26 +699,29 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 			public void windowClosed(WindowEvent e) {
 				Component[] comp = dial.getContentPane().getComponents();
-				JTextField cname = (JTextField) comp[1];
-				String name = cname.getText();
-				JTextField cplate = (JTextField) comp[3];
-				String licencePlate = cplate.getText();
-				JComboBox cstate = (JComboBox) comp[5];
-				String state = cstate.getSelectedItem().toString();
-				JComboBox ctype = (JComboBox) comp[7];
-				CarType type = CarType.valueOf(ctype.getSelectedItem().toString());
-				final CarsTableModel model = (CarsTableModel) jTableCars.getModel();
-				CarManagerImpl cmi = new CarManagerImpl();
-				Car car = null;
-				try {
-					car = cmi.createNewCar(name, licencePlate, state, type);
-				} catch (CarManagerException ex) {
-					//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
-					JOptionPane.showMessageDialog(null, "Licence plate duplicity. Car wasn't added!");
-				}
-				if (car != null) {
-					model.addCar(car);
-					model.fireTableDataChanged();
+				JLabel c = (JLabel) comp[9];
+				if (c.getText().equals(" ")) {
+					JTextField cname = (JTextField) comp[1];
+					String name = cname.getText();
+					JTextField cplate = (JTextField) comp[3];
+					String licencePlate = cplate.getText();
+					JComboBox cstate = (JComboBox) comp[5];
+					String state = cstate.getSelectedItem().toString();
+					JComboBox ctype = (JComboBox) comp[7];
+					CarType type = CarType.valueOf(ctype.getSelectedItem().toString());
+					final CarsTableModel model = (CarsTableModel) jTableCars.getModel();
+					CarManagerImpl cmi = new CarManagerImpl();
+					Car car = null;
+					try {
+						car = cmi.createNewCar(name, licencePlate, state, type);
+					} catch (CarManagerException ex) {
+						//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+						JOptionPane.showMessageDialog(null, "LICENCE PLATE DUPLICITY. CAR WASN'T ADDED!");
+					}
+					if (car != null) {
+						model.addCar(car);
+						model.fireTableDataChanged();
+					}
 				}
 			}
 
@@ -715,21 +746,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		if (jTableCars.getSelectedRow() != -1) {
-//			CarsTableModel cars = (CarsTableModel) jTableCars.getModel();
-//			Car car = cars.getCarAt(jTableCars.getSelectedRow());
-//			final JDialog dial = new ShowCarDialog(this, rootPaneCheckingEnabled);
-//			Component[] comp = dial.getContentPane().getComponents();
-//			JLabel lab = (JLabel) comp[1];
-//			lab.setText(car.getName());
-//			JLabel lab1 = (JLabel) comp[3];
-//			lab1.setText(car.getLicencePlate());
-//			JLabel lab2 = (JLabel) comp[5];
-//			lab2.setText(car.getState());
-//			JLabel lab3 = (JLabel) comp[7];
-//			lab3.setText(car.getCarType().name());
-//			dial.setLocation(300, 100);
-//			dial.setVisible(true);
-			int i = JOptionPane.showConfirmDialog(rootPane, "Do you really want to delete this car?");
+			int i = JOptionPane.showConfirmDialog(rootPane, "DO YOU REALLY WANT TO DELETE THIS CAR?");
 			if (i == 0) {
 				CarsTableModel cars = (CarsTableModel) jTableCars.getModel();
 				Car car = cars.getCarAt(jTableCars.getSelectedRow());
@@ -750,8 +767,10 @@ public class CarRentalFrame extends javax.swing.JFrame {
 			cplate.setText(car.getLicencePlate());
 			JComboBox cstate = (JComboBox) comp[5];
 			cstate.setSelectedItem(car.getState());
-			JComboBox ctype = (JComboBox) comp[7];
-			ctype.setSelectedItem(car.getCarType());
+			//JComboBox ctype = (JComboBox) comp[7];
+			//ctype.setSelectedItem(car.getCarType());
+			JTextField ctype = (JTextField) comp[7];
+			ctype.setText(car.getCarType().name());
 			dial.setLocation(300, 100);
 			dial.setVisible(true);
 			WindowListener pcl = new WindowListener() {
@@ -766,7 +785,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 				public void windowClosed(WindowEvent e) {
 					JLabel c = (JLabel) comp[9];
-					if (c.getText() == " ") {
+					if (c.getText().equals(" ")) {
 						Component[] comp = dial.getContentPane().getComponents();
 						JTextField cname = (JTextField) comp[1];
 						String name = cname.getText();
@@ -799,6 +818,113 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		}
 	}//GEN-LAST:event_jButtonCarEditActionPerformed
 
+	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+		final JCalendar cal = new JCalendar();
+		DateFormat datf = DateFormat.getDateInstance(DateFormat.SHORT);
+		Date dat = null;
+		try {
+			dat = datf.parse(jTextField5.getText());
+		} catch (ParseException ex) {
+			//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		if (dat != null) {
+			cal.setDate(dat);
+		}
+		final JFrame frame = new JFrame("JCALENDAR");
+		frame.getContentPane().setLayout(new FlowLayout());
+		frame.getContentPane().add(cal);
+		JButton helloButton = new JButton();
+		helloButton.setText("OK");
+		frame.add(helloButton);
+		frame.pack();
+		MouseListener mouse = new MouseListener() {
+
+			public void mouseClicked(MouseEvent e) {
+				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+				jTextField5.setText(df.format(cal.getDate()).toString());
+				Date date = null;
+				try {
+					date = df.parse(jTextField5.getText());
+					//System.out.println(date);
+				} catch (ParseException ex) {
+					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+				}
+				TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
+				if (date == null) {
+					sort.setRowFilter(null);
+				} else {
+					sort.setRowFilter(RowFilter.dateFilter(ComparisonType.BEFORE, date));
+				}
+				frame.dispose();
+			}
+
+			public void mousePressed(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseReleased(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseExited(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+		};
+		helloButton.addMouseListener(mouse);
+		//cal.addMouseListener(mouse);
+		frame.setVisible(true);
+	}//GEN-LAST:event_jButton5ActionPerformed
+
+	private void jTextField4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField4MouseClicked
+		if (!jTextField4.getText().equals("")) {
+			TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
+			jTextField4.setText("");
+			sort.setRowFilter(null);
+		}
+	}//GEN-LAST:event_jTextField4MouseClicked
+
+	private void jTextField5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField5MouseClicked
+		if (!jTextField5.getText().equals("")) {
+			TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
+			jTextField5.setText("");
+			sort.setRowFilter(null);
+		}
+	}//GEN-LAST:event_jTextField5MouseClicked
+
+	private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+		locale = new Locale("cs", "CZ");
+		refresh();
+	}//GEN-LAST:event_jButton13ActionPerformed
+
+	private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+		//locale = new Locale("cs", "CZ");
+		//locale = new Locale("sk", "SK");
+		locale = new Locale("en", "US");
+		refresh();
+	}//GEN-LAST:event_jButton15ActionPerformed
+
+	private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+		locale = new Locale("sk", "SK");
+		refresh();
+	}//GEN-LAST:event_jButton14ActionPerformed
+
+	public void refresh() {
+		jButtonCarAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Add a car"));
+		jButtonCarEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Edit car"));
+		jLabel8.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Language"));
+		jButton1.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Delete car"));
+		jLabel2.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find"));
+		jTextField2.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find a car"));
+	}
+
+	public Locale getLocale() {
+		return locale;
+	}
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -825,7 +951,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButtonCarAdd;
     private javax.swing.JButton jButtonCarEdit;
-    private javax.swing.JButton jButtonCarFind;
     private javax.swing.JButton jButtonCustomerAdd;
     private javax.swing.JButton jButtonCustomerEdit;
     private javax.swing.JButton jButtonCustomerFind;
