@@ -716,7 +716,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 						car = cmi.createNewCar(name, licencePlate, state, type);
 					} catch (CarManagerException ex) {
 						//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
-						JOptionPane.showMessageDialog(null, "LICENCE PLATE DUPLICITY. CAR WASN'T ADDED!");
+						JOptionPane.showMessageDialog(null, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Duplicity"));
 					}
 					if (car != null) {
 						model.addCar(car);
@@ -746,7 +746,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		if (jTableCars.getSelectedRow() != -1) {
-			int i = JOptionPane.showConfirmDialog(rootPane, "DO YOU REALLY WANT TO DELETE THIS CAR?");
+			int i = JOptionPane.showConfirmDialog(rootPane, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Do_you_really"));
 			if (i == 0) {
 				CarsTableModel cars = (CarsTableModel) jTableCars.getModel();
 				Car car = cars.getCarAt(jTableCars.getSelectedRow());
@@ -901,8 +901,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
 	}//GEN-LAST:event_jButton13ActionPerformed
 
 	private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-		//locale = new Locale("cs", "CZ");
-		//locale = new Locale("sk", "SK");
 		locale = new Locale("en", "US");
 		refresh();
 	}//GEN-LAST:event_jButton15ActionPerformed
@@ -913,6 +911,10 @@ public class CarRentalFrame extends javax.swing.JFrame {
 	}//GEN-LAST:event_jButton14ActionPerformed
 
 	public void refresh() {
+		jTableCars.getColumnModel().getColumn(1).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("CarName").replace(':', ' '));
+		jTableCars.getColumnModel().getColumn(2).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Licence plate").replace(':', ' '));
+		jTableCars.getColumnModel().getColumn(3).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("CarState").replace(':', ' '));
+		jTableCars.getColumnModel().getColumn(4).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("CarType").replace(':', ' '));
 		jButtonCarAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Add a car"));
 		jButtonCarEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Edit car"));
 		jLabel8.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Language"));

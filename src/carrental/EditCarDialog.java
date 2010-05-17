@@ -59,7 +59,7 @@ public class EditCarDialog extends javax.swing.JDialog {
         jComboBox2.setSelectedIndex(0);
         jComboBox2.setName("jComboBox2"); // NOI18N
 
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
+        jLabel3.setText(java.util.ResourceBundle.getBundle("carrental/texts", this.getParent().getLocale()).getString("CarState"));
         jLabel3.setName("jLabel3"); // NOI18N
 
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
@@ -70,7 +70,7 @@ public class EditCarDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
+        jLabel4.setText(java.util.ResourceBundle.getBundle("carrental/texts", this.getParent().getLocale()).getString("CarType"));
         jLabel4.setName("jLabel4"); // NOI18N
 
         jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
@@ -81,10 +81,10 @@ public class EditCarDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("CarName"));
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setText(java.util.ResourceBundle.getBundle("carrental/texts", this.getParent().getLocale()).getString("Licence plate"));
         jLabel2.setName("jLabel2"); // NOI18N
 
         jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
@@ -113,19 +113,19 @@ public class EditCarDialog extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, 0, 157, Short.MAX_VALUE))
+                                .addComponent(jComboBox2, 0, 156, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
+                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
                         .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addGap(29, 29, 29)
                         .addComponent(jButton2)
