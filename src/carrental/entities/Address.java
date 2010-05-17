@@ -11,6 +11,17 @@ public class Address {
 	private String town;
 	private String state;
 	private String zipcode;
+
+	/**
+	 * 
+	 * @param id
+	 * @param houseNumber
+	 * @param street
+	 * @param town
+	 * @param state
+	 * @param zipcode
+	 * @throws IllegalArgumentException
+	 */
 	public Address(int id, int houseNumber, String street, String town, String state, String zipcode) throws IllegalArgumentException {
 		setId(id);
 		setHouseNumber(houseNumber);
@@ -18,6 +29,15 @@ public class Address {
 		setTown(town);
 		setState(state);
 		setZipcode(zipcode);
+	}
+
+	public Address(Address addr) {
+		setId(addr.getId());
+		setHouseNumber(addr.getHouseNumber());
+		setStreet(addr.getStreet());
+		setTown(addr.getTown());
+		setState(addr.getState());
+		setZipcode(addr.getZipcode());
 	}
 
 	/**

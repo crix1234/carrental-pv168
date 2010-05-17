@@ -12,10 +12,11 @@
 package carrental;
 
 import carrental.entities.Address;
-import carrental.managers.AddressManagerException;
-import carrental.managers.AddressManagerImpl;
+import carrental.entities.Customer;
 import carrental.managers.CustomerManagerException;
 import carrental.managers.CustomerManagerImpl;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,13 +25,24 @@ import javax.swing.JOptionPane;
  */
 public class AddCustomerDialog extends javax.swing.JDialog {
 
+	private Customer resultCustomer;
+
     /** Creates new form AddCustomerDialog */
     public AddCustomerDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-		AddCustomerStateModel acm = (AddCustomerStateModel) jComboBoxState.getModel();
+		CustomerStateModel acm = (CustomerStateModel) jComboBoxState.getModel();
 		acm.addCountries();
+		resultCustomer = null;
     }
+
+	/**
+	 * gets the newly generated <code>Customer</code>
+	 * @return Customer the newly generated <code>Customer</code>
+	 */
+	public Customer getResultCustomer() {
+		return resultCustomer;
+	}
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -100,7 +112,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
 
-        jComboBoxState.setModel(new carrental.AddCustomerStateModel());
+        jComboBoxState.setModel(new carrental.CustomerStateModel());
         jComboBoxState.setName("jComboBoxState"); // NOI18N
 
         jTextFieldStreet.setText(resourceMap.getString("jTextFieldStreet.text")); // NOI18N
@@ -234,36 +246,32 @@ public class AddCustomerDialog extends javax.swing.JDialog {
 		try {
 			houseNumber = Integer.parseInt(jTextFieldHousenumber.getText());
 		} catch (NumberFormatException nfe) {
-			JOptionPane.showMessageDialog(null, "House number is not a number!");
-			//TODO locale
+			JOptionPane.showMessageDialog(null, "House number is not a number!","Customer error",JOptionPane.ERROR_MESSAGE); //TODO locale
+			return;
 		}
 		Object o = jComboBoxState.getSelectedItem();
 		if (o == null) {
-			JOptionPane.showMessageDialog(null, "Please select state.");
+			JOptionPane.showMessageDialog(null, "Please select state.","Customer error",JOptionPane.ERROR_MESSAGE); //TODO locale
+			return;
 		}
-		if ((o != null) && (houseNumber != 0)) {
+		if (houseNumber > 0) {
 			CustomerManagerImpl cmi = new CustomerManagerImpl();
-			AddressManagerImpl ami = new AddressManagerImpl();
 			String forename = jTextFieldForename.getText();
 			String surname = jTextFieldSurname.getText();
 			String street = jTextFieldStreet.getText();
 			String town = jTextFieldTown.getText();
 			String state = jComboBoxState.getSelectedItem().toString();
 			String zipcode = jTextFieldZipcode.getText();
-			Address addr = null;
+			Address addr = new Address(1,houseNumber,street, town, state, zipcode); //address ID is not used in address creation, so it can be of any supporting value.
 			try {
-				addr = ami.createNewAddress(houseNumber, street, town, state, zipcode);
-			} catch (AddressManagerException ame) {
-				ame.printStackTrace();
-			} catch (IllegalArgumentException iae) {
-				iae.printStackTrace();
-			}
-			try {
-				cmi.createNewCustomer(forename, surname, addr);
-			} catch (CustomerManagerException cme) {
-				cme.printStackTrace();
+				resultCustomer = cmi.createNewCustomer(forename, surname, addr);
+			} catch (CustomerManagerException ex) {
+				Logger.getLogger(AddCustomerDialog.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(null, "Customer insertion in the database failed!","Customer error",JOptionPane.ERROR_MESSAGE); //TODO locale
 			}
 			dispose();
+		} else {
+			JOptionPane.showMessageDialog(null, "House number should be greater than zero!","Customer error",JOptionPane.ERROR_MESSAGE); //TODO locale
 		}
 	}//GEN-LAST:event_jButtonAddActionPerformed
 
@@ -289,6 +297,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         });
     }
 
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonCancel;
@@ -309,5 +318,5 @@ public class AddCustomerDialog extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldTown;
     private javax.swing.JTextField jTextFieldZipcode;
     // End of variables declaration//GEN-END:variables
-
+	// </editor-fold>
 }

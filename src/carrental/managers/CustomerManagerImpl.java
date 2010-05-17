@@ -18,7 +18,7 @@ public class CustomerManagerImpl implements CustomerManager {
 
 
 	/**
-	 * Creates new customer and writes it into the database;
+	 * Creates new customer and writes it into the database (including the address insertion)
 	 * @param name Customer's name
 	 * @param surname Customer's surname
 	 * @param address Customer's address

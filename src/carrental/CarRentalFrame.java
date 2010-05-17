@@ -12,19 +12,16 @@ package carrental;
 
 import carrental.entities.Car;
 import carrental.entities.CarType;
+import carrental.entities.Customer;
 import carrental.managers.CarManagerException;
 import carrental.managers.CarManagerImpl;
 import com.toedter.calendar.JCalendar;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -76,6 +73,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		orders.loadOrders();
 	}
 
+
 	/** This method is called from within the constructor to
 	 * initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is
@@ -99,6 +97,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        jButtonCustomerDelete = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -169,7 +168,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
         //System.out.println(jTextField1.getText());
         jTableCustomers.setModel(ctm);
         jTableCustomers.setName("jTableCustomers"); // NOI18N
-        jTableCustomers.setRowSorter(sorter);
+        jTableCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jTableCustomers.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableCustomers);
 
         jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
@@ -185,6 +185,11 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         jButtonCustomerEdit.setText(resourceMap.getString("jButtonCustomerEdit.text")); // NOI18N
         jButtonCustomerEdit.setName("jButtonCustomerEdit"); // NOI18N
+        jButtonCustomerEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustomerEditActionPerformed(evt);
+            }
+        });
 
         jButton10.setIcon(resourceMap.getIcon("jButton10.icon")); // NOI18N
         jButton10.setText(resourceMap.getString("jButton10.text")); // NOI18N
@@ -195,6 +200,14 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         jButton12.setIcon(resourceMap.getIcon("jButton12.icon")); // NOI18N
         jButton12.setName("jButton12"); // NOI18N
+
+        jButtonCustomerDelete.setText(resourceMap.getString("jButtonCustomerDelete.text")); // NOI18N
+        jButtonCustomerDelete.setName("jButtonCustomerDelete"); // NOI18N
+        jButtonCustomerDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustomerDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -221,7 +234,10 @@ public class CarRentalFrame extends javax.swing.JFrame {
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
-                    .addComponent(jButtonCustomerEdit, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonCustomerDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCustomerEdit)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -243,7 +259,9 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonCustomerEdit)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCustomerEdit)
+                    .addComponent(jButtonCustomerDelete))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
 
@@ -560,7 +578,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		try {
 			dat = datf.parse(jTextField4.getText());
 		} catch (ParseException ex) {
-			//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		if (dat != null) {
 			cal.setDate(dat);
@@ -615,28 +633,14 @@ public class CarRentalFrame extends javax.swing.JFrame {
 }//GEN-LAST:event_jButton4ActionPerformed
 
 	private void jButtonCustomerAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerAddActionPerformed
-		final JDialog dialogAddCustomer = new AddCustomerDialog(this, rootPaneCheckingEnabled);
+		final AddCustomerDialog dialogAddCustomer = new AddCustomerDialog(this, rootPaneCheckingEnabled);
 		final CustomersTableModel model = (CustomersTableModel) jTableCustomers.getModel();
 		dialogAddCustomer.setLocation(300, 100);
 		dialogAddCustomer.setVisible(true);
-		model.loadCustomers();
-		//model.fireTableDataChanged();
-		int rowCount = model.getRowCount() - 1;
-		model.fireTableRowsInserted(rowCount, rowCount);
-//		HierarchyListener component = new HierarchyListener() {
-//
-//			public void hierarchyChanged(HierarchyEvent e) {
-//				Component[] components = dialogAddCustomer.getContentPane().getComponents();
-//				for (Component component1 : components) {
-//					//System.out.println(component1.getName());
-//				}
-//				JTextField text = (JTextField) components[1];
-//				//System.out.println(text.getText());
-//				model.loadCustomers();
-//				model.fireTableDataChanged();
-//			}
-//		};
-//		dialogAddCustomer.addHierarchyListener(component);
+		Customer resultCustomer = dialogAddCustomer.getResultCustomer();
+		if (resultCustomer != null) {
+			model.addCustomer(resultCustomer);
+		}
 }//GEN-LAST:event_jButtonCustomerAddActionPerformed
 
 	private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
@@ -818,6 +822,38 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		}
 	}//GEN-LAST:event_jButtonCarEditActionPerformed
 
+	private void jButtonCustomerEditActionPerformed(java.awt.event.ActionEvent evt) {
+		//dialog building phase
+		int selectedRow = jTableCustomers.getSelectedRow();
+		if (selectedRow >= 0) {
+			Customer customerToEdit = ((CustomersTableModel)jTableCustomers.getModel()).getCustomer(selectedRow);
+			Customer customerToDialog = new Customer(customerToEdit); // gets a new instance of a different customer (hopefully)
+			final JDialog dial = new EditCustomerDialog(this, rootPaneCheckingEnabled,customerToDialog);
+			dial.setLocation(300, 100);
+			dial.setVisible(true);
+			// after dialog is closed:
+			if (!customerToEdit.equals(customerToDialog)) { //there has been some change to the customer
+				CustomersTableModel model = (CustomersTableModel)jTableCustomers.getModel();
+				model.editCustomer(customerToDialog, selectedRow);
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "No customer is selected!","Customer error", JOptionPane.ERROR_MESSAGE); //TODO localization
+		}
+	}
+
+	private void jButtonCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerDeleteActionPerformed
+		if (jTableCustomers.getSelectedRow() != -1) {
+			int i = JOptionPane.showConfirmDialog(this, "Do you really want to delete this customer?"); //TODO localization
+			if (i == 0) {
+				CustomersTableModel customersTable = (CustomersTableModel) jTableCustomers.getModel();
+				Customer customer = customersTable.getCustomer(jTableCustomers.getSelectedRow());
+				customersTable.deleteCustomer(customer);
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "No customer is selected!","Customer error", JOptionPane.ERROR_MESSAGE); //TODO localization
+		}
+	}//GEN-LAST:event_jButtonCustomerDeleteActionPerformed
+
 	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 		final JCalendar cal = new JCalendar();
 		DateFormat datf = DateFormat.getDateInstance(DateFormat.SHORT);
@@ -938,6 +974,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
 			}
 		});
 	}
+
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -954,6 +992,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCarAdd;
     private javax.swing.JButton jButtonCarEdit;
     private javax.swing.JButton jButtonCustomerAdd;
+    private javax.swing.JButton jButtonCustomerDelete;
     private javax.swing.JButton jButtonCustomerEdit;
     private javax.swing.JButton jButtonCustomerFind;
     private javax.swing.JButton jButtonOrderFind;
@@ -985,4 +1024,5 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
+	// </editor-fold>
 }

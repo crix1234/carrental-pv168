@@ -91,6 +91,7 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
     /**
      * Initializes the applet.
      */
+	@Override
     public void init() {
         // Set the JGoodies Plastic 3D look and feel
         initializeLookAndFeels();
@@ -340,6 +341,7 @@ public class JCalendarDemo extends JApplet implements PropertyChangeListener {
      */
     public static void main(String[] s) {
         WindowListener l = new WindowAdapter() {
+				@Override
                 public void windowClosing(WindowEvent e) {
                     System.exit(0);
                 }
