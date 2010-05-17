@@ -11,6 +11,9 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -30,6 +33,62 @@ public class OrdersTableModel extends AbstractTableModel {
 			orders = omi.findAllOrders();
 		} catch (OrderManagerException cme) {
 			cme.printStackTrace();
+		}
+	}
+
+	public void addOrder(Order order) {
+		if (order != null) {
+			orders.add(order);
+			fireTableRowsInserted(orders.size(),orders.size());
+		}
+	}
+
+	/**
+	 * order simple deletion - just for simple usage and testing !
+	 * WARNING ! There should be more logic implemented!
+	 * Simple Order deletion did not inform other tables about the order disappearence
+	 * 
+	 * @param order
+	 */
+	public void deleteOrder(Order order) { //TODO - more logical deletion including Ordering table in the database
+		if (order != null) {
+			OrderManagerImpl omi = new OrderManagerImpl();
+			int index = orders.indexOf(order);
+			if (index >=0) {
+				try {
+					omi.deleteOrder(order);
+					orders.remove(index);
+					fireTableRowsDeleted(index, index);
+				} catch (OrderManagerException ex) {
+					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+					JOptionPane.showMessageDialog(null, "Order deletion didn't succeed","Order error",JOptionPane.ERROR_MESSAGE); //TODO localization
+				} catch (IllegalArgumentException ex) {
+					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+					JOptionPane.showMessageDialog(null, "Order deletion didn't succeed","Order error",JOptionPane.ERROR_MESSAGE); //TODO localization
+				}
+			}
+		}
+	}
+
+	/**
+	 * edits the <code>Order</code> in the table and updates the database
+	 * @param order the <code>Order</code> you'd like to place in the position of the original one
+	 * @param index the position in <code>orders</code> into which the new <code>Order</code> should be placed
+	 */
+	public void editOrder(Order order, int index) {
+		if (order != null) {
+			OrderManagerImpl omi = new OrderManagerImpl();
+			try {
+				omi.editOrder(order);
+				orders.set(index,order);
+				fireTableRowsUpdated(index, index);
+			} catch (OrderManagerException ex) {
+				Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(null, "Order edition didn't succeed","Order error",JOptionPane.ERROR_MESSAGE); //TODO localization
+			} catch (IllegalArgumentException ex) {
+				Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(null, "Order edition didn't succeed","Order error",JOptionPane.ERROR_MESSAGE); //TODO localization
+			}
 		}
 	}
 

@@ -16,6 +16,7 @@ import carrental.models.OrdersTableModel;
 import carrental.entities.Car;
 import carrental.entities.CarType;
 import carrental.entities.Customer;
+import carrental.entities.Order;
 import carrental.managers.CarManagerException;
 import carrental.managers.CarManagerImpl;
 import com.toedter.calendar.JCalendar;
@@ -66,6 +67,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 			Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		initComponents();
+		setLocation(120, 50);
 		//jTextField1.setText("Find a customer");
 		CarsTableModel cars = (CarsTableModel) jTableCars.getModel();
 		cars.loadCars();
@@ -110,9 +112,9 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableOrders = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelOrdersFrom = new javax.swing.JLabel();
         jButtonOrdersCalendarFrom = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelOrdersTo = new javax.swing.JLabel();
         jButtonOrdersCalendarTo = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jTextFieldOrdersFrom = new javax.swing.JTextField();
@@ -128,6 +130,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Form"); // NOI18N
+        setResizable(false);
 
         jTabbedPane1.setName("jTabbedPane1"); // NOI18N
 
@@ -206,7 +209,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addGroup(jPanelCustomersLayout.createSequentialGroup()
                         .addComponent(jButtonCustomerDelete)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonCustomerEdit)))
                 .addContainerGap())
         );
@@ -221,12 +224,12 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonCustomerEdit)
                     .addComponent(jButtonCustomerDelete))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Customers"), jPanelCustomers);
@@ -289,21 +292,20 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jPanelCars.setLayout(jPanelCarsLayout);
         jPanelCarsLayout.setHorizontalGroup(
             jPanelCarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCarsLayout.createSequentialGroup()
+            .addGroup(jPanelCarsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCarsLayout.createSequentialGroup()
+                .addGroup(jPanelCarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
+                    .addGroup(jPanelCarsLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
-                        .addComponent(jButtonCarAdd)
-                        .addGap(243, 243, 243))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
-                    .addGroup(jPanelCarsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 433, Short.MAX_VALUE)
+                        .addComponent(jButtonCarAdd))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCarsLayout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonCarEdit)))
                 .addContainerGap())
         );
@@ -318,12 +320,12 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCarsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCarEdit)
                     .addComponent(jButton1))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Cars"), jPanelCars);
@@ -347,8 +349,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jTableOrders.setRowSorter(orderSorter);
         jScrollPane3.setViewportView(jTableOrders);
 
-        jLabel4.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("time_From") + ":");
-        jLabel4.setName("jLabel4"); // NOI18N
+        jLabelOrdersFrom.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("time_From") + ":");
+        jLabelOrdersFrom.setName("jLabelOrdersFrom"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(CarRentalFrame.class);
         jButtonOrdersCalendarFrom.setIcon(resourceMap.getIcon("jButtonOrdersCalendarFrom.icon")); // NOI18N
@@ -361,8 +363,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("time_To") + ":");
-        jLabel5.setName("jLabel5"); // NOI18N
+        jLabelOrdersTo.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("time_To") + ":");
+        jLabelOrdersTo.setName("jLabelOrdersTo"); // NOI18N
 
         jButtonOrdersCalendarTo.setIcon(resourceMap.getIcon("jButtonOrdersCalendarTo.icon")); // NOI18N
         jButtonOrdersCalendarTo.setText(resourceMap.getString("jButtonOrdersCalendarTo.text")); // NOI18N
@@ -396,6 +398,11 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         jButtonOrdersAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Add"));
         jButtonOrdersAdd.setName("jButtonOrdersAdd"); // NOI18N
+        jButtonOrdersAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOrdersAddActionPerformed(evt);
+            }
+        });
 
         jButtonOrdersEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Edit"));
         jButtonOrdersEdit.setName("jButtonOrdersEdit"); // NOI18N
@@ -414,13 +421,13 @@ public class CarRentalFrame extends javax.swing.JFrame {
                     .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addGroup(jPanelOrdersLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jLabelOrdersFrom)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldOrdersFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonOrdersCalendarFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
+                        .addComponent(jLabelOrdersTo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldOrdersTo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -451,12 +458,12 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addGroup(jPanelOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanelOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
+                            .addComponent(jLabelOrdersTo)
                             .addComponent(jTextFieldOrdersTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanelOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButtonOrdersCalendarFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
+                                .addComponent(jLabelOrdersFrom)
                                 .addComponent(jTextFieldOrdersFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jButtonOrdersCalendarTo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -467,7 +474,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addGroup(jPanelOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOrdersEdit)
                     .addComponent(jButtonOrdersDelete))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Orders"), jPanelOrders);
@@ -506,10 +513,10 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jPanelTopMenu.setLayout(jPanelTopMenuLayout);
         jPanelTopMenuLayout.setHorizontalGroup(
             jPanelTopMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTopMenuLayout.createSequentialGroup()
-                .addContainerGap(630, Short.MAX_VALUE)
+            .addGroup(jPanelTopMenuLayout.createSequentialGroup()
+                .addGap(630, 630, 630)
                 .addComponent(jLabelCustomersLanguage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonCustomersCzech, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCustomersSlovak, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -541,7 +548,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelTopMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName(resourceMap.getString("jTabbedPane1.AccessibleContext.accessibleName")); // NOI18N
@@ -924,6 +931,17 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		refresh();
 	}//GEN-LAST:event_jButtonCustomersEnglishActionPerformed
 
+	private void jButtonOrdersAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdersAddActionPerformed
+		final AddOrderDialog dialogAddOrder = new AddOrderDialog(this, rootPaneCheckingEnabled);
+		final OrdersTableModel model = (OrdersTableModel) jTableOrders.getModel();
+		dialogAddOrder.setLocation(300, 100);
+		dialogAddOrder.setVisible(true);
+		Order resultOrder = dialogAddOrder.getResultOrder();
+		if (resultOrder != null) {
+			model.addOrder(resultOrder);
+		}
+	}//GEN-LAST:event_jButtonOrdersAddActionPerformed
+
 
 	public void refresh() {
 		//tab names
@@ -957,6 +975,19 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		jButton1.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Delete car"));
 		jLabel2.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find"));
 		jTextField2.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find a car"));
+
+		//Orders tab
+		jTableOrders.getColumnModel().getColumn(1).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("BookedFrom"));
+		jTableOrders.getColumnModel().getColumn(2).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("BookedTo"));
+		jTableOrders.getColumnModel().getColumn(3).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("StateOf"));
+		jLabelOrdersFind.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find"));
+		jLabelOrdersFrom.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("time_From"));
+		jLabelOrdersTo.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("time_To"));
+		jTextFieldOrdersFind.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find an order"));
+		jButtonOrdersAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Add"));
+		jButtonOrdersDelete.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Delete"));
+		jButtonOrdersEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Edit"));
+
 	}
 
 	@Override
@@ -993,11 +1024,11 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOrdersDelete;
     private javax.swing.JButton jButtonOrdersEdit;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelCustomersFind;
     private javax.swing.JLabel jLabelCustomersLanguage;
     private javax.swing.JLabel jLabelOrdersFind;
+    private javax.swing.JLabel jLabelOrdersFrom;
+    private javax.swing.JLabel jLabelOrdersTo;
     private javax.swing.JPanel jPanelCars;
     private javax.swing.JPanel jPanelCustomers;
     private javax.swing.JPanel jPanelOrders;

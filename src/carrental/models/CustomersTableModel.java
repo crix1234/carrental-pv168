@@ -135,10 +135,10 @@ public class CustomersTableModel extends AbstractTableModel {
 				customers.set(index,customer);
 				fireTableRowsUpdated(index, index);
 			} catch (CustomerManagerException ex) {
-				Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(CustomersTableModel.class.getName()).log(Level.SEVERE, null, ex);
 				JOptionPane.showMessageDialog(null, "Customer edition didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
 			} catch (IllegalArgumentException ex) {
-				Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(CustomersTableModel.class.getName()).log(Level.SEVERE, null, ex);
 				JOptionPane.showMessageDialog(null, "Customer edition didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
 			}
 		}
