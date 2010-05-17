@@ -108,15 +108,20 @@ public class CarsTableModel extends AbstractTableModel {
 	public String getColumnName(int columnIndex) {
 		switch (columnIndex) {
 			case 0:
+				//return "Id";
 				return "Id";
 			case 1:
-				return "Name";
+				//return "Name";
+				return "Jméno";
 			case 2:
-				return "Licence plate";
+				//return "Licence plate";
+				return "SPZ";
 			case 3:
-				return "State";
+				//return "State";
+				return "Stav";
 			case 4:
-				return "Type";
+				//return "Type";
+				return "Typ";
 			default:
 				throw new IllegalArgumentException("columnIndex");
 		}
