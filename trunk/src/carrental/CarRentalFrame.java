@@ -26,7 +26,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -85,18 +84,18 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jTextFieldFindCustomer = new javax.swing.JTextField();
+        jLabelCustomersFind = new javax.swing.JLabel();
         jButtonCustomerFind = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCustomers = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
+        jLabelCustomersLanguage = new javax.swing.JLabel();
         jButtonCustomerAdd = new javax.swing.JButton();
         jButtonCustomerEdit = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        jButtonCustomersCzech = new javax.swing.JButton();
+        jButtonCustomersSlovak = new javax.swing.JButton();
+        jButtonCustomersEnglish = new javax.swing.JButton();
         jButtonCustomerDelete = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
@@ -137,25 +136,24 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         jPanel1.setName("jPanel1"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(CarRentalFrame.class);
-        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextField1.setName("jTextField1"); // NOI18N
-        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTextFieldFindCustomer.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find a customer"));
+        jTextFieldFindCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextFieldFindCustomer.setName("jTextFieldFindCustomer"); // NOI18N
+        jTextFieldFindCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField1MouseClicked(evt);
+                jTextFieldFindCustomerMouseClicked(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextFieldFindCustomer.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+                jTextFieldFindCustomerKeyReleased(evt);
             }
         });
 
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
+        jLabelCustomersFind.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find"));
+        jLabelCustomersFind.setName("jLabelCustomersFind"); // NOI18N
 
-        jButtonCustomerFind.setText(resourceMap.getString("jButtonCustomerFind.text")); // NOI18N
+        jButtonCustomerFind.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find"));
         jButtonCustomerFind.setName("jButtonCustomerFind"); // NOI18N
 
         jSeparator1.setName("jSeparator1"); // NOI18N
@@ -164,18 +162,19 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
         CustomersTableModel ctm = new CustomersTableModel();
         TableRowSorter sorter = new TableRowSorter(ctm);
-        //sorter.setRowFilter(RowFilter.regexFilter(jTextField1.getText()));
-        //System.out.println(jTextField1.getText());
+        //sorter.setRowFilter(RowFilter.regexFilter(jTextFieldFindCustomer.getText()));
+        //System.out.println(jTextFieldFindCustomer.getText());
         jTableCustomers.setModel(ctm);
         jTableCustomers.setName("jTableCustomers"); // NOI18N
+        jTableCustomers.setRowSorter(sorter);
         jTableCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jTableCustomers.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableCustomers);
 
-        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
-        jLabel6.setName("jLabel6"); // NOI18N
+        jLabelCustomersLanguage.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Language"));
+        jLabelCustomersLanguage.setName("jLabelCustomersLanguage"); // NOI18N
 
-        jButtonCustomerAdd.setText(resourceMap.getString("jButtonCustomerAdd.text")); // NOI18N
+        jButtonCustomerAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Add"));
         jButtonCustomerAdd.setName("jButtonCustomerAdd"); // NOI18N
         jButtonCustomerAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,7 +182,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonCustomerEdit.setText(resourceMap.getString("jButtonCustomerEdit.text")); // NOI18N
+        jButtonCustomerEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Edit"));
         jButtonCustomerEdit.setName("jButtonCustomerEdit"); // NOI18N
         jButtonCustomerEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,17 +190,33 @@ public class CarRentalFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setIcon(resourceMap.getIcon("jButton10.icon")); // NOI18N
-        jButton10.setText(resourceMap.getString("jButton10.text")); // NOI18N
-        jButton10.setName("jButton10"); // NOI18N
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(CarRentalFrame.class);
+        jButtonCustomersCzech.setIcon(resourceMap.getIcon("jButtonCustomersCzech.icon")); // NOI18N
+        jButtonCustomersCzech.setText(resourceMap.getString("jButtonCustomersCzech.text")); // NOI18N
+        jButtonCustomersCzech.setName("jButtonCustomersCzech"); // NOI18N
+        jButtonCustomersCzech.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustomersCzechActionPerformed(evt);
+            }
+        });
 
-        jButton11.setIcon(resourceMap.getIcon("jButton11.icon")); // NOI18N
-        jButton11.setName("jButton11"); // NOI18N
+        jButtonCustomersSlovak.setIcon(resourceMap.getIcon("jButtonCustomersSlovak.icon")); // NOI18N
+        jButtonCustomersSlovak.setName("jButtonCustomersSlovak"); // NOI18N
+        jButtonCustomersSlovak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustomersSlovakActionPerformed(evt);
+            }
+        });
 
-        jButton12.setIcon(resourceMap.getIcon("jButton12.icon")); // NOI18N
-        jButton12.setName("jButton12"); // NOI18N
+        jButtonCustomersEnglish.setIcon(resourceMap.getIcon("jButtonCustomersEnglish.icon")); // NOI18N
+        jButtonCustomersEnglish.setName("jButtonCustomersEnglish"); // NOI18N
+        jButtonCustomersEnglish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustomersEnglishActionPerformed(evt);
+            }
+        });
 
-        jButtonCustomerDelete.setText(resourceMap.getString("jButtonCustomerDelete.text")); // NOI18N
+        jButtonCustomerDelete.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Delete"));
         jButtonCustomerDelete.setName("jButtonCustomerDelete"); // NOI18N
         jButtonCustomerDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,27 +232,27 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jLabelCustomersFind)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldFindCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCustomerFind)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                         .addComponent(jButtonCustomerAdd)
                         .addGap(66, 66, 66)
-                        .addComponent(jLabel6)
+                        .addComponent(jLabelCustomersLanguage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonCustomersCzech, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonCustomersSlovak, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonCustomersEnglish, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonCustomerDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCustomerEdit)))
+                        .addComponent(jButtonCustomerEdit))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -246,26 +261,26 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldFindCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonCustomerFind)
-                        .addComponent(jLabel1)
+                        .addComponent(jLabelCustomersFind)
                         .addComponent(jButtonCustomerAdd)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6))
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonCustomersCzech, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelCustomersLanguage))
+                    .addComponent(jButtonCustomersSlovak, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCustomersEnglish, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCustomerEdit)
                     .addComponent(jButtonCustomerDelete))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(resourceMap.getString("jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
+        jTabbedPane1.addTab(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Customers"), jPanel1);
 
         jPanel2.setName("jPanel2"); // NOI18N
 
@@ -561,15 +576,94 @@ public class CarRentalFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        jTabbedPane1.getAccessibleContext().setAccessibleName(resourceMap.getString("jTabbedPane1.AccessibleContext.accessibleName")); // NOI18N
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+	private void jTextField5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField5MouseClicked
+		if (!jTextField5.getText().equals("")) {
+			TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
+			jTextField5.setText("");
+			sort.setRowFilter(null);
+		}
+}//GEN-LAST:event_jTextField5MouseClicked
+
+	private void jTextField4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField4MouseClicked
+		if (!jTextField4.getText().equals("")) {
+			TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
+			jTextField4.setText("");
+			sort.setRowFilter(null);
+		}
+}//GEN-LAST:event_jTextField4MouseClicked
+
+	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+		final JCalendar cal = new JCalendar();
+		DateFormat datf = DateFormat.getDateInstance(DateFormat.SHORT);
+		Date dat = null;
+		try {
+			dat = datf.parse(jTextField5.getText());
+		} catch (ParseException ex) {
+			//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		if (dat != null) {
+			cal.setDate(dat);
+		}
+		final JFrame frame = new JFrame("JCALENDAR");
+		frame.getContentPane().setLayout(new FlowLayout());
+		frame.getContentPane().add(cal);
+		JButton helloButton = new JButton();
+		helloButton.setText("OK");
+		frame.add(helloButton);
+		frame.pack();
+		MouseListener mouse = new MouseListener() {
+
+			public void mouseClicked(MouseEvent e) {
+				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+				jTextField5.setText(df.format(cal.getDate()).toString());
+				Date date = null;
+				try {
+					date = df.parse(jTextField5.getText());
+					//System.out.println(date);
+				} catch (ParseException ex) {
+					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+				}
+				TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
+				if (date == null) {
+					sort.setRowFilter(null);
+				} else {
+					sort.setRowFilter(RowFilter.dateFilter(ComparisonType.BEFORE, date));
+				}
+				frame.dispose();
+			}
+
+			public void mousePressed(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseReleased(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseExited(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+		};
+		helloButton.addMouseListener(mouse);
+		//cal.addMouseListener(mouse);
+		frame.setVisible(true);
+}//GEN-LAST:event_jButton5ActionPerformed
 
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 		final JCalendar cal = new JCalendar();
@@ -632,122 +726,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		frame.setVisible(true);
 }//GEN-LAST:event_jButton4ActionPerformed
 
-	private void jButtonCustomerAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerAddActionPerformed
-		final AddCustomerDialog dialogAddCustomer = new AddCustomerDialog(this, rootPaneCheckingEnabled);
-		final CustomersTableModel model = (CustomersTableModel) jTableCustomers.getModel();
-		dialogAddCustomer.setLocation(300, 100);
-		dialogAddCustomer.setVisible(true);
-		Customer resultCustomer = dialogAddCustomer.getResultCustomer();
-		if (resultCustomer != null) {
-			model.addCustomer(resultCustomer);
-		}
-}//GEN-LAST:event_jButtonCustomerAddActionPerformed
-
-	private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-		String text = jTextField1.getText();
-		TableRowSorter sort = (TableRowSorter) jTableCustomers.getRowSorter();
-		if (text.length() == 0) {
-			sort.setRowFilter(null);
-		} else {
-			String[] filter = text.split(" ");
-			if (filter.length > 0) {
-				String newText = filter[0];
-				int length = filter.length;
-				for (int i = 1; i < length; i++) {
-					newText += "|" + filter[i];
-				}
-				sort.setRowFilter(RowFilter.regexFilter(newText));
-			}
-		}
-	}//GEN-LAST:event_jTextField1KeyReleased
-
-	private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-		String text = jTextField2.getText();
-		TableRowSorter sort = (TableRowSorter) jTableCars.getRowSorter();
-		if (text.length() == 0) {
-			sort.setRowFilter(null);
-		} else {
-			String[] filter = text.split(" ");
-			if (filter.length > 0) {
-				String newText = filter[0];
-				int length = filter.length;
-				for (int i = 1; i < length; i++) {
-					newText += "|" + filter[i];
-				}
-				sort.setRowFilter(RowFilter.regexFilter(newText));
-			}
-		}
-	}//GEN-LAST:event_jTextField2KeyReleased
-
-	private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
-		jTextField2.setText("");
-	}//GEN-LAST:event_jTextField2MouseClicked
-
-	private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
-		jTextField1.setText("");
-	}//GEN-LAST:event_jTextField1MouseClicked
-
-	private void jButtonCarAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarAddActionPerformed
-		final JDialog dial = new AddCarDialog(this, rootPaneCheckingEnabled);
-		dial.setLocation(300, 100);
-		dial.setVisible(true);
-		WindowListener pcl = new WindowListener() {
-
-			public void windowOpened(WindowEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
-			}
-
-			public void windowClosing(WindowEvent e) {
-				//System.out.println("ahoj");
-			}
-
-			public void windowClosed(WindowEvent e) {
-				Component[] comp = dial.getContentPane().getComponents();
-				JLabel c = (JLabel) comp[9];
-				if (c.getText().equals(" ")) {
-					JTextField cname = (JTextField) comp[1];
-					String name = cname.getText();
-					JTextField cplate = (JTextField) comp[3];
-					String licencePlate = cplate.getText();
-					JComboBox cstate = (JComboBox) comp[5];
-					String state = cstate.getSelectedItem().toString();
-					JComboBox ctype = (JComboBox) comp[7];
-					CarType type = CarType.valueOf(ctype.getSelectedItem().toString());
-					final CarsTableModel model = (CarsTableModel) jTableCars.getModel();
-					CarManagerImpl cmi = new CarManagerImpl();
-					Car car = null;
-					try {
-						car = cmi.createNewCar(name, licencePlate, state, type);
-					} catch (CarManagerException ex) {
-						//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
-						JOptionPane.showMessageDialog(null, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Duplicity"));
-					}
-					if (car != null) {
-						model.addCar(car);
-						model.fireTableDataChanged();
-					}
-				}
-			}
-
-			public void windowIconified(WindowEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
-			}
-
-			public void windowDeiconified(WindowEvent e) {
-				//System.out.println("ahoj3");
-			}
-
-			public void windowActivated(WindowEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
-			}
-
-			public void windowDeactivated(WindowEvent e) {
-				//System.out.println("ahoj2");
-			}
-		};
-		dial.addWindowListener(pcl);
-	}//GEN-LAST:event_jButtonCarAddActionPerformed
-
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		if (jTableCars.getSelectedRow() != -1) {
 			int i = JOptionPane.showConfirmDialog(rootPane, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Do_you_really"));
@@ -757,7 +735,22 @@ public class CarRentalFrame extends javax.swing.JFrame {
 				cars.deleteCar(car);
 			}
 		}
-	}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_jButton1ActionPerformed
+
+	private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+		locale = new Locale("en", "US");
+		refresh();
+}//GEN-LAST:event_jButton15ActionPerformed
+
+	private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+		locale = new Locale("sk", "SK");
+		refresh();
+}//GEN-LAST:event_jButton14ActionPerformed
+
+	private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+		locale = new Locale("cs", "CZ");
+		refresh();
+}//GEN-LAST:event_jButton13ActionPerformed
 
 	private void jButtonCarEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarEditActionPerformed
 		if (jTableCars.getSelectedRow() != -1) {
@@ -820,9 +813,105 @@ public class CarRentalFrame extends javax.swing.JFrame {
 			};
 			dial.addWindowListener(pcl);
 		}
-	}//GEN-LAST:event_jButtonCarEditActionPerformed
+}//GEN-LAST:event_jButtonCarEditActionPerformed
 
-	private void jButtonCustomerEditActionPerformed(java.awt.event.ActionEvent evt) {
+	private void jButtonCarAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarAddActionPerformed
+		final JDialog dial = new AddCarDialog(this, rootPaneCheckingEnabled);
+		dial.setLocation(300, 100);
+		dial.setVisible(true);
+		WindowListener pcl = new WindowListener() {
+
+			public void windowOpened(WindowEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void windowClosing(WindowEvent e) {
+				//System.out.println("ahoj");
+			}
+
+			public void windowClosed(WindowEvent e) {
+				Component[] comp = dial.getContentPane().getComponents();
+				JLabel c = (JLabel) comp[9];
+				if (c.getText().equals(" ")) {
+					JTextField cname = (JTextField) comp[1];
+					String name = cname.getText();
+					JTextField cplate = (JTextField) comp[3];
+					String licencePlate = cplate.getText();
+					JComboBox cstate = (JComboBox) comp[5];
+					String state = cstate.getSelectedItem().toString();
+					JComboBox ctype = (JComboBox) comp[7];
+					CarType type = CarType.valueOf(ctype.getSelectedItem().toString());
+					final CarsTableModel model = (CarsTableModel) jTableCars.getModel();
+					CarManagerImpl cmi = new CarManagerImpl();
+					Car car = null;
+					try {
+						car = cmi.createNewCar(name, licencePlate, state, type);
+					} catch (CarManagerException ex) {
+						//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+						JOptionPane.showMessageDialog(null, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Duplicity"));
+					}
+					if (car != null) {
+						model.addCar(car);
+						model.fireTableDataChanged();
+					}
+				}
+			}
+
+			public void windowIconified(WindowEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void windowDeiconified(WindowEvent e) {
+				//System.out.println("ahoj3");
+			}
+
+			public void windowActivated(WindowEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void windowDeactivated(WindowEvent e) {
+				//System.out.println("ahoj2");
+			}
+		};
+		dial.addWindowListener(pcl);
+}//GEN-LAST:event_jButtonCarAddActionPerformed
+
+	private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+		String text = jTextField2.getText();
+		TableRowSorter sort = (TableRowSorter) jTableCars.getRowSorter();
+		if (text.length() == 0) {
+			sort.setRowFilter(null);
+		} else {
+			String[] filter = text.split(" ");
+			if (filter.length > 0) {
+				String newText = filter[0];
+				int length = filter.length;
+				for (int i = 1; i < length; i++) {
+					newText += "|" + filter[i];
+				}
+				sort.setRowFilter(RowFilter.regexFilter(newText));
+			}
+		}
+}//GEN-LAST:event_jTextField2KeyReleased
+
+	private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
+		jTextField2.setText("");
+}//GEN-LAST:event_jTextField2MouseClicked
+
+	private void jButtonCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerDeleteActionPerformed
+		if (jTableCustomers.getSelectedRow() != -1) {
+			int i = JOptionPane.showConfirmDialog(this, "Do you really want to delete this customer?"); //TODO localization
+			if (i == 0) {
+				CustomersTableModel customersTable = (CustomersTableModel) jTableCustomers.getModel();
+				Customer customer = customersTable.getCustomer(jTableCustomers.getSelectedRow());
+				customersTable.deleteCustomer(customer);
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "No customer is selected!","Customer error", JOptionPane.ERROR_MESSAGE); //TODO localization
+		}
+}//GEN-LAST:event_jButtonCustomerDeleteActionPerformed
+
+	private void jButtonCustomerEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerEditActionPerformed
 		//dialog building phase
 		int selectedRow = jTableCustomers.getSelectedRow();
 		if (selectedRow >= 0) {
@@ -839,114 +928,74 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		} else {
 			JOptionPane.showMessageDialog(this, "No customer is selected!","Customer error", JOptionPane.ERROR_MESSAGE); //TODO localization
 		}
-	}
+	}//GEN-LAST:event_jButtonCustomerEditActionPerformed
 
-	private void jButtonCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerDeleteActionPerformed
-		if (jTableCustomers.getSelectedRow() != -1) {
-			int i = JOptionPane.showConfirmDialog(this, "Do you really want to delete this customer?"); //TODO localization
-			if (i == 0) {
-				CustomersTableModel customersTable = (CustomersTableModel) jTableCustomers.getModel();
-				Customer customer = customersTable.getCustomer(jTableCustomers.getSelectedRow());
-				customersTable.deleteCustomer(customer);
-			}
+	private void jButtonCustomerAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerAddActionPerformed
+		final AddCustomerDialog dialogAddCustomer = new AddCustomerDialog(this, rootPaneCheckingEnabled);
+		final CustomersTableModel model = (CustomersTableModel) jTableCustomers.getModel();
+		dialogAddCustomer.setLocation(300, 100);
+		dialogAddCustomer.setVisible(true);
+		Customer resultCustomer = dialogAddCustomer.getResultCustomer();
+		if (resultCustomer != null) {
+			model.addCustomer(resultCustomer);
+		}
+}//GEN-LAST:event_jButtonCustomerAddActionPerformed
+
+	private void jTextFieldFindCustomerKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFindCustomerKeyReleased
+		String text = jTextFieldFindCustomer.getText();
+		TableRowSorter sort = (TableRowSorter) jTableCustomers.getRowSorter();
+		if (text.length() == 0) {
+			sort.setRowFilter(null);
 		} else {
-			JOptionPane.showMessageDialog(this, "No customer is selected!","Customer error", JOptionPane.ERROR_MESSAGE); //TODO localization
-		}
-	}//GEN-LAST:event_jButtonCustomerDeleteActionPerformed
-
-	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-		final JCalendar cal = new JCalendar();
-		DateFormat datf = DateFormat.getDateInstance(DateFormat.SHORT);
-		Date dat = null;
-		try {
-			dat = datf.parse(jTextField5.getText());
-		} catch (ParseException ex) {
-			//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		if (dat != null) {
-			cal.setDate(dat);
-		}
-		final JFrame frame = new JFrame("JCALENDAR");
-		frame.getContentPane().setLayout(new FlowLayout());
-		frame.getContentPane().add(cal);
-		JButton helloButton = new JButton();
-		helloButton.setText("OK");
-		frame.add(helloButton);
-		frame.pack();
-		MouseListener mouse = new MouseListener() {
-
-			public void mouseClicked(MouseEvent e) {
-				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
-				jTextField5.setText(df.format(cal.getDate()).toString());
-				Date date = null;
-				try {
-					date = df.parse(jTextField5.getText());
-					//System.out.println(date);
-				} catch (ParseException ex) {
-					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+			String[] filter = text.split(" ");
+			if (filter.length > 0) {
+				String newText = filter[0];
+				int length = filter.length;
+				for (int i = 1; i < length; i++) {
+					newText += "|" + filter[i];
 				}
-				TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
-				if (date == null) {
-					sort.setRowFilter(null);
-				} else {
-					sort.setRowFilter(RowFilter.dateFilter(ComparisonType.BEFORE, date));
-				}
-				frame.dispose();
+				sort.setRowFilter(RowFilter.regexFilter(newText));
 			}
-
-			public void mousePressed(MouseEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
-			}
-
-			public void mouseReleased(MouseEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
-			}
-
-			public void mouseEntered(MouseEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
-			}
-
-			public void mouseExited(MouseEvent e) {
-				//throw new UnsupportedOperationException("Not supported yet.");
-			}
-		};
-		helloButton.addMouseListener(mouse);
-		//cal.addMouseListener(mouse);
-		frame.setVisible(true);
-	}//GEN-LAST:event_jButton5ActionPerformed
-
-	private void jTextField4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField4MouseClicked
-		if (!jTextField4.getText().equals("")) {
-			TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
-			jTextField4.setText("");
-			sort.setRowFilter(null);
 		}
-	}//GEN-LAST:event_jTextField4MouseClicked
+}//GEN-LAST:event_jTextFieldFindCustomerKeyReleased
 
-	private void jTextField5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField5MouseClicked
-		if (!jTextField5.getText().equals("")) {
-			TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
-			jTextField5.setText("");
-			sort.setRowFilter(null);
-		}
-	}//GEN-LAST:event_jTextField5MouseClicked
+	private void jTextFieldFindCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldFindCustomerMouseClicked
+		jTextFieldFindCustomer.setText("");
+}//GEN-LAST:event_jTextFieldFindCustomerMouseClicked
 
-	private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+	private void jButtonCustomersCzechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomersCzechActionPerformed
 		locale = new Locale("cs", "CZ");
 		refresh();
-	}//GEN-LAST:event_jButton13ActionPerformed
+	}//GEN-LAST:event_jButtonCustomersCzechActionPerformed
 
-	private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-		locale = new Locale("en", "US");
-		refresh();
-	}//GEN-LAST:event_jButton15ActionPerformed
-
-	private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+	private void jButtonCustomersSlovakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomersSlovakActionPerformed
 		locale = new Locale("sk", "SK");
 		refresh();
-	}//GEN-LAST:event_jButton14ActionPerformed
+	}//GEN-LAST:event_jButtonCustomersSlovakActionPerformed
+
+	private void jButtonCustomersEnglishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomersEnglishActionPerformed
+		locale = new Locale("en", "US");
+		refresh();
+	}//GEN-LAST:event_jButtonCustomersEnglishActionPerformed
+
 
 	public void refresh() {
+		//Customers tab
+		jTableCustomers.getColumnModel().getColumn(1).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Forename"));
+		jTableCustomers.getColumnModel().getColumn(2).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Surname"));
+		jTableCustomers.getColumnModel().getColumn(3).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Street"));
+		jTableCustomers.getColumnModel().getColumn(4).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("HouseNumber"));
+		jTableCustomers.getColumnModel().getColumn(5).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Town"));
+		jTableCustomers.getColumnModel().getColumn(6).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("State"));
+		jTableCustomers.getColumnModel().getColumn(7).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Zipcode"));
+		jLabelCustomersFind.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Find"));
+		jLabelCustomersLanguage.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Language"));
+		jTextFieldFindCustomer.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find a customer"));
+		jButtonCustomerAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Add"));
+		jButtonCustomerDelete.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Delete"));
+		jButtonCustomerEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Edit"));
+
+		//Cars tab
 		jTableCars.getColumnModel().getColumn(1).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("CarName").replace(':', ' '));
 		jTableCars.getColumnModel().getColumn(2).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Licence plate").replace(':', ' '));
 		jTableCars.getColumnModel().getColumn(3).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("CarState").replace(':', ' '));
@@ -959,6 +1008,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		jTextField2.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find a car"));
 	}
 
+	@Override
 	public Locale getLocale() {
 		return locale;
 	}
@@ -978,9 +1028,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
@@ -995,15 +1042,18 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCustomerDelete;
     private javax.swing.JButton jButtonCustomerEdit;
     private javax.swing.JButton jButtonCustomerFind;
+    private javax.swing.JButton jButtonCustomersCzech;
+    private javax.swing.JButton jButtonCustomersEnglish;
+    private javax.swing.JButton jButtonCustomersSlovak;
     private javax.swing.JButton jButtonOrderFind;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelCustomersFind;
+    private javax.swing.JLabel jLabelCustomersLanguage;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1018,11 +1068,11 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTableCars;
     private javax.swing.JTable jTableCustomers;
     private javax.swing.JTable jTableOrders;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextFieldFindCustomer;
     // End of variables declaration//GEN-END:variables
 	// </editor-fold>
 }
