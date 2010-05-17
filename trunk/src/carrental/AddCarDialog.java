@@ -13,7 +13,6 @@ package carrental;
 
 import carrental.models.AddCarStateModel;
 import carrental.entities.CarType;
-import java.awt.Component;
 import javax.swing.DefaultComboBoxModel;
 
 /**

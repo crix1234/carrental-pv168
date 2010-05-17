@@ -11,16 +11,20 @@
 
 package carrental;
 
+import carrental.entities.Order;
+
 /**
  *
  * @author S
  */
 public class AddOrderDialog extends javax.swing.JDialog {
 
+	private Order resultOrder;
     /** Creates new form AddOrderDialog */
     public AddOrderDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+		resultOrder = null;
     }
 
     /** This method is called from within the constructor to
@@ -32,12 +36,45 @@ public class AddOrderDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelFrom = new javax.swing.JLabel();
+        jTextFieldCalendarFrom = new javax.swing.JTextField();
+        jLabelTo = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabelCustomer = new javax.swing.JLabel();
+        jLabelCar = new javax.swing.JLabel();
+        jButtonCancel = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
 
-        jLabel1.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("time_From") + ":");
+        jLabelFrom.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("time_From") + ":");
+        jLabelFrom.setName("jLabelFrom"); // NOI18N
+
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(AddOrderDialog.class);
+        jTextFieldCalendarFrom.setText(resourceMap.getString("jTextFieldCalendarFrom.text")); // NOI18N
+        jTextFieldCalendarFrom.setName("jTextFieldCalendarFrom"); // NOI18N
+
+        jLabelTo.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("time_To") + ":");
+        jLabelTo.setName("jLabelTo"); // NOI18N
+
+        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
+        jTextField1.setName("jTextField1"); // NOI18N
+
+        jLabelCustomer.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Customer") + ":");
+        jLabelCustomer.setName("jLabelCustomer"); // NOI18N
+
+        jLabelCar.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Car") + ":");
+        jLabelCar.setName("jLabelCar"); // NOI18N
+
+        jButtonCancel.setText(resourceMap.getString("jButtonCancel.text")); // NOI18N
+        jButtonCancel.setName("jButtonCancel"); // NOI18N
+
+        jButtonAdd.setText(resourceMap.getString("jButtonAdd.text")); // NOI18N
+        jButtonAdd.setName("jButtonAdd"); // NOI18N
+
+        jLabel1.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("StateOf") + ":");
         jLabel1.setName("jLabel1"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -46,39 +83,67 @@ public class AddOrderDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelFrom)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextFieldCalendarFrom))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelTo)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButtonAdd)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButtonCancel))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelCustomer)
+                    .addComponent(jLabelCar))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelFrom)
+                    .addComponent(jTextFieldCalendarFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTo)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCustomer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCar)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAdd)
+                    .addComponent(jButtonCancel))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddOrderDialog dialog = new AddOrderDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+	public Order getResultOrder() {
+		return resultOrder;
+	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelCar;
+    private javax.swing.JLabel jLabelCustomer;
+    private javax.swing.JLabel jLabelFrom;
+    private javax.swing.JLabel jLabelTo;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldCalendarFrom;
     // End of variables declaration//GEN-END:variables
 
 }
