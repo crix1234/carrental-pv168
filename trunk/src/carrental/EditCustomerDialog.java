@@ -11,9 +11,9 @@
 
 package carrental;
 
+import carrental.models.CustomerStateModel;
 import carrental.entities.Address;
 import carrental.entities.Customer;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -70,33 +70,33 @@ public class EditCustomerDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(EditCustomerDialog.class);
-        jLabelForename.setText(resourceMap.getString("jLabelForename.text")); // NOI18N
+        jLabelForename.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Forename") + ":");
         jLabelForename.setName("jLabelForename"); // NOI18N
 
-        jLabelSurename.setText(resourceMap.getString("jLabelSurename.text")); // NOI18N
+        jLabelSurename.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Surname") + ":");
         jLabelSurename.setName("jLabelSurename"); // NOI18N
 
         jSeparator1.setName("jSeparator1"); // NOI18N
 
-        jLabelAddress.setText(resourceMap.getString("jLabelAddress.text")); // NOI18N
+        jLabelAddress.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Address") + ":");
         jLabelAddress.setName("jLabelAddress"); // NOI18N
 
-        jLabelStreet.setText(resourceMap.getString("jLabelStreet.text")); // NOI18N
+        jLabelStreet.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Street") + ":");
         jLabelStreet.setName("jLabelStreet"); // NOI18N
 
-        jLabelHousenumber.setText(resourceMap.getString("jLabelHousenumber.text")); // NOI18N
+        jLabelHousenumber.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("HouseNumber") + ":");
         jLabelHousenumber.setName("jLabelHousenumber"); // NOI18N
 
-        jLabelTown.setText(resourceMap.getString("jLabelTown.text")); // NOI18N
+        jLabelTown.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Town") + ":");
         jLabelTown.setName("jLabelTown"); // NOI18N
 
-        jLabelState.setText(resourceMap.getString("jLabelState.text")); // NOI18N
+        jLabelState.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("State") + ":");
         jLabelState.setName("jLabelState"); // NOI18N
 
-        jLabelZipcode.setText(resourceMap.getString("jLabelZipcode.text")); // NOI18N
+        jLabelZipcode.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Zipcode") + ":");
         jLabelZipcode.setName("jLabelZipcode"); // NOI18N
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(EditCustomerDialog.class);
         jTextFieldForename.setText(resourceMap.getString("jTextFieldForename.text")); // NOI18N
         jTextFieldForename.setName("jTextFieldForename"); // NOI18N
 
@@ -131,7 +131,7 @@ public class EditCustomerDialog extends javax.swing.JDialog {
             }
         });
 
-        jComboBoxState.setModel(new carrental.CustomerStateModel());
+        jComboBoxState.setModel(new carrental.models.CustomerStateModel());
         jComboBoxState.setName("jComboBoxState"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,11 +145,11 @@ public class EditCustomerDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelForename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldForename, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                        .addComponent(jTextFieldForename, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelSurename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldSurename, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                        .addComponent(jTextFieldSurename, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
                     .addComponent(jLabelAddress)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -157,23 +157,23 @@ public class EditCustomerDialog extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelStreet)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldStreet, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                                .addComponent(jTextFieldStreet, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelTown)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldTown, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                                .addComponent(jTextFieldTown, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelZipcode)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldzipcode, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+                                .addComponent(jTextFieldzipcode, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelState)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxState, 0, 144, Short.MAX_VALUE))
+                                .addComponent(jComboBoxState, 0, 108, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelHousenumber)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldHousenumber, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                                .addComponent(jTextFieldHousenumber, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)

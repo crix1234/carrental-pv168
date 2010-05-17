@@ -33,27 +33,27 @@
                           <Group type="102" alignment="0" attributes="1">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextFieldZipcode" pref="132" max="32767" attributes="0"/>
+                              <Component id="jTextFieldZipcode" pref="107" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="1">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBoxState" pref="143" max="32767" attributes="2"/>
+                              <Component id="jComboBoxState" pref="107" max="32767" attributes="2"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="1">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextFieldTown" pref="143" max="32767" attributes="0"/>
+                              <Component id="jTextFieldTown" pref="107" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="1">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextFieldHousenumber" pref="99" max="32767" attributes="0"/>
+                              <Component id="jTextFieldHousenumber" pref="107" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldStreet" pref="139" max="32767" attributes="0"/>
+                              <Component id="jTextFieldStreet" pref="107" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="13" pref="13" max="13" attributes="0"/>
@@ -66,8 +66,8 @@
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextFieldSurname" pref="144" max="32767" attributes="2"/>
-                          <Component id="jTextFieldForename" alignment="0" pref="144" max="32767" attributes="2"/>
+                          <Component id="jTextFieldSurname" pref="130" max="32767" attributes="2"/>
+                          <Component id="jTextFieldForename" alignment="0" pref="130" max="32767" attributes="2"/>
                       </Group>
                   </Group>
                   <Component id="jSeparator1" alignment="0" pref="200" max="32767" attributes="0"/>
@@ -136,13 +136,17 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabelForename">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabelForename.text"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,this.getParent().getLocale()).getString(&quot;Forename&quot;) + &quot;:&quot;" type="code"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jLabelForename" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelSurname">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabelSurname.text"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,this.getParent().getLocale()).getString(&quot;Surname&quot;) + &quot;:&quot;" type="code"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jLabelSurname" noResource="true"/>
       </Properties>
     </Component>
@@ -163,44 +167,56 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel1.text"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,this.getParent().getLocale()).getString(&quot;Address&quot;)+&quot;:&quot;" type="code"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel2.text"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,this.getParent().getLocale()).getString(&quot;Street&quot;) + &quot;:&quot;" type="code"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel3.text"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,this.getParent().getLocale()).getString(&quot;HouseNumber&quot;) + &quot;:&quot;" type="code"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel4.text"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,this.getParent().getLocale()).getString(&quot;Town&quot;) + &quot;:&quot;" type="code"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel5.text"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,this.getParent().getLocale()).getString(&quot;State&quot;) + &quot;:&quot;" type="code"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jLabel5" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel6.text"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,this.getParent().getLocale()).getString(&quot;Zipcode&quot;) + &quot;:&quot;" type="code"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jLabel6" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBoxState">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new carrental.CustomerStateModel()" type="code"/>
+          <Connection code="new carrental.models.CustomerStateModel()" type="code"/>
         </Property>
         <Property name="name" type="java.lang.String" value="jComboBoxState" noResource="true"/>
       </Properties>

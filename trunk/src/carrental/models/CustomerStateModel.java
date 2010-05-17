@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package carrental;
+package carrental.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +15,7 @@ import javax.swing.ComboBoxModel;
  *
  * @author Jerrycek
  */
-public class AddCustomerStateModel extends AbstractListModel implements ComboBoxModel {
+public class CustomerStateModel extends AbstractListModel implements ComboBoxModel {
 
 	private List<String> countries = new ArrayList<String>();
 	String selection = null;

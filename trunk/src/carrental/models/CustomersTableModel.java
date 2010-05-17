@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package carrental;
+package carrental.models;
 
+import carrental.CarRentalFrame;
 import carrental.entities.Customer;
 import carrental.managers.CustomerManagerException;
 import carrental.managers.CustomerManagerImpl;
