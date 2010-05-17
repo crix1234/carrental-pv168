@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package carrental;
+package carrental.models;
 
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;

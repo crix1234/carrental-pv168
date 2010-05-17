@@ -11,6 +11,7 @@
 
 package carrental;
 
+import carrental.models.AddCarStateModel;
 import carrental.entities.CarType;
 import javax.swing.DefaultComboBoxModel;
 

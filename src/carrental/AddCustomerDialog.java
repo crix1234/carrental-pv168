@@ -11,6 +11,7 @@
 
 package carrental;
 
+import carrental.models.CustomerStateModel;
 import carrental.entities.Address;
 import carrental.entities.Customer;
 import carrental.managers.CustomerManagerException;
@@ -76,13 +77,13 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         setName("Form"); // NOI18N
         setResizable(false);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(AddCustomerDialog.class);
-        jLabelForename.setText(resourceMap.getString("jLabelForename.text")); // NOI18N
+        jLabelForename.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Forename") + ":");
         jLabelForename.setName("jLabelForename"); // NOI18N
 
-        jLabelSurname.setText(resourceMap.getString("jLabelSurname.text")); // NOI18N
+        jLabelSurname.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Surname") + ":");
         jLabelSurname.setName("jLabelSurname"); // NOI18N
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(AddCustomerDialog.class);
         jTextFieldForename.setText(resourceMap.getString("jTextFieldForename.text")); // NOI18N
         jTextFieldForename.setName("jTextFieldForename"); // NOI18N
         jTextFieldForename.addActionListener(new java.awt.event.ActionListener() {
@@ -94,25 +95,25 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         jTextFieldSurname.setText(resourceMap.getString("jTextFieldSurname.text")); // NOI18N
         jTextFieldSurname.setName("jTextFieldSurname"); // NOI18N
 
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Address")+":");
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Street") + ":");
         jLabel2.setName("jLabel2"); // NOI18N
 
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
+        jLabel3.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("HouseNumber") + ":");
         jLabel3.setName("jLabel3"); // NOI18N
 
-        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
+        jLabel4.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Town") + ":");
         jLabel4.setName("jLabel4"); // NOI18N
 
-        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
+        jLabel5.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("State") + ":");
         jLabel5.setName("jLabel5"); // NOI18N
 
-        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
+        jLabel6.setText(java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("Zipcode") + ":");
         jLabel6.setName("jLabel6"); // NOI18N
 
-        jComboBoxState.setModel(new carrental.CustomerStateModel());
+        jComboBoxState.setModel(new carrental.models.CustomerStateModel());
         jComboBoxState.setName("jComboBoxState"); // NOI18N
 
         jTextFieldStreet.setText(resourceMap.getString("jTextFieldStreet.text")); // NOI18N
@@ -158,23 +159,23 @@ public class AddCustomerDialog extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldZipcode, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                                .addComponent(jTextFieldZipcode, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxState, 0, 143, Short.MAX_VALUE))
+                                .addComponent(jComboBoxState, 0, 107, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldTown, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                                .addComponent(jTextFieldTown, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldHousenumber, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                                .addComponent(jTextFieldHousenumber, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldStreet, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
+                                .addComponent(jTextFieldStreet, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
                         .addGap(13, 13, 13))
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
@@ -183,8 +184,8 @@ public class AddCustomerDialog extends javax.swing.JDialog {
                             .addComponent(jLabelSurname))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldSurname, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                            .addComponent(jTextFieldForename, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)))
+                            .addComponent(jTextFieldSurname, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(jTextFieldForename, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonAdd)
@@ -278,24 +279,6 @@ public class AddCustomerDialog extends javax.swing.JDialog {
 	private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
 		dispose();
 	}//GEN-LAST:event_jButtonCancelActionPerformed
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddCustomerDialog dialog = new AddCustomerDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-					@Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
