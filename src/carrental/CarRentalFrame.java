@@ -916,7 +916,9 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 	public void refresh() {
 		//tab names
-		jPanelCustomers.setName(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Customers"));
+		jTabbedPane1.setTitleAt(0, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Customers"));
+		jTabbedPane1.setTitleAt(1, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Cars"));
+		jTabbedPane1.setTitleAt(2, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Orders"));
 		
 
 		//Customers tab
