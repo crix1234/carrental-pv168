@@ -23,12 +23,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" min="-2" pref="800" max="-2" attributes="0"/>
+          <Component id="jPanelTopMenu" alignment="0" max="32767" attributes="1"/>
+          <Component id="jTabbedPane1" alignment="0" pref="800" max="32767" attributes="1"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="1" min="-2" pref="600" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanelTopMenu" min="-2" pref="33" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jTabbedPane1" pref="621" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -43,9 +48,9 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="jPanelCustomers">
           <Properties>
-            <Property name="name" type="java.lang.String" value="jPanel1" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="jPanelCustomers" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -71,14 +76,7 @@
                               <Component id="jButtonCustomerFind" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="102" max="32767" attributes="0"/>
                               <Component id="jButtonCustomerAdd" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                              <Component id="jLabelCustomersLanguage" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonCustomersCzech" min="-2" pref="26" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonCustomersSlovak" min="-2" pref="26" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonCustomersEnglish" min="-2" pref="26" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jSeparator1" alignment="1" pref="775" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
@@ -96,17 +94,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextFieldFindCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonCustomerFind" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabelCustomersFind" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonCustomerAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonCustomersCzech" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="jLabelCustomersLanguage" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jButtonCustomersSlovak" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jButtonCustomersEnglish" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldFindCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCustomerFind" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelCustomersFind" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCustomerAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -117,7 +109,7 @@
                           <Component id="jButtonCustomerEdit" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonCustomerDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="80" max="32767" attributes="0"/>
+                      <EmptySpace pref="101" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -194,14 +186,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabelCustomersLanguage">
-              <Properties>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Language&quot;)" type="code"/>
-                </Property>
-                <Property name="name" type="java.lang.String" value="jLabelCustomersLanguage" noResource="true"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JButton" name="jButtonCustomerAdd">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -224,34 +208,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomerEditActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonCustomersCzech">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButtonCustomersCzech.icon"/>
-                <Property name="text" type="java.lang.String" resourceKey="jButtonCustomersCzech.text"/>
-                <Property name="name" type="java.lang.String" value="jButtonCustomersCzech" noResource="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomersCzechActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButtonCustomersSlovak">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButtonCustomersSlovak.icon"/>
-                <Property name="name" type="java.lang.String" value="jButtonCustomersSlovak" noResource="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomersSlovakActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButtonCustomersEnglish">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButtonCustomersEnglish.icon"/>
-                <Property name="name" type="java.lang.String" value="jButtonCustomersEnglish" noResource="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomersEnglishActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="jButtonCustomerDelete">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -265,9 +221,9 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel2">
+        <Container class="javax.swing.JPanel" name="jPanelCars">
           <Properties>
-            <Property name="name" type="java.lang.String" value="jPanel2" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="jPanelCars" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -291,14 +247,7 @@
                               <Component id="jTextField2" min="-2" pref="173" max="-2" attributes="0"/>
                               <EmptySpace pref="190" max="32767" attributes="0"/>
                               <Component id="jButtonCarAdd" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton13" min="-2" pref="26" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton14" min="-2" pref="26" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton15" min="-2" pref="26" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jSeparator2" alignment="1" pref="775" max="32767" attributes="0"/>
                           <Component id="jScrollPane2" alignment="0" pref="775" max="32767" attributes="0"/>
@@ -316,16 +265,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonCarAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jButton13" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jButton14" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jButton15" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCarAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
@@ -336,7 +279,7 @@
                           <Component id="jButtonCarEdit" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="80" max="32767" attributes="0"/>
+                      <EmptySpace pref="101" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -402,14 +345,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel8">
-              <Properties>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Language&quot;)" type="code"/>
-                </Property>
-                <Property name="name" type="java.lang.String" value="jLabel8" noResource="true"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JButton" name="jButtonCarAdd">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -432,33 +367,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCarEditActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton13">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton13.icon"/>
-                <Property name="name" type="java.lang.String" value="jButton13" noResource="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton13ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton14">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton14.icon"/>
-                <Property name="name" type="java.lang.String" value="jButton14" noResource="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton15">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton15.icon"/>
-                <Property name="name" type="java.lang.String" value="jButton15" noResource="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton15ActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -472,14 +380,16 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel3">
+        <Container class="javax.swing.JPanel" name="jPanelOrders">
           <Properties>
-            <Property name="name" type="java.lang.String" value="jPanel3" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="jPanelOrders" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab 3">
-                <Property name="tabTitle" type="java.lang.String" resourceKey="jPanel3.TabConstraints.tabTitle"/>
+              <JTabbedPaneConstraints tabName="&lt;User Code&gt;">
+                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Orders&quot;)" type="code"/>
+                </Property>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -507,19 +417,11 @@
                               <Component id="jButton5" min="-2" pref="18" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelOrdersFind" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField3" min="-2" pref="173" max="-2" attributes="0"/>
+                              <Component id="jTextFieldOrdersFind" min="-2" pref="173" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonOrderFind" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="342" max="32767" attributes="0"/>
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton16" min="-2" pref="26" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton17" min="-2" pref="26" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton18" min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -530,16 +432,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonOrderFind" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jButton16" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jButton17" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jButton18" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jTextFieldOrdersFind" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonOrderFind" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelOrdersFind" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
@@ -564,27 +460,33 @@
                       <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane3" min="-2" pref="386" max="-2" attributes="0"/>
-                      <EmptySpace pref="83" max="32767" attributes="0"/>
+                      <EmptySpace pref="104" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="jTextField3">
+            <Component class="javax.swing.JTextField" name="jTextFieldOrdersFind">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jTextField3.text"/>
-                <Property name="name" type="java.lang.String" value="jTextField3" noResource="true"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Find an order&quot;)" type="code"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="jTextFieldOrdersFind" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="jLabelOrdersFind">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jLabel3.text"/>
-                <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;FindLabel&quot;)" type="code"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="jLabelOrdersFind" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonOrderFind">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButtonOrderFind.text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Find&quot;)" type="code"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="jButtonOrderFind" noResource="true"/>
               </Properties>
             </Component>
@@ -675,12 +577,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
-              <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jLabel7.text"/>
-                <Property name="name" type="java.lang.String" value="jLabel7" noResource="true"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator4">
               <Properties>
                 <Property name="name" type="java.lang.String" value="jSeparator4" noResource="true"/>
@@ -706,26 +602,83 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextField5MouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton16">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton16.icon"/>
-                <Property name="name" type="java.lang.String" value="jButton16" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton17">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton17.icon"/>
-                <Property name="name" type="java.lang.String" value="jButton17" noResource="true"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton18">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jButton18.icon"/>
-                <Property name="name" type="java.lang.String" value="jButton18" noResource="true"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanelTopMenu">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="jPanelTopMenu" noResource="true"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="630" max="32767" attributes="0"/>
+                  <Component id="jLabelCustomersLanguage" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonCustomersCzech" min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonCustomersSlovak" min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonCustomersEnglish" min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" max="-2" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="jLabelCustomersLanguage" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCustomersCzech" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="jButtonCustomersSlovak" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="jButtonCustomersEnglish" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabelCustomersLanguage">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Language&quot;)" type="code"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="jLabelCustomersLanguage" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonCustomersCzech">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" resourceKey="jButtonCustomersCzech.icon"/>
+            <Property name="text" type="java.lang.String" resourceKey="jButtonCustomersCzech.text"/>
+            <Property name="name" type="java.lang.String" value="jButtonCustomersCzech" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomersCzechActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonCustomersSlovak">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" resourceKey="jButtonCustomersSlovak.icon"/>
+            <Property name="name" type="java.lang.String" value="jButtonCustomersSlovak" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomersSlovakActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonCustomersEnglish">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" resourceKey="jButtonCustomersEnglish.icon"/>
+            <Property name="name" type="java.lang.String" value="jButtonCustomersEnglish" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomersEnglishActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
