@@ -9,11 +9,14 @@ import carrental.managers.CustomerManagerException;
 import carrental.managers.CustomerManagerImpl;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author Jerrycek
+ * @author Jerrycek & Pavel Mican
  */
 public class CustomersTableModel extends AbstractTableModel {
 
@@ -89,5 +92,68 @@ public class CustomersTableModel extends AbstractTableModel {
 
 	public void actualize() {
 		fireTableRowsInserted(customers.size(),customers.size());
+	}
+
+	public void addCustomer(Customer customer) {
+		if (customer != null) {
+			customers.add(customer);
+			fireTableRowsInserted(customers.size(),customers.size());
+		}
+	}
+
+	public void deleteCustomer(Customer customer) {
+		if (customer != null) {
+			CustomerManagerImpl cmi = new CustomerManagerImpl();
+			int index = customers.indexOf(customer);
+			if (index >=0) {
+				try {
+					cmi.deleteCustomer(customer);
+					customers.remove(index);
+					fireTableRowsDeleted(index, index);
+				} catch (CustomerManagerException ex) {
+					Logger.getLogger(CustomersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+					JOptionPane.showMessageDialog(null, "Customer deletion didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
+				} catch (IllegalArgumentException ex) {
+					Logger.getLogger(CustomersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+					JOptionPane.showMessageDialog(null, "Customer deletion didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
+				}
+			}
+		}
+	}
+
+	/**
+	 * edits the <code>Customer</code> in the table and updates the database
+	 * @param customer the <code>Custoer</code> you'd like to place in the position of the original one
+	 * @param index the position in <code>customers</code> into which the new <code>Customer</code> should be placed
+	 */
+	public void editCustomer(Customer customer, int index) {
+		if (customer != null) {
+			CustomerManagerImpl cmi = new CustomerManagerImpl();
+			try {
+				cmi.editCustomer(customer);
+				customers.set(index,customer);
+				fireTableRowsUpdated(index, index);
+			} catch (CustomerManagerException ex) {
+				Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(null, "Customer edition didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
+			} catch (IllegalArgumentException ex) {
+				Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(null, "Customer edition didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
+			}
+		}
+	}
+
+	/**
+	 * gets the customer placed in the specific <code>row</code>
+	 * @param row the row in which the wanted <code>Customer</code> is placed
+	 * @return Customer placed in the selected row
+	 * @throws ArrayIndexOutOfBoundsException if the row is out of bounds
+	 *         ie. lower than 0 or bigger than rowsCount - 1
+	 */
+	public Customer getCustomer(int row) {
+		if ( (row > customers.size()) || (row < 0) ) {
+			throw new ArrayIndexOutOfBoundsException();
+		}
+		return customers.get(row);
 	}
 }

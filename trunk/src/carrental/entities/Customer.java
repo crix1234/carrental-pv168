@@ -10,6 +10,13 @@ public class Customer {
 	private String surname;
 	private Address address;
 
+	public Customer(Customer cust) {
+		setId(cust.getId());
+		setName(cust.getName());
+		setSurname(cust.getSurname());
+		setAddress(new Address(cust.getAddress()));
+	}
+
 	public Customer(int id, String name, String surname, Address address) throws IllegalArgumentException {
 		setId(id);
 		setName(name);
