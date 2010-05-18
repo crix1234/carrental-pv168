@@ -7,7 +7,6 @@ package carrental.models;
 import carrental.entities.Order;
 import carrental.managers.OrderManagerException;
 import carrental.managers.OrderManagerImpl;
-import carrental.managers.OrderingManagerException;
 import carrental.managers.OrderingManagerImpl;
 import java.text.DateFormat;
 import java.util.ArrayList;
