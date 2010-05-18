@@ -7,6 +7,8 @@ package carrental.models;
 import carrental.entities.Order;
 import carrental.managers.OrderManagerException;
 import carrental.managers.OrderManagerImpl;
+import carrental.managers.OrderingManagerException;
+import carrental.managers.OrderingManagerImpl;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,9 +26,6 @@ public class OrdersTableModel extends AbstractTableModel {
 
 	private List<Order> orders = new ArrayList<Order>();
 
-	//public void addCar(Car car) {
-	//	cars.add(car);
-	//}
 	public void loadOrders() {
 		OrderManagerImpl omi = new OrderManagerImpl();
 		try {
@@ -39,7 +38,7 @@ public class OrdersTableModel extends AbstractTableModel {
 	public void addOrder(Order order) {
 		if (order != null) {
 			orders.add(order);
-			fireTableRowsInserted(orders.size(),orders.size());
+			fireTableRowsInserted(orders.size(), orders.size());
 		}
 	}
 
@@ -54,17 +53,17 @@ public class OrdersTableModel extends AbstractTableModel {
 		if (order != null) {
 			OrderManagerImpl omi = new OrderManagerImpl();
 			int index = orders.indexOf(order);
-			if (index >=0) {
+			if (index >= 0) {
 				try {
 					omi.deleteOrder(order);
 					orders.remove(index);
 					fireTableRowsDeleted(index, index);
 				} catch (OrderManagerException ex) {
 					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-					JOptionPane.showMessageDialog(null, "Order deletion didn't succeed","Order error",JOptionPane.ERROR_MESSAGE); //TODO localization
+					JOptionPane.showMessageDialog(null, "Order deletion didn't succeed", "Order error", JOptionPane.ERROR_MESSAGE); //TODO localization
 				} catch (IllegalArgumentException ex) {
 					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-					JOptionPane.showMessageDialog(null, "Order deletion didn't succeed","Order error",JOptionPane.ERROR_MESSAGE); //TODO localization
+					JOptionPane.showMessageDialog(null, "Order deletion didn't succeed", "Order error", JOptionPane.ERROR_MESSAGE); //TODO localization
 				}
 			}
 		}
@@ -80,14 +79,14 @@ public class OrdersTableModel extends AbstractTableModel {
 			OrderManagerImpl omi = new OrderManagerImpl();
 			try {
 				omi.editOrder(order);
-				orders.set(index,order);
+				orders.set(index, order);
 				fireTableRowsUpdated(index, index);
 			} catch (OrderManagerException ex) {
 				Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-				JOptionPane.showMessageDialog(null, "Order edition didn't succeed","Order error",JOptionPane.ERROR_MESSAGE); //TODO localization
+				JOptionPane.showMessageDialog(null, "Order edition didn't succeed", "Order error", JOptionPane.ERROR_MESSAGE); //TODO localization
 			} catch (IllegalArgumentException ex) {
 				Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-				JOptionPane.showMessageDialog(null, "Order edition didn't succeed","Order error",JOptionPane.ERROR_MESSAGE); //TODO localization
+				JOptionPane.showMessageDialog(null, "Order edition didn't succeed", "Order error", JOptionPane.ERROR_MESSAGE); //TODO localization
 			}
 		}
 	}
@@ -99,7 +98,7 @@ public class OrdersTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 4;
+		return 6;
 	}
 
 	@Override
@@ -112,6 +111,8 @@ public class OrdersTableModel extends AbstractTableModel {
 			case 2:
 				return DateFormat.class;
 			case 3:
+			case 4:
+			case 5:
 				return String.class;
 			default:
 				throw new IllegalArgumentException("columnIndex");
@@ -121,6 +122,7 @@ public class OrdersTableModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Order order = orders.get(rowIndex);
+		OrderingManagerImpl omi = new OrderingManagerImpl();
 		switch (columnIndex) {
 			case 0:
 				return order.getId();
@@ -135,6 +137,21 @@ public class OrdersTableModel extends AbstractTableModel {
 			}
 			case 3:
 				return order.getOrderState();
+//			case 4:
+//				try {
+//					return omi.getCustomerByOrder(order).getName();
+//				} catch (OrderingManagerException ex) {
+//					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+//				}
+//			case 5:
+//				try {
+//					return omi.getCustomerByOrder(order).getSurname();
+//				} catch (OrderingManagerException ex) {
+//					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+//				}
+			case 4:
+			case 5:
+				return "null";
 			default:
 				throw new IllegalArgumentException("columnIndex");
 		}
@@ -151,6 +168,10 @@ public class OrdersTableModel extends AbstractTableModel {
 				return "Booked to";
 			case 3:
 				return "State";
+			case 4:
+				return "Customer name";
+			case 5:
+				return "Customer surname";
 			default:
 				throw new IllegalArgumentException("columnIndex");
 		}

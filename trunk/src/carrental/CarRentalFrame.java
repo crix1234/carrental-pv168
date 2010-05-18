@@ -97,6 +97,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jButtonCustomerAdd = new javax.swing.JButton();
         jButtonCustomerEdit = new javax.swing.JButton();
         jButtonCustomerDelete = new javax.swing.JButton();
+        orderCarButton = new javax.swing.JButton();
+        showOrdersButton = new javax.swing.JButton();
         jPanelCars = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -192,6 +194,12 @@ public class CarRentalFrame extends javax.swing.JFrame {
             }
         });
 
+        orderCarButton.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Order car"));
+        orderCarButton.setName("orderCarButton"); // NOI18N
+
+        showOrdersButton.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Show orders"));
+        showOrdersButton.setName("showOrdersButton"); // NOI18N
+
         javax.swing.GroupLayout jPanelCustomersLayout = new javax.swing.GroupLayout(jPanelCustomers);
         jPanelCustomers.setLayout(jPanelCustomersLayout);
         jPanelCustomersLayout.setHorizontalGroup(
@@ -208,6 +216,10 @@ public class CarRentalFrame extends javax.swing.JFrame {
                         .addComponent(jButtonCustomerAdd))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addGroup(jPanelCustomersLayout.createSequentialGroup()
+                        .addComponent(showOrdersButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(orderCarButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonCustomerDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonCustomerEdit)))
@@ -228,7 +240,10 @@ public class CarRentalFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonCustomerEdit)
-                    .addComponent(jButtonCustomerDelete))
+                    .addGroup(jPanelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonCustomerDelete)
+                        .addComponent(orderCarButton)
+                        .addComponent(showOrdersButton)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -1049,6 +1064,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldOrdersFind;
     private javax.swing.JTextField jTextFieldOrdersFrom;
     private javax.swing.JTextField jTextFieldOrdersTo;
+    private javax.swing.JButton orderCarButton;
+    private javax.swing.JButton showOrdersButton;
     // End of variables declaration//GEN-END:variables
 	// </editor-fold>
 }

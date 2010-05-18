@@ -79,6 +79,10 @@
                           </Group>
                           <Component id="jSeparator1" alignment="1" pref="775" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
+                              <Component id="showOrdersButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="orderCarButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButtonCustomerDelete" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButtonCustomerEdit" min="-2" max="-2" attributes="0"/>
@@ -104,7 +108,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButtonCustomerEdit" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonCustomerDelete" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="jButtonCustomerDelete" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="orderCarButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="showOrdersButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="28" max="32767" attributes="0"/>
                   </Group>
@@ -207,6 +215,22 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomerDeleteActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="orderCarButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Order car&quot;)" type="code"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="orderCarButton" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="showOrdersButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Show orders&quot;)" type="code"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="showOrdersButton" noResource="true"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
