@@ -247,12 +247,14 @@ public class AddCustomerDialog extends javax.swing.JDialog {
 		try {
 			houseNumber = Integer.parseInt(jTextFieldHousenumber.getText());
 		} catch (NumberFormatException nfe) {
-			JOptionPane.showMessageDialog(null, "House number is not a number!","Customer error",JOptionPane.ERROR_MESSAGE); //TODO locale
+			String message = java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("error_HouseNumberNotNumber");
+			JOptionPane.showMessageDialog(null, message,"Customer error",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		Object o = jComboBoxState.getSelectedItem();
 		if (o == null) {
-			JOptionPane.showMessageDialog(null, "Please select state.","Customer error",JOptionPane.ERROR_MESSAGE); //TODO locale
+			String message = java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("request_SelectState");
+			JOptionPane.showMessageDialog(null, message,"Customer error",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		if (houseNumber > 0) {
@@ -268,11 +270,13 @@ public class AddCustomerDialog extends javax.swing.JDialog {
 				resultCustomer = cmi.createNewCustomer(forename, surname, addr);
 			} catch (CustomerManagerException ex) {
 				Logger.getLogger(AddCustomerDialog.class.getName()).log(Level.SEVERE, null, ex);
-				JOptionPane.showMessageDialog(null, "Customer insertion in the database failed!","Customer error",JOptionPane.ERROR_MESSAGE); //TODO locale
+				String message = java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("error_CustomerDBInsertionFailed");
+				JOptionPane.showMessageDialog(null, message,"Customer error",JOptionPane.ERROR_MESSAGE);
 			}
 			dispose();
 		} else {
-			JOptionPane.showMessageDialog(null, "House number should be greater than zero!","Customer error",JOptionPane.ERROR_MESSAGE); //TODO locale
+			String message = java.util.ResourceBundle.getBundle("carrental/texts",this.getParent().getLocale()).getString("error_HouseNumberGreaterZero");
+			JOptionPane.showMessageDialog(null, message,"Customer error",JOptionPane.ERROR_MESSAGE);
 		}
 	}//GEN-LAST:event_jButtonAddActionPerformed
 

@@ -96,7 +96,6 @@ public class Order {
 	 * @throws IllegalArgumentException defined id is already in use
 	 */
 	private void setId(int id) {
-		//TODO check for id existence
 		this.id = id;
 	}
 

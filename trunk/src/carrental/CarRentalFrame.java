@@ -10,6 +10,7 @@
  */
 package carrental;
 
+import carrental.managers.CustomerManagerException;
 import carrental.models.CarsTableModel;
 import carrental.models.CustomersTableModel;
 import carrental.models.OrdersTableModel;
@@ -868,14 +869,26 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 	private void jButtonCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerDeleteActionPerformed
 		if (jTableCustomers.getSelectedRow() != -1) {
-			int i = JOptionPane.showConfirmDialog(this, "Do you really want to delete this customer?"); //TODO localization
+			String message = java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("request_DeleteCustomer");
+			int i = JOptionPane.showConfirmDialog(this, message);
 			if (i == 0) {
 				CustomersTableModel customersTable = (CustomersTableModel) jTableCustomers.getModel();
 				Customer customer = customersTable.getCustomer(jTableCustomers.getSelectedRow());
-				customersTable.deleteCustomer(customer);
+				try {
+					customersTable.deleteCustomer(customer);
+				} catch (CustomerManagerException ex) {
+					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_CustomerDeletionUnsuccsesfull");
+					JOptionPane.showMessageDialog(null, message,"Car error",JOptionPane.ERROR_MESSAGE);
+				} catch (IllegalArgumentException ex) {
+					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_CustomerDeletionUnsuccsesfull");
+					JOptionPane.showMessageDialog(null, message,"Car error",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "No customer is selected!","Customer error", JOptionPane.ERROR_MESSAGE); //TODO localization
+			String message = java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("error_NoCustomerSelected");
+			JOptionPane.showMessageDialog(this, message,"Customer error", JOptionPane.ERROR_MESSAGE);
 		}
 }//GEN-LAST:event_jButtonCustomerDeleteActionPerformed
 
@@ -891,10 +904,21 @@ public class CarRentalFrame extends javax.swing.JFrame {
 			// after dialog is closed:
 			if (!customerToEdit.equals(customerToDialog)) { //there has been some change to the customer
 				CustomersTableModel model = (CustomersTableModel)jTableCustomers.getModel();
-				model.editCustomer(customerToDialog, selectedRow);
+				try {
+					model.editCustomer(customerToDialog, selectedRow);
+				} catch (CustomerManagerException ex) {
+					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					String message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_CustomerEditionUnsuccsesfull");
+					JOptionPane.showMessageDialog(null, message,"Customer error",JOptionPane.ERROR_MESSAGE);
+				} catch (IllegalArgumentException ex) {
+					String message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_CustomerEditionUnsuccsesfull");
+					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					JOptionPane.showMessageDialog(null, message,"Customer error",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "No customer is selected!","Customer error", JOptionPane.ERROR_MESSAGE); //TODO localization
+			String message = java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("error_NoCustomerSelected");
+			JOptionPane.showMessageDialog(this, message,"Customer error", JOptionPane.ERROR_MESSAGE);
 		}
 	}//GEN-LAST:event_jButtonCustomerEditActionPerformed
 

@@ -4,7 +4,6 @@
  */
 package carrental.models;
 
-import carrental.CarRentalFrame;
 import carrental.entities.Customer;
 import carrental.managers.CustomerManagerException;
 import carrental.managers.CustomerManagerImpl;
@@ -102,22 +101,20 @@ public class CustomersTableModel extends AbstractTableModel {
 		}
 	}
 
-	public void deleteCustomer(Customer customer) {
+	/**
+	 * Deletes <code>Customer</code> from the database and the table
+	 * @param customer the <code>Customer</code>, that should be deleted
+	 * @throws CustomerManagerException on customer deletion failure
+	 * @throws IllegalArgumentException on customer id lower than 1
+	 */
+	public void deleteCustomer(Customer customer) throws CustomerManagerException,IllegalArgumentException {
 		if (customer != null) {
 			CustomerManagerImpl cmi = new CustomerManagerImpl();
 			int index = customers.indexOf(customer);
 			if (index >=0) {
-				try {
-					cmi.deleteCustomer(customer);
-					customers.remove(index);
-					fireTableRowsDeleted(index, index);
-				} catch (CustomerManagerException ex) {
-					Logger.getLogger(CustomersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-					JOptionPane.showMessageDialog(null, "Customer deletion didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
-				} catch (IllegalArgumentException ex) {
-					Logger.getLogger(CustomersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-					JOptionPane.showMessageDialog(null, "Customer deletion didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
-				}
+				cmi.deleteCustomer(customer);
+				customers.remove(index);
+				fireTableRowsDeleted(index, index);
 			}
 		}
 	}
@@ -126,21 +123,15 @@ public class CustomersTableModel extends AbstractTableModel {
 	 * edits the <code>Customer</code> in the table and updates the database
 	 * @param customer the <code>Custoer</code> you'd like to place in the position of the original one
 	 * @param index the position in <code>customers</code> into which the new <code>Customer</code> should be placed
+	 * @throws CustomerManagerException on SQL queries failure
+	 * @throws IllegalArgumentException on failure accessing given customers <code>id</code> in the database or id lower than 1
 	 */
-	public void editCustomer(Customer customer, int index) {
+	public void editCustomer(Customer customer, int index) throws CustomerManagerException, IllegalArgumentException {
 		if (customer != null) {
 			CustomerManagerImpl cmi = new CustomerManagerImpl();
-			try {
-				cmi.editCustomer(customer);
-				customers.set(index,customer);
-				fireTableRowsUpdated(index, index);
-			} catch (CustomerManagerException ex) {
-				Logger.getLogger(CustomersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-				JOptionPane.showMessageDialog(null, "Customer edition didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
-			} catch (IllegalArgumentException ex) {
-				Logger.getLogger(CustomersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-				JOptionPane.showMessageDialog(null, "Customer edition didn't succeed","Car error",JOptionPane.ERROR_MESSAGE); //TODO localization
-			}
+			cmi.editCustomer(customer); //throws  CustomerManagerException,IllegalArgumentException
+			customers.set(index,customer);
+			fireTableRowsUpdated(index, index);
 		}
 	}
 
