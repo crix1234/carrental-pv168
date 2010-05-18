@@ -56,6 +56,36 @@ public class OrderingManagerImpl implements OrderingManager {
 	}
 
 	/**
+	 * Finds all <code>Order<code/>s in database
+	 *
+	 * @return ArrayList<Order> containing all the found values
+	 *		   null if no order found
+	 */
+	public ArrayList<Order> getAllOrders() throws OrderingManagerException {
+		DBManager db = new DBManager();
+		ArrayList<Order> order = new ArrayList<Order>();
+		if (db.connect()) { //connecting to the database was successfull
+			PreparedStatement st = db.getSelectFromTableStatement("ORDERING", "*");
+			try {
+				ResultSet rs = st.executeQuery();
+				CustomerManagerImpl cmi = new CustomerManagerImpl();
+				OrderManagerImpl omi = new OrderManagerImpl();
+				while (rs.next()) {
+					try {
+						order.add(omi.findOrderById(rs.getInt("orderID")));
+					} catch (OrderManagerException cex) {
+						throw new OrderingManagerException(cex);
+					}
+				}
+			} catch (SQLException ex) {
+				throw new OrderingManagerException(ex);
+			}
+
+		}
+		return order;
+	}
+
+	/**
 	 * Finds the "owner" of the given <code>Order<code/>
 	 *
 	 * @param order <code>Order<code/> we are looking for
@@ -94,6 +124,47 @@ public class OrderingManagerImpl implements OrderingManager {
 
 		}
 		return customer;
+	}
+
+	/**
+	 * Finds the car assigned to the given <code>Order<code/>
+	 *
+	 * @param order <code>Order<code/> we are looking for
+	 * @return <code>Car</code> found by order
+	 *		   null if car not found, or given order doesn't exist in the database
+	 */
+	public Car getCarByOrder(Order order) throws OrderingManagerException {
+		DBManager db = new DBManager();
+		Car car = null;
+		if (db.connect()) { //connecting to the database was successfull
+			PreparedStatement st = db.getSelectFromTableStatement("ORDERING", "*", "carID = " + car.getId());
+			try {
+				ResultSet rs = st.executeQuery();
+				CarManagerImpl cmi = new CarManagerImpl();
+				OrderManagerImpl omi = new OrderManagerImpl();
+				try {
+					Order order1 = omi.findOrderById(order.getId());
+					if (order1 != null) {
+						if (order1.equals(order)) {
+							if (rs.next()) {
+								try {
+									return car = cmi.findCarById(rs.getInt("carID"));
+								} catch (CarManagerException cex) {
+									throw new OrderingManagerException(cex);
+								}
+							}
+						}
+
+					}
+				} catch (OrderManagerException expc) {
+					throw new OrderingManagerException(expc);
+				}
+			} catch (SQLException ex) {
+				throw new OrderingManagerException(ex);
+			}
+
+		}
+		return car;
 	}
 
 	/**
