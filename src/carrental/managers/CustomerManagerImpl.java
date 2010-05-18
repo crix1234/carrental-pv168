@@ -132,7 +132,7 @@ public class CustomerManagerImpl implements CustomerManager {
 	 * @param customer the <code>Customer</code> that should be removed from the database.
 	 * @return Customer representation of the deleted <code>Custommer</code>
 	 * @throws CustomerManagerException on customer deletion failure;
-	 *         IllegalArgumentException if argument is null or customer <code>id</code> < 1
+	 * @throws IllegalArgumentException if argument is null or customer <code>id</code> lower than 1
 	 */
 	public Customer deleteCustomer(Customer customer) throws CustomerManagerException, IllegalArgumentException {
 		if (customer != null) {
@@ -148,7 +148,7 @@ public class CustomerManagerImpl implements CustomerManager {
 	 *           that should be removed
 	 * @return Customer representation of the deleted <code>Customer</code>
 	 * @throws CustomerManagerException on customer deletion failure;
-	 *         IllegalArgumentException if argument is null or customer <code>id</code> < 1
+	 *         IllegalArgumentException if argument is null or customer <code>id</code> lower than 1
 	 */
 	public Customer deleteCustomer(int id) throws CustomerManagerException, IllegalArgumentException {
 		if (id > 0) {
