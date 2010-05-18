@@ -34,7 +34,8 @@ public class OrderingManagerImpl implements OrderingManager {
 					Customer customer1 = cmi.findCustomerByID(customer.getId());
 					if (customer1 != null) {
 						if (customer1.equals(customer)) {
-							while (rs.next()) {
+						while (rs.next()) {
+							//if (customer1.equals(customer)) {
 								try {
 									order.add(omi.findOrderById(rs.getInt("orderID")));
 								} catch (OrderManagerException cex) {
@@ -137,7 +138,7 @@ public class OrderingManagerImpl implements OrderingManager {
 		DBManager db = new DBManager();
 		Car car = null;
 		if (db.connect()) { //connecting to the database was successfull
-			PreparedStatement st = db.getSelectFromTableStatement("ORDERING", "*", "carID = " + car.getId());
+			PreparedStatement st = db.getSelectFromTableStatement("ORDERING", "*", "orderID = " + order.getId());
 			try {
 				ResultSet rs = st.executeQuery();
 				CarManagerImpl cmi = new CarManagerImpl();
@@ -269,6 +270,57 @@ public class OrderingManagerImpl implements OrderingManager {
 		}
 	}
 
+	public void assign(Car car, Order order, Customer customer) throws OrderingManagerException {
+		//TODO change car and order state
+		DBManager db = new DBManager();
+		if (db.connect()) { //connecting to the database was successfull
+			if (createTable(db)) { //TODO remove table creation on assignCarToOrder call and replace it by database initialisation at program start up
+				PreparedStatement st = db.getSelectFromTableStatement("ORDERING", "*", "orderID = " + order.getId());
+				try {
+					ResultSet rs = st.executeQuery();
+					CarManagerImpl cmi = new CarManagerImpl();
+					CustomerManagerImpl ccc = new CustomerManagerImpl();
+					OrderManagerImpl omi = new OrderManagerImpl();
+					try {
+						Car car1 = cmi.findCarById(car.getId());
+						Order order1 = omi.findOrderById(order.getId());
+						Customer cust1 = ccc.findCustomerByID(customer.getId());
+						if ((car1 != null) && (order1 != null)) {
+							if ((car1.equals(car)) && (cust1.equals(cust1)) && (order1.equals(order))) {
+								if (!rs.next()) {
+									//INSERT
+									st.clearParameters();
+									st = db.getInsertIntoTableStatement("ORDERING", "orderID", "carID", "customerID");
+									st.setInt(1, order.getId());
+									st.setInt(2, car.getId());
+									st.setInt(3, customer.getId());
+									st.executeUpdate();
+								} else {
+									//UPDATE
+									st.clearParameters();
+									st = db.getUpdateTableStatement("ORDERING", "carID", "customerID");
+									st.setInt(1, car.getId());
+									st.setInt(2, order.getId());
+									st.setInt(3, customer.getId());
+									st.executeUpdate();
+								}
+							}
+						}
+					} catch (CustomerManagerException expc) {
+						throw new OrderingManagerException(expc);
+					} catch (CarManagerException expc) {
+						throw new OrderingManagerException(expc);
+					} catch (OrderManagerException expc) {
+						throw new OrderingManagerException(expc);
+					}
+				} catch (SQLException ex) {
+					throw new OrderingManagerException(ex);
+				}
+			}
+			db.disconnect();
+		}
+	}
+
 	/**
 	 * Removes a <code>Customer</code>'s <code>Order<code/> from the database
 	 * If the orderID would have stayed "alone" (customerID and carID is null in the row)
@@ -347,13 +399,13 @@ public class OrderingManagerImpl implements OrderingManager {
 	 * @return true if successfull creation;
 	 *         false if the database respond was unsuccessfull for some reason
 	 */
-	private static final boolean createTable(DBManager db) {
+	public static final boolean createTable(DBManager db) {
 		String columns = "ID				INTEGER NOT NULL"
 				+ "				PRIMARY KEY GENERATED ALWAYS AS IDENTITY"
 				+ "				(START WITH 1, INCREMENT BY 1),"
 				+ "customerID	INTEGER,"
 				+ "orderID		INTEGER UNIQUE,"
-				+ "carID		INTEGER UNIQUE";
+				+ "carID		INTEGER";
 		return db.createTable("ORDERING", columns);
 	}
 

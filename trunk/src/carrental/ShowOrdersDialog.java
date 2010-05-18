@@ -11,16 +11,23 @@
 
 package carrental;
 
+import carrental.entities.Customer;
+import carrental.models.ShowOrdersTableModel;
+
 /**
  *
  * @author Jerrycek
  */
 public class ShowOrdersDialog extends javax.swing.JDialog {
 
+	private Customer cust;
     /** Creates new form ShowOrdersDialog */
-    public ShowOrdersDialog(java.awt.Frame parent, boolean modal) {
+    public ShowOrdersDialog(java.awt.Frame parent, boolean modal, Customer cust) {
         super(parent, modal);
         initComponents();
+		this.cust = cust;
+		ShowOrdersTableModel sotm = new ShowOrdersTableModel();
+		sotm.loadOrders(cust);
     }
 
     /** This method is called from within the constructor to
@@ -42,17 +49,8 @@ public class ShowOrdersDialog extends javax.swing.JDialog {
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        ShowOrdersTableModel sotm = new ShowOrdersTableModel();
+        jTable1.setModel(sotm);
         jTable1.setName("jTable1"); // NOI18N
         jScrollPane1.setViewportView(jTable1);
 
@@ -98,7 +96,7 @@ public class ShowOrdersDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ShowOrdersDialog dialog = new ShowOrdersDialog(new javax.swing.JFrame(), true);
+                ShowOrdersDialog dialog = new ShowOrdersDialog(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

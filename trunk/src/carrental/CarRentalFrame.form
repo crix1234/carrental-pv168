@@ -79,9 +79,9 @@
                           </Group>
                           <Component id="jSeparator1" alignment="1" pref="775" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="showOrdersButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonshowOrders" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="orderCarButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonorderCar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButtonCustomerDelete" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -110,8 +110,8 @@
                           <Component id="jButtonCustomerEdit" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="jButtonCustomerDelete" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="orderCarButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="showOrdersButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonorderCar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonshowOrders" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="28" max="32767" attributes="0"/>
@@ -171,7 +171,7 @@
                       <Connection code="sorter" type="code"/>
                     </Property>
                     <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
-                      <JTableSelectionModel selectionMode="1"/>
+                      <JTableSelectionModel selectionMode="0"/>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
@@ -216,21 +216,27 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustomerDeleteActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="orderCarButton">
+            <Component class="javax.swing.JButton" name="jButtonorderCar">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Order car&quot;)" type="code"/>
                 </Property>
-                <Property name="name" type="java.lang.String" value="orderCarButton" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="jButtonorderCar" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonorderCarActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="showOrdersButton">
+            <Component class="javax.swing.JButton" name="jButtonshowOrders">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="java.util.ResourceBundle.getBundle(&quot;carrental/texts&quot;,locale).getString(&quot;Show orders&quot;)" type="code"/>
                 </Property>
-                <Property name="name" type="java.lang.String" value="showOrdersButton" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="jButtonshowOrders" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonshowOrdersActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -346,6 +352,9 @@
                     <Property name="name" type="java.lang.String" value="jTableCars" noResource="true"/>
                     <Property name="rowSorter" type="javax.swing.RowSorter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="carsorter" type="code"/>
+                    </Property>
+                    <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                      <JTableSelectionModel selectionMode="0"/>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -546,6 +555,9 @@
                     <Property name="name" type="java.lang.String" value="jTableOrders" noResource="true"/>
                     <Property name="rowSorter" type="javax.swing.RowSorter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="orderSorter" type="code"/>
+                    </Property>
+                    <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                      <JTableSelectionModel selectionMode="0"/>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>

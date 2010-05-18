@@ -37,6 +37,15 @@ public class CarsTableModel extends AbstractTableModel {
 		cars.add(car);
 	}
 
+	public Car getCarById(int i) {
+		for (Car car : cars) {
+			if (car.getId() == i) {
+				return car;
+			}
+		}
+		return null;
+	}
+
 	public void deleteCar(Car car) {
 		CarManagerImpl cmi = new CarManagerImpl();
 		try {
