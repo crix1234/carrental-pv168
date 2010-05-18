@@ -7,6 +7,7 @@ package carrental.models;
 import carrental.entities.Order;
 import carrental.managers.OrderManagerException;
 import carrental.managers.OrderManagerImpl;
+import carrental.managers.OrderingManagerException;
 import carrental.managers.OrderingManagerImpl;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -37,7 +38,8 @@ public class OrdersTableModel extends AbstractTableModel {
 	public void addOrder(Order order) {
 		if (order != null) {
 			orders.add(order);
-			fireTableRowsInserted(orders.size(), orders.size());
+			//fireTableRowsInserted(orders.size(), orders.size());
+			fireTableDataChanged();
 		}
 	}
 
@@ -97,7 +99,7 @@ public class OrdersTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 6;
+		return 8;
 	}
 
 	@Override
@@ -112,6 +114,8 @@ public class OrdersTableModel extends AbstractTableModel {
 			case 3:
 			case 4:
 			case 5:
+			case 6:
+			case 7:
 				return String.class;
 			default:
 				throw new IllegalArgumentException("columnIndex");
@@ -136,21 +140,33 @@ public class OrdersTableModel extends AbstractTableModel {
 			}
 			case 3:
 				return order.getOrderState();
-//			case 4:
-//				try {
-//					return omi.getCustomerByOrder(order).getName();
-//				} catch (OrderingManagerException ex) {
-//					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-//				}
-//			case 5:
-//				try {
-//					return omi.getCustomerByOrder(order).getSurname();
-//				} catch (OrderingManagerException ex) {
-//					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
-//				}
 			case 4:
+				try {
+					return omi.getCustomerByOrder(order).getName();
+				} catch (OrderingManagerException ex) {
+					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+				}
 			case 5:
-				return "null";
+				try {
+					return omi.getCustomerByOrder(order).getSurname();
+				} catch (OrderingManagerException ex) {
+					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+				}
+//			case 4:
+//			case 5:
+			case 6:
+				try {
+					return omi.getCarByOrder(order).getName();
+				} catch (OrderingManagerException ex) {
+					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			case 7:
+				try {
+					return omi.getCarByOrder(order).getLicencePlate();
+				} catch (OrderingManagerException ex) {
+					Logger.getLogger(OrdersTableModel.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			//return "null";
 			default:
 				throw new IllegalArgumentException("columnIndex");
 		}
@@ -171,6 +187,10 @@ public class OrdersTableModel extends AbstractTableModel {
 				return "Customer name";
 			case 5:
 				return "Customer surname";
+			case 6:
+				return "Car name";
+			case 7:
+				return "Car licence plate";
 			default:
 				throw new IllegalArgumentException("columnIndex");
 		}

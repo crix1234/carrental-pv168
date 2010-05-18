@@ -11,6 +11,8 @@
 package carrental;
 
 import carrental.managers.CustomerManagerException;
+import carrental.managers.OrderManagerException;
+import carrental.managers.OrderingManagerException;
 import carrental.models.CarsTableModel;
 import carrental.models.CustomersTableModel;
 import carrental.models.OrdersTableModel;
@@ -20,6 +22,8 @@ import carrental.entities.Customer;
 import carrental.entities.Order;
 import carrental.managers.CarManagerException;
 import carrental.managers.CarManagerImpl;
+import carrental.managers.OrderManagerImpl;
+import carrental.managers.OrderingManagerImpl;
 import com.toedter.calendar.JCalendar;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -78,7 +82,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		orders.loadOrders();
 	}
 
-
 	/** This method is called from within the constructor to
 	 * initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is
@@ -98,8 +101,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jButtonCustomerAdd = new javax.swing.JButton();
         jButtonCustomerEdit = new javax.swing.JButton();
         jButtonCustomerDelete = new javax.swing.JButton();
-        orderCarButton = new javax.swing.JButton();
-        showOrdersButton = new javax.swing.JButton();
+        jButtonorderCar = new javax.swing.JButton();
+        jButtonshowOrders = new javax.swing.JButton();
         jPanelCars = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -167,7 +170,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jTableCustomers.setModel(ctm);
         jTableCustomers.setName("jTableCustomers"); // NOI18N
         jTableCustomers.setRowSorter(sorter);
-        jTableCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jTableCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableCustomers.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableCustomers);
 
@@ -195,11 +198,21 @@ public class CarRentalFrame extends javax.swing.JFrame {
             }
         });
 
-        orderCarButton.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Order car"));
-        orderCarButton.setName("orderCarButton"); // NOI18N
+        jButtonorderCar.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Order car"));
+        jButtonorderCar.setName("jButtonorderCar"); // NOI18N
+        jButtonorderCar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonorderCarActionPerformed(evt);
+            }
+        });
 
-        showOrdersButton.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Show orders"));
-        showOrdersButton.setName("showOrdersButton"); // NOI18N
+        jButtonshowOrders.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Show orders"));
+        jButtonshowOrders.setName("jButtonshowOrders"); // NOI18N
+        jButtonshowOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonshowOrdersActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelCustomersLayout = new javax.swing.GroupLayout(jPanelCustomers);
         jPanelCustomers.setLayout(jPanelCustomersLayout);
@@ -217,9 +230,9 @@ public class CarRentalFrame extends javax.swing.JFrame {
                         .addComponent(jButtonCustomerAdd))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
                     .addGroup(jPanelCustomersLayout.createSequentialGroup()
-                        .addComponent(showOrdersButton)
+                        .addComponent(jButtonshowOrders)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(orderCarButton)
+                        .addComponent(jButtonorderCar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonCustomerDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -243,8 +256,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
                     .addComponent(jButtonCustomerEdit)
                     .addGroup(jPanelCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonCustomerDelete)
-                        .addComponent(orderCarButton)
-                        .addComponent(showOrdersButton)))
+                        .addComponent(jButtonorderCar)
+                        .addComponent(jButtonshowOrders)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -278,6 +291,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jTableCars.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableCars.setName("jTableCars"); // NOI18N
         jTableCars.setRowSorter(carsorter);
+        jTableCars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jTableCars);
 
         jButtonCarAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Add a car"));
@@ -363,6 +377,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jTableOrders.setModel(ordertm);
         jTableOrders.setName("jTableOrders"); // NOI18N
         jTableOrders.setRowSorter(orderSorter);
+        jTableOrders.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(jTableOrders);
 
         jLabelOrdersFrom.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("time_From") + ":");
@@ -617,7 +632,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 					date = df.parse(jTextFieldOrdersTo.getText());
 					//System.out.println(date);
 				} catch (ParseException ex) {
-					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 				}
 				TableRowSorter sort = (TableRowSorter) jTableOrders.getRowSorter();
 				if (date == null) {
@@ -656,7 +671,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		try {
 			dat = datf.parse(jTextFieldOrdersFrom.getText());
 		} catch (ParseException ex) {
-			Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+			//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		if (dat != null) {
 			cal.setDate(dat);
@@ -869,7 +884,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 	private void jButtonCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerDeleteActionPerformed
 		if (jTableCustomers.getSelectedRow() != -1) {
-			String message = java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("request_DeleteCustomer");
+			String message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("request_DeleteCustomer");
 			int i = JOptionPane.showConfirmDialog(this, message);
 			if (i == 0) {
 				CustomersTableModel customersTable = (CustomersTableModel) jTableCustomers.getModel();
@@ -879,16 +894,16 @@ public class CarRentalFrame extends javax.swing.JFrame {
 				} catch (CustomerManagerException ex) {
 					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 					message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_CustomerDeletionUnsuccsesfull");
-					JOptionPane.showMessageDialog(null, message,"Car error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, message, "Car error", JOptionPane.ERROR_MESSAGE);
 				} catch (IllegalArgumentException ex) {
 					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 					message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_CustomerDeletionUnsuccsesfull");
-					JOptionPane.showMessageDialog(null, message,"Car error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, message, "Car error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		} else {
-			String message = java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("error_NoCustomerSelected");
-			JOptionPane.showMessageDialog(this, message,"Customer error", JOptionPane.ERROR_MESSAGE);
+			String message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_NoCustomerSelected");
+			JOptionPane.showMessageDialog(this, message, "Customer error", JOptionPane.ERROR_MESSAGE);
 		}
 }//GEN-LAST:event_jButtonCustomerDeleteActionPerformed
 
@@ -896,29 +911,29 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		//dialog building phase
 		int selectedRow = jTableCustomers.getSelectedRow();
 		if (selectedRow >= 0) {
-			Customer customerToEdit = ((CustomersTableModel)jTableCustomers.getModel()).getCustomer(selectedRow);
+			Customer customerToEdit = ((CustomersTableModel) jTableCustomers.getModel()).getCustomer(selectedRow);
 			Customer customerToDialog = new Customer(customerToEdit); // gets a new instance of a different customer (hopefully)
-			final JDialog dial = new EditCustomerDialog(this, rootPaneCheckingEnabled,customerToDialog);
+			final JDialog dial = new EditCustomerDialog(this, rootPaneCheckingEnabled, customerToDialog);
 			dial.setLocation(300, 100);
 			dial.setVisible(true);
 			// after dialog is closed:
 			if (!customerToEdit.equals(customerToDialog)) { //there has been some change to the customer
-				CustomersTableModel model = (CustomersTableModel)jTableCustomers.getModel();
+				CustomersTableModel model = (CustomersTableModel) jTableCustomers.getModel();
 				try {
 					model.editCustomer(customerToDialog, selectedRow);
 				} catch (CustomerManagerException ex) {
 					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 					String message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_CustomerEditionUnsuccsesfull");
-					JOptionPane.showMessageDialog(null, message,"Customer error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, message, "Customer error", JOptionPane.ERROR_MESSAGE);
 				} catch (IllegalArgumentException ex) {
 					String message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_CustomerEditionUnsuccsesfull");
 					Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
-					JOptionPane.showMessageDialog(null, message,"Customer error",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, message, "Customer error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		} else {
-			String message = java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("error_NoCustomerSelected");
-			JOptionPane.showMessageDialog(this, message,"Customer error", JOptionPane.ERROR_MESSAGE);
+			String message = java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_NoCustomerSelected");
+			JOptionPane.showMessageDialog(this, message, "Customer error", JOptionPane.ERROR_MESSAGE);
 		}
 	}//GEN-LAST:event_jButtonCustomerEditActionPerformed
 
@@ -981,13 +996,117 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		}
 	}//GEN-LAST:event_jButtonOrdersAddActionPerformed
 
+	private void jButtonorderCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonorderCarActionPerformed
+		if (jTableCustomers.getSelectedRowCount() != 1) {
+			JOptionPane.showMessageDialog(null, "Please select a customer", "Date error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		final JDialog dial = new OrderCarDialog(this, rootPaneCheckingEnabled);
+		dial.setLocation(300, 100);
+		dial.setVisible(true);
+		WindowListener pcl = new WindowListener() {
+
+			public void windowOpened(WindowEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void windowClosing(WindowEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void windowClosed(WindowEvent e) {
+				Component[] comp = dial.getContentPane().getComponents();
+//				for (Component component : comp) {
+//					System.out.println(component.getName());
+//				}
+				JLabel c = (JLabel) comp[14];
+				if (!c.getText().equals("")) {
+					CustomersTableModel tm = (CustomersTableModel) jTableCustomers.getModel();
+					Customer customer = tm.getCustomer(jTableCustomers.getSelectedRow());
+					CarsTableModel ctm = (CarsTableModel) jTableCars.getModel();
+					Car car = ctm.getCarById(Integer.parseInt(c.getText()));
+					JTextField str1 = (JTextField) comp[1];
+					JTextField str2 = (JTextField) comp[4];
+					DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+					Date date1 = null;
+					try {
+						date1 = df.parse(str1.getText());
+					} catch (ParseException ex) {
+						Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					}
+					Date date2 = null;
+					try {
+						date2 = df.parse(str2.getText());
+					} catch (ParseException ex) {
+						Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					}
+					OrderingManagerImpl omi = new OrderingManagerImpl();
+					OrderManagerImpl om = new OrderManagerImpl();
+					Order order = null;
+					try {
+						order = om.createNewOrder(date1, date2, "Ok");
+					} catch (OrderManagerException ex) {
+						Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					}
+					try {
+						omi.assign(car, order, customer);
+					} catch (OrderingManagerException ex) {
+						Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					}
+					CarManagerImpl cmi = new CarManagerImpl();
+					car.setState("Rented");
+					try {
+						cmi.editCar(car);
+					} catch (CarManagerException ex) {
+						Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					} catch (IllegalArgumentException ex) {
+						Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+					}
+					ctm.editCar(car);
+					OrdersTableModel otm = (OrdersTableModel) jTableOrders.getModel();
+					otm.addOrder(order);
+				}
+			}
+
+			public void windowIconified(WindowEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void windowDeiconified(WindowEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void windowActivated(WindowEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void windowDeactivated(WindowEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+		};
+		dial.addWindowListener(pcl);
+	}//GEN-LAST:event_jButtonorderCarActionPerformed
+
+	private void jButtonshowOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonshowOrdersActionPerformed
+		if (jTableCustomers.getSelectedRowCount() != 1) {
+			JOptionPane.showMessageDialog(null, "Please select a customer", "Date error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		CustomersTableModel tm = (CustomersTableModel) jTableCustomers.getModel();
+		final JDialog dial = new ShowOrdersDialog(this, rootPaneCheckingEnabled,tm.getCustomer(jTableCustomers.getSelectedRow()));
+		dial.setLocation(300, 100);
+		String name = tm.getCustomer(jTableCustomers.getSelectedRow()).getName();
+		String surname = tm.getCustomer(jTableCustomers.getSelectedRow()).getSurname();
+		dial.setTitle(name + " " + surname + "'s orders");
+		dial.setVisible(true);
+	}//GEN-LAST:event_jButtonshowOrdersActionPerformed
 
 	public void refresh() {
 		//tab names
 		jTabbedPane1.setTitleAt(0, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Customers"));
 		jTabbedPane1.setTitleAt(1, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Cars"));
 		jTabbedPane1.setTitleAt(2, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Orders"));
-		
+
 
 		//Customers tab
 		jTableCustomers.getColumnModel().getColumn(1).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Forename"));
@@ -998,11 +1117,13 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		jTableCustomers.getColumnModel().getColumn(6).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("State"));
 		jTableCustomers.getColumnModel().getColumn(7).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Zipcode"));
 		jLabelCustomersFind.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Find"));
-		jLabelCustomersLanguage.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Language"));
-		jTextFieldFindCustomer.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find a customer"));
-		jButtonCustomerAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Add"));
-		jButtonCustomerDelete.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Delete"));
-		jButtonCustomerEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Edit"));
+		jLabelCustomersLanguage.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Language"));
+		jTextFieldFindCustomer.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Find a customer"));
+		jButtonCustomerAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Add"));
+		jButtonCustomerDelete.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Delete"));
+		jButtonCustomerEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Edit"));
+		jButtonshowOrders.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Show orders"));
+		jButtonorderCar.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Order car"));
 
 		//Cars tab
 		jTableCars.getColumnModel().getColumn(1).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("CarName").replace(':', ' '));
@@ -1011,21 +1132,21 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		jTableCars.getColumnModel().getColumn(4).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("CarType").replace(':', ' '));
 		jButtonCarAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Add a car"));
 		jButtonCarEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Edit car"));
-		jButton1.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Delete car"));
-		jLabel2.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find"));
-		jTextField2.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find a car"));
+		jButton1.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Delete car"));
+		jLabel2.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Find"));
+		jTextField2.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Find a car"));
 
 		//Orders tab
 		jTableOrders.getColumnModel().getColumn(1).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("BookedFrom"));
 		jTableOrders.getColumnModel().getColumn(2).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("BookedTo"));
 		jTableOrders.getColumnModel().getColumn(3).setHeaderValue(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("StateOf"));
-		jLabelOrdersFind.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find"));
-		jLabelOrdersFrom.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("time_From"));
-		jLabelOrdersTo.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("time_To"));
-		jTextFieldOrdersFind.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Find an order"));
-		jButtonOrdersAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Add"));
-		jButtonOrdersDelete.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Delete"));
-		jButtonOrdersEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Edit"));
+		jLabelOrdersFind.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Find"));
+		jLabelOrdersFrom.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("time_From"));
+		jLabelOrdersTo.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("time_To"));
+		jTextFieldOrdersFind.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Find an order"));
+		jButtonOrdersAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Add"));
+		jButtonOrdersDelete.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Delete"));
+		jButtonOrdersEdit.setText(java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("Edit"));
 
 	}
 
@@ -1045,7 +1166,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
 			}
 		});
 	}
-
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -1062,6 +1182,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOrdersCalendarTo;
     private javax.swing.JButton jButtonOrdersDelete;
     private javax.swing.JButton jButtonOrdersEdit;
+    private javax.swing.JButton jButtonorderCar;
+    private javax.swing.JButton jButtonshowOrders;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelCustomersFind;
     private javax.swing.JLabel jLabelCustomersLanguage;
@@ -1088,8 +1210,6 @@ public class CarRentalFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldOrdersFind;
     private javax.swing.JTextField jTextFieldOrdersFrom;
     private javax.swing.JTextField jTextFieldOrdersTo;
-    private javax.swing.JButton orderCarButton;
-    private javax.swing.JButton showOrdersButton;
     // End of variables declaration//GEN-END:variables
 	// </editor-fold>
 }

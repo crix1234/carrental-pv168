@@ -11,16 +11,37 @@
 
 package carrental;
 
+import carrental.entities.CarType;
+import carrental.models.OrderCarTableModel;
+import com.toedter.calendar.JCalendar;
+import java.awt.FlowLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.RowFilter.ComparisonType;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Jerrycek
  */
 public class OrderCarDialog extends javax.swing.JDialog {
-
     /** Creates new form OrderCarDialog */
     public OrderCarDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        super(parent, false);
         initComponents();
+		OrderCarTableModel cars = (OrderCarTableModel) jTable1.getModel();
+		cars.loadCars();
     }
 
     /** This method is called from within the constructor to
@@ -45,43 +66,60 @@ public class OrderCarDialog extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
         setName("Form"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(carrental.CarRentalApp.class).getContext().getResourceMap(OrderCarDialog.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
+        jButton1.setIcon(resourceMap.getIcon("jButton1.icon")); // NOI18N
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
+        jButton2.setIcon(resourceMap.getIcon("jButton2.icon")); // NOI18N
         jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
         jButton2.setName("jButton2"); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setName("jSeparator1"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        OrderCarTableModel ctm = new OrderCarTableModel();
+        TableRowSorter sorter = new TableRowSorter(ctm);
+        jTable1.setModel(ctm);
         jTable1.setName("jTable1"); // NOI18N
+        jTable1.setRowSorter(sorter);
         jScrollPane1.setViewportView(jTable1);
 
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
         jButton3.setName("jButton3"); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText(resourceMap.getString("jButton4.text")); // NOI18N
         jButton4.setName("jButton4"); // NOI18N
@@ -91,12 +129,52 @@ public class OrderCarDialog extends javax.swing.JDialog {
 
         jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
         jTextField1.setName("jTextField1"); // NOI18N
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new DefaultComboBoxModel(CarType.values()));
         jComboBox1.setName("jComboBox1"); // NOI18N
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
+
+        jTextField2.setEditable(false);
+        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
+        jTextField2.setName("jTextField2"); // NOI18N
+
+        jTextField3.setEditable(false);
+        jTextField3.setText(resourceMap.getString("jTextField3.text")); // NOI18N
+        jTextField3.setName("jTextField3"); // NOI18N
+
+        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
+        jLabel5.setName("jLabel5"); // NOI18N
+
+        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
+        jLabel6.setName("jLabel6"); // NOI18N
+
+        jButton5.setText(resourceMap.getString("jButton5.text")); // NOI18N
+        jButton5.setName("jButton5"); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
+        jLabel7.setName("jLabel7"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,39 +184,54 @@ public class OrderCarDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton4))))
-                .addContainerGap())
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+                        .addComponent(jButton5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(53, 53, 53)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel5)
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton2))
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,17 +240,213 @@ public class OrderCarDialog extends javax.swing.JDialog {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton3))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jButton5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton4)
+                            .addComponent(jButton3))
+                        .addContainerGap())
+                    .addComponent(jLabel7)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+		final JCalendar cal = new JCalendar();
+		DateFormat datf = DateFormat.getDateInstance(DateFormat.SHORT);
+		Date dat = null;
+		try {
+			dat = datf.parse(jTextField2.getText());
+		} catch (ParseException ex) {
+			//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		if (dat != null) {
+			cal.setDate(dat);
+		}
+		final JDialog frame = new JDialog();
+		frame.setAlwaysOnTop(true);
+		frame.getContentPane().setLayout(new FlowLayout());
+		frame.getContentPane().add(cal);
+		JButton helloButton = new JButton();
+		helloButton.setText("OK");
+		frame.add(helloButton);
+		frame.pack();
+		MouseListener mouse = new MouseListener() {
+
+			public void mouseClicked(MouseEvent e) {
+				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+				jTextField2.setText(df.format(cal.getDate()).toString());
+				Date date = null;
+				try {
+					date = df.parse(jTextField2.getText());
+					//System.out.println(date);
+				} catch (ParseException ex) {
+					//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+				}
+//				TableRowSorter sort = (TableRowSorter) jTable1.getRowSorter();
+//				if (date == null) {
+//					sort.setRowFilter(null);
+//				} else {
+//					sort.setRowFilter(RowFilter.dateFilter(ComparisonType.BEFORE, date));
+//				}
+				frame.dispose();
+			}
+
+			public void mousePressed(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseReleased(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseExited(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+		};
+		helloButton.addMouseListener(mouse);
+		//cal.addMouseListener(mouse);
+		frame.setVisible(true);
+	}//GEN-LAST:event_jButton1ActionPerformed
+
+	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+		final JCalendar cal = new JCalendar();
+		DateFormat datf = DateFormat.getDateInstance(DateFormat.SHORT);
+		Date dat = null;
+		try {
+			dat = datf.parse(jTextField3.getText());
+		} catch (ParseException ex) {
+			//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		if (dat != null) {
+			cal.setDate(dat);
+		}
+		final JDialog frame = new JDialog();
+		frame.setAlwaysOnTop(true);
+		frame.getContentPane().setLayout(new FlowLayout());
+		frame.getContentPane().add(cal);
+		JButton helloButton = new JButton();
+		helloButton.setText("OK");
+		frame.add(helloButton);
+		frame.pack();
+		MouseListener mouse = new MouseListener() {
+
+			public void mouseClicked(MouseEvent e) {
+				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+				jTextField3.setText(df.format(cal.getDate()).toString());
+				Date date = null;
+				try {
+					date = df.parse(jTextField3.getText());
+					//System.out.println(date);
+				} catch (ParseException ex) {
+					//Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
+				}
+//				TableRowSorter sort = (TableRowSorter) jTable1.getRowSorter();
+//				if (date == null) {
+//					sort.setRowFilter(null);
+//				} else {
+//					sort.setRowFilter(RowFilter.dateFilter(ComparisonType.BEFORE, date));
+//				}
+				frame.dispose();
+			}
+
+			public void mousePressed(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseReleased(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseEntered(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+
+			public void mouseExited(MouseEvent e) {
+				//throw new UnsupportedOperationException("Not supported yet.");
+			}
+		};
+		helloButton.addMouseListener(mouse);
+		//cal.addMouseListener(mouse);
+		frame.setVisible(true);
+	}//GEN-LAST:event_jButton2ActionPerformed
+
+	private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+		jTextField1.setText("");
+	}//GEN-LAST:event_jTextField1MouseClicked
+
+	private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+		String text = jTextField1.getText();
+		TableRowSorter sort = (TableRowSorter) jTable1.getRowSorter();
+		if (text.length() == 0) {
+			sort.setRowFilter(null);
+		} else {
+			String[] filter = text.split(" ");
+			if (filter.length > 0) {
+				String newText = filter[0];
+				int length = filter.length;
+				for (int i = 1; i < length; i++) {
+					newText += "|" + filter[i];
+				}
+				sort.setRowFilter(RowFilter.regexFilter(newText));
+			}
+		}
+	}//GEN-LAST:event_jTextField1KeyReleased
+
+	private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+		String text = jComboBox1.getSelectedItem().toString();
+		TableRowSorter sort = (TableRowSorter) jTable1.getRowSorter();
+		sort.setRowFilter(RowFilter.regexFilter(text));
+	}//GEN-LAST:event_jComboBox1ActionPerformed
+
+	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+		TableRowSorter sort = (TableRowSorter) jTable1.getRowSorter();
+		sort.setRowFilter(null);
+	}//GEN-LAST:event_jButton5ActionPerformed
+
+	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+		if ((jTextField2.getText().equals("")) || (jTextField3.getText().equals(""))) {
+			JOptionPane.showMessageDialog(null, "Please select both dates","Order error",JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		Date date1 = null;
+		try {
+			date1= df.parse(jTextField2.getText());
+		} catch (ParseException ex) {
+			Logger.getLogger(OrderCarDialog.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		Date date2 = null;
+		try {
+			date2= df.parse(jTextField3.getText());
+		} catch (ParseException ex) {
+			Logger.getLogger(OrderCarDialog.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		if (date1.after(date2)) {
+			JOptionPane.showMessageDialog(null, "Date \"From\" shoudn't be after date \"To\"!","Date error",JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		if (jTable1.getSelectedRowCount() != 1) {
+			JOptionPane.showMessageDialog(null, "Please select a car","Car not selected error",JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		OrderCarTableModel ctm = (OrderCarTableModel) jTable1.getModel();
+		int i = ctm.getCarAt(jTable1.getSelectedRow()).getId();
+		jLabel7.setText(Integer.toString(i));
+		dispose();
+	}//GEN-LAST:event_jButton3ActionPerformed
 
     /**
     * @param args the command line arguments
@@ -181,15 +470,21 @@ public class OrderCarDialog extends javax.swing.JDialog {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 
 }

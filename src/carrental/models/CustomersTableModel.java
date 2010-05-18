@@ -63,19 +63,19 @@ public class CustomersTableModel extends AbstractTableModel {
 			case 0:
 				return "Id";
 			case 1:
-				return "Forename";
+				return "Jméno";
 			case 2:
-				return "Surname";
+				return "Příjmení";
 			case 3:
-				return "Street";
+				return "Ulice";
 			case 4:
-				return "House number";
+				return "Číslo domu";
 			case 5:
-				return "Town";
+				return "Město";
 			case 6:
-				return "State";
+				return "Stát";
 			case 7:
-				return "Zipcode";
+				return "PSČ";
 			default:
 				throw new IllegalArgumentException("columnIndex");
 		}
@@ -147,5 +147,25 @@ public class CustomersTableModel extends AbstractTableModel {
 			throw new ArrayIndexOutOfBoundsException();
 		}
 		return customers.get(row);
+	}
+
+	@Override
+	public Class<?> getColumnClass(int columnIndex) {
+		switch (columnIndex) {
+			case 0:
+				return Integer.class;
+			case 1:
+			case 2:
+			case 3:
+				return String.class;
+			case 4:
+				return Integer.class;
+			case 5:
+			case 6:
+			case 7:
+				return String.class;
+			default:
+				throw new IllegalArgumentException("columnIndex");
+		}
 	}
 }
