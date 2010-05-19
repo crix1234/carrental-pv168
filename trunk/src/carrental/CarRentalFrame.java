@@ -20,8 +20,11 @@ import carrental.entities.Car;
 import carrental.entities.CarType;
 import carrental.entities.Customer;
 import carrental.entities.Order;
+import carrental.managers.AddressManagerImpl;
 import carrental.managers.CarManagerException;
 import carrental.managers.CarManagerImpl;
+import carrental.managers.CustomerManagerImpl;
+import carrental.managers.DBManager;
 import carrental.managers.OrderManagerImpl;
 import carrental.managers.OrderingManagerImpl;
 import com.toedter.calendar.JCalendar;
@@ -72,6 +75,7 @@ public class CarRentalFrame extends javax.swing.JFrame {
 			Logger.getLogger(CarRentalFrame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		initComponents();
+		initDatabase();
 		setLocation(120, 50);
 		//jTextField1.setText("Find a customer");
 		CarsTableModel cars = (CarsTableModel) jTableCars.getModel();
@@ -80,6 +84,29 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		customers.loadCustomers();
 		OrdersTableModel orders = (OrdersTableModel) jTableOrders.getModel();
 		orders.loadOrders();
+	}
+
+	private void initDatabase() {
+		DBManager dbm = new DBManager();
+		if (dbm.connect()) {
+			if (!dbm.tableExists("ADDRESS")){
+				AddressManagerImpl.createTable(dbm);
+			}
+			if (!dbm.tableExists("CAR")) {
+				CarManagerImpl.createTable(dbm);
+			}
+			if (!dbm.tableExists("CUSTOMER")) {
+				CustomerManagerImpl.createTable(dbm);
+			}
+			if (!dbm.tableExists("ORDERS")) {
+				OrderManagerImpl.createTable(dbm);
+			}
+			if (!dbm.tableExists("ORDERING")) {
+				OrderingManagerImpl.createTable(dbm);
+			}
+		} else {
+			//JOptionPane.showMessageDialog(null, java.util.ResourceBundle.getBundle("carrental/texts", locale).getString("error_DatabaseInit"));
+		}
 	}
 
 	/** This method is called from within the constructor to

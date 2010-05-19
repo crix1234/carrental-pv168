@@ -269,7 +269,7 @@ public class CustomerManagerImpl implements CustomerManager {
 	 * @return true if successfull creation;
 	 *         false if the database respond was unsuccessfull for some reason
 	 */
-	private static final boolean createTable(DBManager db) {
+	public static final boolean createTable(DBManager db) {
 		String columns =	"ID				INTEGER NOT NULL" +
 							"				PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
 							"				(START WITH 1, INCREMENT BY 1)," +
