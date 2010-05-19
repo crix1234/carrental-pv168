@@ -97,7 +97,7 @@ public class CustomersTableModel extends AbstractTableModel {
 	public void addCustomer(Customer customer) {
 		if (customer != null) {
 			customers.add(customer);
-			fireTableRowsInserted(customers.size(),customers.size());
+			this.fireTableDataChanged();
 		}
 	}
 
@@ -114,7 +114,7 @@ public class CustomersTableModel extends AbstractTableModel {
 			if (index >=0) {
 				cmi.deleteCustomer(customer);
 				customers.remove(index);
-				fireTableRowsDeleted(index, index);
+				this.fireTableDataChanged();
 			}
 		}
 	}

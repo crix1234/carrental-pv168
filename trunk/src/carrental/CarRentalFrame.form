@@ -177,6 +177,9 @@
                       <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jTableCustomersPropertyChange"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="CustomersTableModel ctm = new CustomersTableModel();&#xa;TableRowSorter sorter = new TableRowSorter(ctm);&#xa;//sorter.setRowFilter(RowFilter.regexFilter(jTextFieldFindCustomer.getText()));&#xa;//System.out.println(jTextFieldFindCustomer.getText());"/>
                   </AuxValues>

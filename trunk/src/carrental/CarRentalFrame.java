@@ -172,6 +172,11 @@ public class CarRentalFrame extends javax.swing.JFrame {
         jTableCustomers.setRowSorter(sorter);
         jTableCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableCustomers.getTableHeader().setReorderingAllowed(false);
+        jTableCustomers.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTableCustomersPropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCustomers);
 
         jButtonCustomerAdd.setText(java.util.ResourceBundle.getBundle("carrental/texts",locale).getString("Add"));
@@ -880,6 +885,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 	private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
 		jTextField2.setText("");
+		TableRowSorter sort = (TableRowSorter) jTableCars.getRowSorter();
+		sort.setRowFilter(null);
 }//GEN-LAST:event_jTextField2MouseClicked
 
 	private void jButtonCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomerDeleteActionPerformed
@@ -968,6 +975,8 @@ public class CarRentalFrame extends javax.swing.JFrame {
 
 	private void jTextFieldFindCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldFindCustomerMouseClicked
 		jTextFieldFindCustomer.setText("");
+		TableRowSorter sort = (TableRowSorter) jTableCustomers.getRowSorter();
+		sort.setRowFilter(null);
 }//GEN-LAST:event_jTextFieldFindCustomerMouseClicked
 
 	private void jButtonCustomersCzechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustomersCzechActionPerformed
@@ -1098,8 +1107,13 @@ public class CarRentalFrame extends javax.swing.JFrame {
 		String name = tm.getCustomer(jTableCustomers.getSelectedRow()).getName();
 		String surname = tm.getCustomer(jTableCustomers.getSelectedRow()).getSurname();
 		dial.setTitle(name + " " + surname + "'s orders");
+		tm.fireTableDataChanged();
 		dial.setVisible(true);
 	}//GEN-LAST:event_jButtonshowOrdersActionPerformed
+
+	private void jTableCustomersPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableCustomersPropertyChange
+		jTextFieldFindCustomer.setText("");
+}//GEN-LAST:event_jTableCustomersPropertyChange
 
 	public void refresh() {
 		//tab names
