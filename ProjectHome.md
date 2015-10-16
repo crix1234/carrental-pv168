@@ -1,0 +1,2 @@
+This is a student project of PV168 Seminar in Java programming course of Faculty of Informatics Masaryk University (FI MU).
+Project intends to develop some sort of an information system for car rental company implemented in java.
